@@ -11,17 +11,16 @@
 enum  SymbolName
 {
     Zero,
-    //    One,
-    //    Two,
-    //    Three,
-    //    Four,
-    //    Five,
-    //    Six,
-    //    Seven,
-    //    Eight,
-    //    Nine,
-    //    Ten,
-    //    Colon,
+    One,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Colon,
     HorizontalLine
 };
 
