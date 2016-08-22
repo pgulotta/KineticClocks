@@ -1,20 +1,20 @@
-#ifndef LAYOUT_HPP
-#define LAYOUT_HPP
+#pragma once
 
 #include <array>
 #include <iterator>
 
-
-class Layout
+namespace twentysixapps
 {
-public:
-    static const  int Rows = 12;
-    static const  int Columns = 24;
-    static const int mClocksCount = RowCount* ColCount   ;
+    class Layout
+    {
+    public:
+        static const  int Rows = 12;
+        static const  int Columns = 24;
+        static const int mClocksCount = RowCount* ColCount   ;
 
 
-private:
-    std::array<int,mClocksCount> mClocks;
-};
+    private:
+        std::array<int,mClocksCount> mClocks;
+    };
 
-#endif // LAYOUT_HPP
+}

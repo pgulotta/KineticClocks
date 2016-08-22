@@ -1,37 +1,39 @@
-#ifndef GRID_HPP
-#define GRID_HPP
+#pragma once
+
 #include <array>
 #include <iterator>
 #include <cassert>
 #include <tuple>
 
-template<typename T,int TRowCount , int TColumnCount>
-class Grid
+namespace twentysixapps
 {
-public:
-    static const int ItemCount = TRowCount*TColumnCount;
-    typedef typename std::array<T ,ItemCount> _Grid;
-    typedef typename _Grid::const_iterator _Iterator;
-
-    // Grid() : mGrid ( std::array<T ,ItemCount>) {}
-
-    explicit Grid(std::array<T, ItemCount >&& items) noexcept: mGrid (std::move(items)) {}
-
-    std::tuple<_Iterator ,_Iterator> GetIterators(int row)
+    template<typename T,int TRowCount , int TColumnCount>
+    class Grid
     {
-        assert(row < TRowCount || row>=0);
-        auto begin = mGrid.cbegin() + (row * TColumnCount);
-        auto end = begin + TColumnCount;
-        return std::make_tuple(begin, end);
-    }
+    public:
+        static const int ItemCount = TRowCount*TColumnCount;
+        typedef typename std::array<T ,ItemCount> _Grid;
+        typedef typename _Grid::const_iterator _Iterator;
+
+        // Grid() : mGrid ( std::array<T ,ItemCount>) {}
+
+        explicit Grid(std::array<T, ItemCount >&& items) noexcept: mGrid (std::move(items)) {}
+
+        std::tuple<_Iterator ,_Iterator> GetIterators(int row)
+        {
+            assert(row < TRowCount || row>=0);
+            auto begin = mGrid.cbegin() + (row * TColumnCount);
+            auto end = begin + TColumnCount;
+            return std::make_tuple(begin, end);
+        }
 
 
 
-private:
-    _Grid mGrid;
+    private:
+        _Grid mGrid;
 
 
 
-};
+    };
 
-#endif // GRID_HPP
+}

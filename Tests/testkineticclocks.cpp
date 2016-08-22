@@ -8,6 +8,7 @@
 #include "..\KineticClocks\engine\symbol.hpp"
 #include "..\KineticClocks\engine\clocksymbols.hpp"
 
+using namespace twentysixapps;
 
 class TestKineticClocks : public QObject
 {
