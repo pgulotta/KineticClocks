@@ -4,9 +4,9 @@
 #include <memory>
 #include <tuple>
 #include <iterator>
-#include "..\KineticClocks\engine\clock.hpp"
-#include "..\KineticClocks\engine\symbol.hpp"
-#include "..\KineticClocks\engine\clocksymbols.hpp"
+#include "..\KineticClocks\model\clock.hpp"
+#include "..\KineticClocks\model\symbol.hpp"
+#include "..\KineticClocks\model\clocksymbols.hpp"
 
 using namespace twentysixapps;
 

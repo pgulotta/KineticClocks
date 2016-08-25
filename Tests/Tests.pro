@@ -19,7 +19,7 @@ TEMPLATE = app
 
 SOURCES += \
     testkineticclocks.cpp \
-    ..\KineticClocks\engine\clocksymbols.cpp
+    ..\KineticClocks\model\clocksymbols.cpp
 
 
 

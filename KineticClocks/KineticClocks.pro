@@ -3,8 +3,8 @@ QT += qml quick
 CONFIG += c++14
 
 SOURCES += \
-    ui/main.cpp \
-    engine/clocksymbols.cpp
+    view/main.cpp \
+    model/clocksymbols.cpp
 
 RESOURCES += qml/qml.qrc
 
@@ -15,11 +15,11 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    engine/clock.hpp \
-    engine/layout.hpp \
-    engine/clocksymbols.hpp \
-    engine/symbol.hpp \
-    engine/grid.hpp
+    model/clock.hpp \
+    model/layout.hpp \
+    model/clocksymbols.hpp \
+    model/symbol.hpp \
+    model/grid.hpp
 
 gcc|clang {
     QMAKE_CXXFLAGS += -std=c++1y
