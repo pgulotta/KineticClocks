@@ -11,22 +11,26 @@ MOBILITY =
 
 SOURCES += \
     view/main.cpp \
-    view/mainwindow.cpp \
-    model/clocksymbols.cpp
+    model/clocksymbols.cpp \
+    utils/utils.cpp \
+    utils/startup.cpp \
+    view/clockgraphicsitem.cpp \
+    view/clockslayoutview.cpp \
+    viewmanager/clockslayoutviewmanager.cpp
 
 HEADERS += \
-    view/mainwindow.hpp \
     model/clock.hpp \
     model/layout.hpp \
     model/clocksymbols.hpp \
     model/symbol.hpp \
-    model/grid.hpp
+    model/grid.hpp \
+    utils/utils.h \
+    utils/startup.hpp \
+    view/clockgraphicsitem.hpp \
+    view/clockslayoutview.hpp \
+    viewmanager/clockslayoutviewmanager.hpp
 
-FORMS    += view/mainwindow.ui
 
-
-# Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)

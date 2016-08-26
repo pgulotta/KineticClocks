@@ -1,11 +1,23 @@
-#include "mainwindow.hpp"
+#include "clockslayoutview.hpp"
 #include <QApplication>
+#include <QMainWindow>
+#include <QScreen>
+#include <QGraphicsScene>
 
-int main(int argc, char *argv[])
+
+using namespace twentysixapps;
+
+ auto main(int argc, char *argv[]) -> int
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QApplication app(argc, argv);
+    auto rec = app.primaryScreen()->availableVirtualSize();
+    auto width = rec.width();
+    auto height = rec.height();
 
-    return a.exec();
+    QGraphicsScene scene(0, 0, 1000,1000 );
+    ClocksLayoutView window(&scene);
+    window.resize(width, height);
+    window.show();
+
+    return app.exec();
 }

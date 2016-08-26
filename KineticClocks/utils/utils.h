@@ -2,7 +2,7 @@
 #include <QWidget>
 #include <memory>
 
-namespace Ps{
+namespace twentysixapps{
   class Utils
   {
   public:

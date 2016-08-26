@@ -2,7 +2,7 @@
 #include <QString>
 #include <QDebug>
 
-namespace Ps
+namespace twentysixapps
 {
   static QString DESTRUCTOR_MSG = QStringLiteral("Running the %1 destructor.");
 
