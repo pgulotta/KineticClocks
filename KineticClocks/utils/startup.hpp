@@ -1,18 +1,26 @@
-
 #pragma once
 #include <QObject>
 
-namespace twentysixapps{
-    class Startup : public QObject
-    {
-        Q_OBJECT
-    public:
-        explicit Startup(QObject *parent=0);
+namespace twentysixapps
+{
+class ClocksLayoutView;
+class ClockSymbols;
+class ClocksLayoutViewManager;
+class ClocksLayoutView;
 
-    private:
-        explicit Startup(const Startup& rhs) = delete;
-        Startup& operator= (const Startup& rhs) = delete;
-    };
+class Startup : public QObject
+{
+    Q_OBJECT
+public:
+    explicit Startup(QObject *parent=0);
+    ~Startup();
+    void show() const;
+
+
+private:
+    ClocksLayoutView* mClocksLayoutView;
+
+    explicit Startup(const Startup& rhs) = delete;
+    Startup& operator= (const Startup& rhs) = delete;
+};
 }
-
-

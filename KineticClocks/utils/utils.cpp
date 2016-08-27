@@ -15,4 +15,6 @@ namespace twentysixapps
   {
     DestructorMsg(object->metaObject()->className());
   }
+
+
 }
