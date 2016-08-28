@@ -12,9 +12,10 @@ namespace twentysixapps
 
 ClocksLayoutViewManager::ClocksLayoutViewManager(int screenWidth, int screenHeight):
     QObject(nullptr),
-    mClocksLayoutView(new QGraphicsScene(0, 0, screenWidth /ClockDiameter,screenHeight/ClockDiameter))
+    mClocksLayoutView(new QGraphicsScene(0, 0, 300,100))
 {
     mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
+
     mClocksLayoutView.resize(screenWidth ,screenHeight);
 }
 
@@ -84,7 +85,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 170.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Eight,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Zero,ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
