@@ -1,24 +1,26 @@
 #include "clockslayoutviewmanager.hpp"
-#include "view\clockslayoutview.hpp"
+#include "utils/consts.hpp"
 #include "view\clockgraphicsitem.hpp"
 #include "model\clock.hpp"
 #include "model\symbol.hpp"
-#include "model\clocksymbols.hpp"
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QDebug>
 
 namespace twentysixapps
 {
-ClocksLayoutViewManager::ClocksLayoutViewManager(ClocksLayoutView& clocksLayoutView) :
+
+ClocksLayoutViewManager::ClocksLayoutViewManager(int screenWidth, int screenHeight):
     QObject(nullptr),
-    mClocksLayoutView(clocksLayoutView)
+    mClocksLayoutView(new QGraphicsScene(0, 0, screenWidth /ClockDiameter,screenHeight/ClockDiameter))
 {
-    initialize();
+    mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
+    mClocksLayoutView.resize(screenWidth ,screenHeight);
 }
 
-void ClocksLayoutViewManager::showTime()const
+void ClocksLayoutViewManager::showTime()
 {
+    initialize();
     mClocksLayoutView.show();
 }
 

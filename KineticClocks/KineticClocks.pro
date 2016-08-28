@@ -13,7 +13,6 @@ SOURCES += \
     view/main.cpp \
     model/clocksymbols.cpp \
     utils/utils.cpp \
-    utils/startup.cpp \
     view/clockgraphicsitem.cpp \
     view/clockslayoutview.cpp \
     viewmanager/clockslayoutviewmanager.cpp
@@ -25,7 +24,6 @@ HEADERS += \
     model/symbol.hpp \
     model/grid.hpp \
     utils/utils.h \
-    utils/startup.hpp \
     view/clockgraphicsitem.hpp \
     view/clockslayoutview.hpp \
     viewmanager/clockslayoutviewmanager.hpp \

@@ -14,6 +14,7 @@ ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
 }
 
 
+
 void twentysixapps::ClocksLayoutView::resizeEvent(QResizeEvent *event)
 {
   //  fitInView(scene()->sceneRect());

@@ -9,6 +9,7 @@ class ClocksLayoutView : public QGraphicsView
 public:
     explicit ClocksLayoutView(QGraphicsScene *scene);
 
+
 protected:
     virtual void resizeEvent(QResizeEvent *event) override;
 
@@ -21,4 +22,3 @@ private:
 
 };
 }
-
