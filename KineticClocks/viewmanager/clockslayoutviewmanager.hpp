@@ -12,7 +12,10 @@ class ClocksLayoutViewManager : public QObject
     Q_OBJECT
 public:
     ClocksLayoutViewManager(ClocksLayoutView& clocksLayoutView);
-    void ShowView() const;
+    void showTime() const;
+    void initialize() ;
+
+
 private:
     ClocksLayoutView& mClocksLayoutView;
     ClockSymbols mClockSymbols;

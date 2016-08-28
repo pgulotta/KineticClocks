@@ -13,9 +13,9 @@ Startup::Startup(ClocksLayoutView& clocksLayoutView):
 
 
 
-void Startup::show() const
+void Startup::showTime() const
 {
-    mClocksLayoutViewManager.ShowView();
+    mClocksLayoutViewManager.showTime();
 }
 
 Startup::~Startup()

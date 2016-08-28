@@ -1,12 +1,13 @@
 #pragma once
 #include "viewmanager/clockslayoutviewmanager.hpp"
+#include "model/clocksymbols.hpp"
 #include <QObject>
 
 namespace twentysixapps
 {
 class ClockSymbols;
 class ClocksLayoutViewManager;
-class ClocksLayoutView;
+
 
 class Startup : public QObject
 {
@@ -14,12 +15,12 @@ class Startup : public QObject
 public:
     explicit Startup(ClocksLayoutView& clocksLayoutView);
     ~Startup();
-    void show() const;
+    void showTime() const;
 
 
 private:
     ClocksLayoutViewManager mClocksLayoutViewManager;
-
+    ClockSymbols mClockSymbols;
 
     explicit Startup(const Startup& rhs) = delete;
     Startup& operator= (const Startup& rhs) = delete;
