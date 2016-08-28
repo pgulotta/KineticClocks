@@ -5,6 +5,7 @@
 
 namespace twentysixapps
 {
+const int DefaultClockAngle = 0;
 const qreal ClockDiameter = 10.0f;
 const int ClockHandLength = 4;
 const Qt::GlobalColor LineColor  = Qt::GlobalColor::white;

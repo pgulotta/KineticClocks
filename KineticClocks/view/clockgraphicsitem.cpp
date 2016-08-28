@@ -20,7 +20,8 @@ QRectF twentysixapps::ClockGraphicsItem::boundingRect() const
     return QRectF (0,0,ClockDiameter,ClockDiameter);
 }
 
-void twentysixapps::ClockGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
+                                             const QStyleOptionGraphicsItem *, QWidget *)
 {
     QLineF angledLine;
     angledLine.setP1(mSourcePoint);
