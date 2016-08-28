@@ -1,4 +1,5 @@
 #pragma once
+#include "model\clocksymbols.hpp"
 #include <QObject>
 
 namespace twentysixapps
@@ -10,13 +11,11 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClocksLayoutViewManager(QObject* parent,
-                                     ClocksLayoutView& clocksLayoutView,
-                                     ClockSymbols& clockSymbols);
-
+    ClocksLayoutViewManager(ClocksLayoutView& clocksLayoutView);
+    void ShowView() const;
 private:
     ClocksLayoutView& mClocksLayoutView;
-    ClockSymbols& mClockSymbols;
+    ClockSymbols mClockSymbols;
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;

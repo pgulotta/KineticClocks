@@ -1,4 +1,5 @@
 #pragma once
+#include "viewmanager/clockslayoutviewmanager.hpp"
 #include <QObject>
 
 namespace twentysixapps
@@ -17,7 +18,8 @@ public:
 
 
 private:
-    ClocksLayoutView& mClocksLayoutView;
+    ClocksLayoutViewManager mClocksLayoutViewManager;
+
 
     explicit Startup(const Startup& rhs) = delete;
     Startup& operator= (const Startup& rhs) = delete;

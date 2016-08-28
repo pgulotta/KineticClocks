@@ -7,7 +7,7 @@
 namespace twentysixapps
 {
 Startup::Startup(ClocksLayoutView& clocksLayoutView):
-    mClocksLayoutView(clocksLayoutView)
+    mClocksLayoutViewManager(clocksLayoutView)
 {
 }
 
@@ -15,8 +15,7 @@ Startup::Startup(ClocksLayoutView& clocksLayoutView):
 
 void Startup::show() const
 {
-    mClocksLayoutView.Initialize();
-    mClocksLayoutView.show();
+    mClocksLayoutViewManager.ShowView();
 }
 
 Startup::~Startup()

@@ -21,10 +21,9 @@ auto main(int argc, char *argv[]) -> int
     scene.setBackgroundBrush(BackColor);
     ClocksLayoutView view(&scene);
     view.resize(width ,height);
-
-        Startup startup(view);
-        startup.show();
+    view.Initialize();
+    Startup startup(view);
+    startup.show();
 
     return app.exec();
 }
-
