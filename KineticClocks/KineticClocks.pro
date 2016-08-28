@@ -28,7 +28,8 @@ HEADERS += \
     utils/startup.hpp \
     view/clockgraphicsitem.hpp \
     view/clockslayoutview.hpp \
-    viewmanager/clockslayoutviewmanager.hpp
+    viewmanager/clockslayoutviewmanager.hpp \
+    utils/consts.hpp
 
 
 

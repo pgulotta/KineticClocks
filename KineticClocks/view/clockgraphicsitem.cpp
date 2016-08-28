@@ -1,4 +1,5 @@
 #include "clockgraphicsitem.hpp"
+#include "utils/consts.hpp"
 #include <QPainter>
 #include <QDebug>
 
@@ -12,30 +13,21 @@ ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
     mSourcePoint(sourcePoint),
     mAngle(angle)
 {
-   // setPos(sourcePoint);
 }
 
 QRectF twentysixapps::ClockGraphicsItem::boundingRect() const
 {
-
-    QRectF rect =  QRectF (0,0,10.f,10.f);
-    qDebug() << "******************  boundingRect:" << rect;
-    return rect;
+    return QRectF (0,0,ClockDiameter,ClockDiameter);
 }
 
 void twentysixapps::ClockGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QLineF angleline;
-
-    /* Set the origin: */
-    angleline.setP1(mSourcePoint);
-    angleline.setAngle(mAngle);
-    angleline.setLength(4);
+    QLineF angledLine;
+    angledLine.setP1(mSourcePoint);
+    angledLine.setAngle(mAngle);
+    angledLine.setLength(ClockHandLength);
     painter->setRenderHints(QPainter::Antialiasing);
-    painter->setPen(QPen(Qt::color0, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    painter->drawLine(angleline);
-//    QLineF line(mSourcePoint, mDestPoint);
-
-
+    painter->setPen(QPen(LineColor, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter->drawLine(angledLine);
 }
 }

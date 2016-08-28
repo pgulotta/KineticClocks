@@ -11,8 +11,11 @@ namespace twentysixapps
 ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
     QGraphicsView(scene, 0)
 {
-    scene->setBackgroundBrush(Qt::color1);
+}
 
+void ClocksLayoutView::Initialize()
+{
+    QGraphicsScene* graphicsScene =scene() ;
     for(int ypos = 0; ypos < 6; ypos++)
         {
             qreal xpos = 20.0f;
@@ -21,11 +24,11 @@ ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
-            std::for_each(first, last, [&scene, &ypos, &xpos](const Clock &clock)
+            std::for_each(first, last, [&graphicsScene, &ypos, &xpos](const Clock &clock)
             {
-                qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
+           //     qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
                 xpos+= 10.f;
             });
 
@@ -39,11 +42,11 @@ ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
-            std::for_each(first, last, [&scene, &ypos, &xpos](const Clock &clock)
+            std::for_each(first, last, [&graphicsScene, &ypos, &xpos](const Clock &clock)
             {
-                qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
+              //  qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
                 xpos+= 10.f;
             });
 
@@ -56,11 +59,11 @@ ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
-            std::for_each(first, last, [&scene, &ypos, &xpos](const Clock &clock)
+            std::for_each(first, last, [&graphicsScene, &ypos, &xpos](const Clock &clock)
             {
-                qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
+            //    qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
                 xpos+= 10.f;
             });
 
@@ -74,11 +77,11 @@ ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
-            std::for_each(first, last, [&scene, &ypos, &xpos](const Clock &clock)
+            std::for_each(first, last, [&graphicsScene, &ypos, &xpos](const Clock &clock)
             {
-                qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
-                scene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
+               // qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
                 xpos+= 10.f;
             });
 
@@ -88,7 +91,7 @@ ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
 
 void twentysixapps::ClocksLayoutView::resizeEvent(QResizeEvent *event)
 {
-    fitInView(scene()->sceneRect());
+  //  fitInView(scene()->sceneRect());
     QGraphicsView::resizeEvent(event);
 }
 

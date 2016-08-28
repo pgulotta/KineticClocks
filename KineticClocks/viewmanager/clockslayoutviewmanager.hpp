@@ -22,4 +22,3 @@ private:
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
 };
 }
-
