@@ -10,12 +10,13 @@
 namespace twentysixapps
 {
 
-ClocksLayoutViewManager::ClocksLayoutViewManager(int screenWidth, int screenHeight):
+ClocksLayoutViewManager::ClocksLayoutViewManager(int screenWidth, int screenHeight, bool isPortrait):
     QObject(nullptr),
-    mClocksLayoutView(new QGraphicsScene(0, 0, 300,100))
+    mClocksLayoutView(new QGraphicsScene(0, 0,
+                                         isPortrait? ClockLayoutNarrowEdge :ClockLayoutWideEdge,
+                                         isPortrait? ClockLayoutWideEdge:ClockLayoutNarrowEdge ))
 {
     mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
-
     mClocksLayoutView.resize(screenWidth ,screenHeight);
 }
 

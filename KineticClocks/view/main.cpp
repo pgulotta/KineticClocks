@@ -11,10 +11,11 @@ auto main(int argc, char *argv[]) -> int
 {
     QApplication app(argc, argv);
     QObject::connect(&app, &QApplication::lastWindowClosed,&app, &QApplication::quit);
-    auto rec = app.primaryScreen()->availableVirtualSize();
-    auto width = rec.width();
-    auto height = rec.height();
-    ClocksLayoutViewManager manager(width, height);
+    auto primaryScreen = app.primaryScreen();
+    auto virtualSize = primaryScreen->availableVirtualSize();
+    ClocksLayoutViewManager manager(virtualSize.width(),
+                                    virtualSize.height(),
+                                    primaryScreen->isPortrait(primaryScreen->orientation()));
     manager.showTime();
     return app.exec();
 }

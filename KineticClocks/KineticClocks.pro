@@ -23,11 +23,11 @@ HEADERS += \
     model/clocksymbols.hpp \
     model/symbol.hpp \
     model/grid.hpp \
-    utils/utils.h \
     view/clockgraphicsitem.hpp \
     view/clockslayoutview.hpp \
     viewmanager/clockslayoutviewmanager.hpp \
-    utils/consts.hpp
+    utils/consts.hpp \
+    utils/utils.hpp
 
 
 

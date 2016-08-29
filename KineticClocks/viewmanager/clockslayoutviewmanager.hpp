@@ -9,7 +9,7 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
-    ClocksLayoutViewManager(int screenWidth, int screenHeight);
+    ClocksLayoutViewManager(int screenWidth, int screenHeight, bool isPortrait);
     void showTime() ;
 
 
