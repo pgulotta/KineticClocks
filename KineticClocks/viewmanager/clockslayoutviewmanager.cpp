@@ -3,27 +3,38 @@
 #include "view\clockgraphicsitem.hpp"
 #include "model\clock.hpp"
 #include "model\symbol.hpp"
+#include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
+#include <QScreen>
 #include <QDebug>
 
 namespace twentysixapps
 {
 
-ClocksLayoutViewManager::ClocksLayoutViewManager(int screenWidth, int screenHeight, bool isPortrait):
-    QObject(nullptr),
-    mClocksLayoutView(new QGraphicsScene(0, 0,
-                                         isPortrait? ClockLayoutNarrowEdge :ClockLayoutWideEdge,
-                                         isPortrait? ClockLayoutWideEdge:ClockLayoutNarrowEdge ))
+ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
+    QObject(nullptr),mPrimaryScreen(*primaryScreen), mClocksLayoutView(nullptr)
 {
+    auto virtualSize = mPrimaryScreen.availableVirtualSize();
+
+    mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
-    mClocksLayoutView.resize(screenWidth ,screenHeight);
+    mClocksLayoutView.resize(virtualSize );
+
+    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::orientationChanged);
 }
 
 void ClocksLayoutViewManager::showTime()
 {
     initialize();
     mClocksLayoutView.show();
+}
+
+void ClocksLayoutViewManager::orientationChanged(Qt::ScreenOrientation newOrientation)
+{
+    bool isPortrait = mPrimaryScreen.isPortrait(mPrimaryScreen.orientation());
+    mClocksLayoutView.setSceneRect(GetScreenRect());
+    qDebug() << "ClocksLayoutViewManager::orientationChanged: ";
 }
 
 void ClocksLayoutViewManager::initialize()
@@ -99,5 +110,18 @@ void ClocksLayoutViewManager::initialize()
             });
 
         }
+}
+
+QRectF ClocksLayoutViewManager::GetScreenRect() const
+{
+    return GetScreenRect(mPrimaryScreen.primaryOrientation());
+}
+
+QRectF ClocksLayoutViewManager::GetScreenRect(Qt::ScreenOrientation orientation) const
+{
+    bool isPortrait = mPrimaryScreen.isPortrait(orientation);
+    qreal width = isPortrait? ClockLayoutNarrowEdge : ClockLayoutWideEdge;
+    qreal height = isPortrait? ClockLayoutWideEdge:ClockLayoutNarrowEdge;
+    return QRectF{0, 0, width, height};
 }
 }

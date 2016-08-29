@@ -7,7 +7,7 @@ class ClocksLayoutView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit ClocksLayoutView(QGraphicsScene *scene);
+  ClocksLayoutView(QWidget *parent = Q_NULLPTR);
 
 
 protected:

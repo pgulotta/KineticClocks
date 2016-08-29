@@ -8,15 +8,15 @@
 
 namespace twentysixapps
 {
-ClocksLayoutView::ClocksLayoutView(QGraphicsScene* scene) :
-    QGraphicsView(scene, 0)
+
+ClocksLayoutView::ClocksLayoutView(QWidget *parent):QGraphicsView(parent)
 {
+
 }
 
-
-
-void twentysixapps::ClocksLayoutView::resizeEvent(QResizeEvent *event)
+void ClocksLayoutView::resizeEvent(QResizeEvent *event)
 {
+    qDebug() << "ClocksLayoutView::resizeEvent";
     fitInView(scene()->sceneRect());
     QGraphicsView::resizeEvent(event);
 }
