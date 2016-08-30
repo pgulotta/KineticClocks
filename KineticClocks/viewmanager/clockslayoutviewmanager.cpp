@@ -32,9 +32,7 @@ void ClocksLayoutViewManager::showTime()
 
 void ClocksLayoutViewManager::orientationChanged(Qt::ScreenOrientation newOrientation)
 {
-    bool isPortrait = mPrimaryScreen.isPortrait(mPrimaryScreen.orientation());
-    mClocksLayoutView.setSceneRect(GetScreenRect());
-    qDebug() << "ClocksLayoutViewManager::orientationChanged: ";
+  mClocksLayoutView.scene()->setSceneRect(GetScreenRect());
 }
 
 void ClocksLayoutViewManager::initialize()
