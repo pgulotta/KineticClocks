@@ -42,7 +42,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 20.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Seven,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Zero,ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -60,7 +60,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 70.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Colon,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Five,ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -77,7 +77,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 120.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Four,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Colon,ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -95,7 +95,24 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 170.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Zero,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::One,ypos);
+            auto first =  std::get<0>(tuple);
+            auto last =  std::get<1>(tuple);
+
+            std::for_each(first, last, [&graphicsScene, &ypos, &xpos](const Clock &clock)
+            {
+                // qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos,ypos*10.f),clock.Angle1));
+                graphicsScene->addItem(new ClockGraphicsItem( QPointF(xpos, ypos*10.f),clock.Angle2));
+                xpos+= 10.f;
+            });
+
+        }
+    for(int ypos = 0; ypos < 6; ypos++)
+        {
+            qreal xpos = 220.0f;
+            ClockSymbols cs;
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Nine,ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 

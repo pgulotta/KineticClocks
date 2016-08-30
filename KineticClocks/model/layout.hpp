@@ -14,6 +14,7 @@ namespace twentysixapps
 
 
     private:
+        QTime mDisplayTime;
         std::array<int,mClocksCount> mClocks;
     };
 
