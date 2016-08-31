@@ -27,7 +27,7 @@ void ClockTime::setDisplayTime(const QTime& displayTime)
     emit displayTimeChanged();
 }
 
-std::array<SymbolName, 5>::const_iterator ClockTime::symbols() const
+SymbolsIterator ClockTime::symbols() const
 {
     return mSymbols.cbegin();
 }

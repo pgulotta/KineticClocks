@@ -3,8 +3,12 @@
 #include "view\clockslayoutview.hpp"
 #include <QObject>
 #include <QRectF>
+
+class QTimer;
+
 namespace twentysixapps
 {
+
 class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
@@ -16,14 +20,16 @@ signals:
     void rotationChanged(qreal rotation);
 
 private slots:
-    void orientationChanged(Qt::ScreenOrientation newOrientation);
+    void onTimeChanged();
+    void onOrientationChanged(Qt::ScreenOrientation newOrientation);
 
 private:
     QScreen& mPrimaryScreen;
     ClocksLayoutView mClocksLayoutView;
     ClockSymbols mClockSymbols;
+    QTimer& mTimeTimer;
 
-    void initialize() ;
+    void setDisplayTime() ;
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 

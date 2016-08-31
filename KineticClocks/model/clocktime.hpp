@@ -9,6 +9,7 @@
 
 namespace twentysixapps
 {
+typedef std::array<SymbolName, 5>::const_iterator SymbolsIterator;
 
 class ClockTime : public QObject
 {
@@ -19,7 +20,7 @@ public:
     ClockTime ();
     ClockTime (const QTime& displayTime,QObject *parent=0);
     void setDisplayTime(const QTime& displayTime);
-    std::array<SymbolName, 5>::const_iterator symbols() const;
+    SymbolsIterator symbols() const;
 
 signals:
     void displayTimeChanged();

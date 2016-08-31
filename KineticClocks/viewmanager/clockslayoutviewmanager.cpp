@@ -3,17 +3,19 @@
 #include "view\clockgraphicsitem.hpp"
 #include "model\clock.hpp"
 #include "model\symbol.hpp"
+#include "model\clocktime.hpp"
 #include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QScreen>
 #include <QDebug>
+#include <QTimer>
 
 namespace twentysixapps
 {
 
 ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
-    QObject(nullptr),mPrimaryScreen(*primaryScreen), mClocksLayoutView(nullptr)
+    QObject(nullptr),mPrimaryScreen(*primaryScreen), mClocksLayoutView(nullptr),mTimeTimer (*new QTimer(this))
 {
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
@@ -21,28 +23,39 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
     mClocksLayoutView.resize(virtualSize );
 
-    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::orientationChanged);
+    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
+    connect(&mTimeTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::onTimeChanged);
+    mTimeTimer.setInterval(60000);
+    mTimeTimer.start();
 }
+
+void ClocksLayoutViewManager::onTimeChanged()
+{
+    qDebug() << "ClocksLayoutViewManager::onTimeChanged";
+    setDisplayTime();
+}
+
 
 void ClocksLayoutViewManager::showTime()
 {
-    initialize();
+    setDisplayTime();
     mClocksLayoutView.show();
 }
 
-void ClocksLayoutViewManager::orientationChanged(Qt::ScreenOrientation newOrientation)
+void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation newOrientation)
 {
-  mClocksLayoutView.scene()->setSceneRect(GetScreenRect());
+    mClocksLayoutView.scene()->setSceneRect(GetScreenRect());
 }
 
-void ClocksLayoutViewManager::initialize()
+void ClocksLayoutViewManager::setDisplayTime()
 {
+    ClockTime ct;
     QGraphicsScene* graphicsScene = mClocksLayoutView.scene() ;
     for(int ypos = 0; ypos < 6; ypos++)
         {
             qreal xpos = 20.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Zero,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(ct.symbols()[0],ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -60,7 +73,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 70.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Five,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(ct.symbols()[1],ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -77,7 +90,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 120.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Colon,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(ct.symbols()[2],ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -95,7 +108,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 170.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::One,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(ct.symbols()[3],ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
@@ -112,7 +125,7 @@ void ClocksLayoutViewManager::initialize()
         {
             qreal xpos = 220.0f;
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Nine,ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(ct.symbols()[4],ypos);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
 
