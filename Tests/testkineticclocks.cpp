@@ -111,16 +111,18 @@ void TestKineticClocks::TestClockTime1()
     time.setHMS(12, 38, 0);
     qDebug() << "Time: " << time.toString();
     ClockTime ct{time};
-    auto digits = ct.digits();
+    auto symbols = ct.symbols();
 
-    QVERIFY2(digits[0] == 1, "Failure != 1");
-    QVERIFY2(digits[1] == 2, "Failure != 2");
-    QVERIFY2(digits[2] == 3, "Failure != 3");
-    QVERIFY2(digits[3] == 8, "Failure != 8");
-    QVERIFY2(digits[0] != 0, "Failure != 0");
-    QVERIFY2(digits[1] != 0, "Failure != 0");
-    QVERIFY2(digits[2] != 0, "Failure != 0");
-    QVERIFY2(digits[3] != 0, "Failure != 0");
+    QVERIFY2(symbols[0] == SymbolName::One, "Failure != 1");
+    QVERIFY2(symbols[1] == SymbolName::Two, "Failure != 2");
+    QVERIFY2(symbols[2] == SymbolName::Colon, "Failure != :");
+    QVERIFY2(symbols[3] == SymbolName::Three, "Failure != 3");
+    QVERIFY2(symbols[4] == SymbolName::Eight, "Failure != 8");
+
+    QVERIFY2(symbols[0] != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(symbols[1] != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(symbols[3] != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(symbols[4] != SymbolName::Zero, "Failure != 0");
 }
 
 void TestKineticClocks::TestClockTime2()
@@ -129,20 +131,22 @@ void TestKineticClocks::TestClockTime2()
     time.setHMS(00, 00, 0);
     qDebug() << "Time: " << time.toString();
     ClockTime ct{time};
-    auto digits = ct.digits();
+    auto symbols = ct.symbols();
 
-    QVERIFY2(digits[0] == 0, "Failure != 0");
-    QVERIFY2(digits[1] == 0, "Failure != 0");
-    QVERIFY2(digits[2] == 0, "Failure != 0");
-    QVERIFY2(digits[3] == 0, "Failure != 0");
+    QVERIFY2(symbols[0] == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(symbols[1] == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(symbols[2] == SymbolName::Colon, "Failure != :");
+    QVERIFY2(symbols[3] == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(symbols[4] == SymbolName::Zero, "Failure != 0");
 
-//    ClockTime defaultClockTime;
-//    auto ddigits = defaultClockTime.digits();
+    ClockTime defaultClockTime;
+    auto currentTimeSymbols = defaultClockTime.symbols();
 
-//    QVERIFY2(ddigits[0] == 2, "Failure != 0");
-//    QVERIFY2(ddigits[1] == 1, "Failure != 0");
-//    QVERIFY2(ddigits[2] == 1, "Failure != 0");
-//    QVERIFY2(ddigits[3] == 8, "Failure != 0");
+    QVERIFY2(currentTimeSymbols[0] == SymbolName::Zero, "Failure");
+    QVERIFY2(currentTimeSymbols[1] == SymbolName::Nine, "Failure");
+    QVERIFY2(currentTimeSymbols[2] == SymbolName::Colon, "Failure");
+    QVERIFY2(currentTimeSymbols[3] == SymbolName::Four, "Failure");
+    QVERIFY2(currentTimeSymbols[4] == SymbolName::Nine, "Failure");
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 
