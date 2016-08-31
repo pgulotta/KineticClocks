@@ -7,6 +7,7 @@
 #include "..\KineticClocks\model\clock.hpp"
 #include "..\KineticClocks\model\symbol.hpp"
 #include "..\KineticClocks\model\clocksymbols.hpp"
+#include "..\KineticClocks\model\clocktime.hpp"
 
 using namespace twentysixapps;
 
@@ -23,6 +24,7 @@ private Q_SLOTS:
     void TestCreateClock();
     void TestCreateSymbol();
     void TestClockSymbols();
+    void TestClockTime();
 };
 
 TestKineticClocks::TestKineticClocks()
@@ -102,6 +104,11 @@ void TestKineticClocks::TestClockSymbols()
     });
 }
 
+void TestKineticClocks::TestClockTime()
+{
+    ClockTime ct{QTime::currentTime(),  0};
+   qDebug() <<  ct.displayTime();
+}
 QTEST_APPLESS_MAIN(TestKineticClocks)
 
 #include "testkineticclocks.moc"

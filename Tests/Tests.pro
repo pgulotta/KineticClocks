@@ -13,8 +13,11 @@ TEMPLATE = app
 
 SOURCES += \
     testkineticclocks.cpp \
+    ..\KineticClocks\model\clocktime.cpp \
     ..\KineticClocks\model\clocksymbols.cpp
 
 
-
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+HEADERS += \
+    ../KineticClocks/model/clocktime.hpp
