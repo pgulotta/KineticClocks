@@ -14,6 +14,7 @@ class ClockTime : public QObject
 
 
 public:
+    ClockTime ();
     ClockTime (const QTime& displayTime,QObject *parent=0);
     void setDisplayTime(const QTime& displayTime);
     std::array<int, 5>::const_iterator digits() const;

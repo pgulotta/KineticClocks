@@ -1,10 +1,16 @@
 #include "clocktime.hpp"
+#include <QDebug>
 
 namespace twentysixapps
 {
 ClockTime::ClockTime(const QTime& displayTime,QObject *parent):  QObject(parent)
 {
     setDisplayTime(displayTime);
+}
+
+ClockTime::ClockTime():  QObject(0)
+{
+    setDisplayTime(QTime::currentTime());
 }
 
 void ClockTime::setDisplayTime(const QTime& displayTime)

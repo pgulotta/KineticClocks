@@ -135,6 +135,14 @@ void TestKineticClocks::TestClockTime2()
     QVERIFY2(digits[1] == 0, "Failure != 0");
     QVERIFY2(digits[2] == 0, "Failure != 0");
     QVERIFY2(digits[3] == 0, "Failure != 0");
+
+//    ClockTime defaultClockTime;
+//    auto ddigits = defaultClockTime.digits();
+
+//    QVERIFY2(ddigits[0] == 2, "Failure != 0");
+//    QVERIFY2(ddigits[1] == 1, "Failure != 0");
+//    QVERIFY2(ddigits[2] == 1, "Failure != 0");
+//    QVERIFY2(ddigits[3] == 8, "Failure != 0");
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 
