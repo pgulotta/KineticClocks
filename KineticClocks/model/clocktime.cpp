@@ -2,25 +2,17 @@
 
 namespace twentysixapps
 {
-    ClockTime::ClockTime( QTime displayTime,QObject *parent):  QObject(parent)
+ClockTime::ClockTime(const QTime& displayTime,QObject *parent):  QObject(parent)
 {
     setDisplayTime(displayTime);
 }
 
-QTime ClockTime::displayTime() const
+void ClockTime::setDisplayTime(const QTime& displayTime)
 {
-    return mDisplayTime;
-}
-
-void ClockTime::setDisplayTime(const QTime &displayTime)
-{
-    if ( displayTime== mDisplayTime)
-        return;
-    mDisplayTime = displayTime;
-    mDigits[0] = mDisplayTime.hour()%10;
-    mDigits[1] = mDisplayTime.hour() - mDigits[0];
-    mDigits[2] = mDisplayTime.minute()%10;
-    mDigits[3] = mDisplayTime.minute()- mDigits[2];
+    mDigits[0] = displayTime.hour()/10;
+    mDigits[1] = displayTime.hour() -(10 * mDigits.at(0));
+    mDigits[2] = displayTime.minute() / 10;
+    mDigits[3] = displayTime.minute() -(10 * mDigits.at(2));
 
     emit displayTimeChanged();
 }

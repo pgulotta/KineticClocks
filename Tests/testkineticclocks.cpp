@@ -24,7 +24,9 @@ private Q_SLOTS:
     void TestCreateClock();
     void TestCreateSymbol();
     void TestClockSymbols();
-    void TestClockTime();
+    void TestClockTime1();
+    void TestClockTime2();
+
 };
 
 TestKineticClocks::TestKineticClocks()
@@ -103,11 +105,36 @@ void TestKineticClocks::TestClockSymbols()
         qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
     });
 }
-
-void TestKineticClocks::TestClockTime()
+void TestKineticClocks::TestClockTime1()
 {
-    ClockTime ct{QTime::currentTime(),  0};
-   qDebug() <<  ct.displayTime();
+    QTime time;
+    time.setHMS(12, 38, 0);
+    qDebug() << "Time: " << time.toString();
+    ClockTime ct{time};
+    auto digits = ct.digits();
+
+    QVERIFY2(digits[0] == 1, "Failure != 1");
+    QVERIFY2(digits[1] == 2, "Failure != 2");
+    QVERIFY2(digits[2] == 3, "Failure != 3");
+    QVERIFY2(digits[3] == 8, "Failure != 8");
+    QVERIFY2(digits[0] != 0, "Failure != 0");
+    QVERIFY2(digits[1] != 0, "Failure != 0");
+    QVERIFY2(digits[2] != 0, "Failure != 0");
+    QVERIFY2(digits[3] != 0, "Failure != 0");
+}
+
+void TestKineticClocks::TestClockTime2()
+{
+    QTime time;
+    time.setHMS(00, 00, 0);
+    qDebug() << "Time: " << time.toString();
+    ClockTime ct{time};
+    auto digits = ct.digits();
+
+    QVERIFY2(digits[0] == 0, "Failure != 0");
+    QVERIFY2(digits[1] == 0, "Failure != 0");
+    QVERIFY2(digits[2] == 0, "Failure != 0");
+    QVERIFY2(digits[3] == 0, "Failure != 0");
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 

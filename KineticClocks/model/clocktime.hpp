@@ -14,9 +14,8 @@ class ClockTime : public QObject
 
 
 public:
-    ClockTime (QTime displayTime,QObject *parent=0);
-    QTime displayTime() const;
-    void setDisplayTime(const QTime &displayTime);
+    ClockTime (const QTime& displayTime,QObject *parent=0);
+    void setDisplayTime(const QTime& displayTime);
     std::array<int, 5>::const_iterator digits() const;
 
 signals:
@@ -26,7 +25,6 @@ public slots:
 
 
 private:
-    QTime mDisplayTime;
     std::array<int,5> mDigits;
 
 
