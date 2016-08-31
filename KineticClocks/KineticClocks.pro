@@ -19,7 +19,6 @@ SOURCES += \
 
 HEADERS += \
     model/clock.hpp \
-    model/layout.hpp \
     model/clocksymbols.hpp \
     model/symbol.hpp \
     model/grid.hpp \

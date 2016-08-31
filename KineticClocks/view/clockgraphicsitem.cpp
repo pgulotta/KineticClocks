@@ -31,4 +31,14 @@ void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
     painter->setPen(QPen(LineColor, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->drawLine(angledLine);
 }
+
+int ClockGraphicsItem::angle() const
+{
+    return mAngle;
+}
+
+void ClockGraphicsItem::setAngle(int angle)
+{
+    mAngle = angle;
+}
 }
