@@ -12,6 +12,7 @@ class QTimer;
 
 namespace twentysixapps
 {
+class ClockTime;
 class ClockGraphicsItem;
 class ClocksLayoutViewManager : public QObject
 {
@@ -20,23 +21,27 @@ public:
     ClocksLayoutViewManager(QScreen* primaryScreen);
     void showTime() ;
 
+
+    
 signals:
     void rotationChanged(qreal rotation);
 
 private slots:
-    void onTimeChanged();
+    void updateDisplayTimerChanged();
     void onOrientationChanged(Qt::ScreenOrientation newOrientation);
 
 private:
     QScreen& mPrimaryScreen;
     ClocksLayoutView mClocksLayoutView;
     ClockSymbols mClockSymbols;
-    QTimer& mTimeTimer;
+    QTimer& mUpdateDisplayTimer;
     std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
 
+    int updateDisplayTime(int itemIndex, int symbolNameIndex, const ClockTime& clockTime);
+    void InitializeUpdateDisplayTimer();
     int createSceneItems(int index, qreal xpos);
     void createSceneItems();
-    void setDisplayTime() ;
+    void updateDisplayTime() ;
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 
@@ -44,5 +49,5 @@ private:
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
 
 
-};
+ };
 }
