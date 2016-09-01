@@ -6,7 +6,8 @@
 
 namespace twentysixapps
 {
-
+const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::white;
+const Qt::GlobalColor ClockGraphicsItem::BackColor  = Qt::GlobalColor::black;
 const qreal ClockGraphicsItem::ClockDiameter = 10.0f;
 
 ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
@@ -22,7 +23,7 @@ QRectF twentysixapps::ClockGraphicsItem::boundingRect() const
 }
 
 void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
-                                             const QStyleOptionGraphicsItem *, QWidget *)
+        const QStyleOptionGraphicsItem *, QWidget *)
 {
     QLineF angledLine;
     angledLine.setP1(mSourcePoint);

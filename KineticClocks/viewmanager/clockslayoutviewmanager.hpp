@@ -18,6 +18,10 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
+
+    const int ClockLayoutWideEdge= 400;
+    const int ClockLayoutNarrowEdge = 250;
+
     ClocksLayoutViewManager(QScreen* primaryScreen);
     void showTime() ;
 

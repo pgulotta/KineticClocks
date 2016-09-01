@@ -26,7 +26,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
-    mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
+    mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
     mClocksLayoutView.resize(virtualSize );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
