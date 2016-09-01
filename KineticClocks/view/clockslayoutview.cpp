@@ -16,7 +16,6 @@ ClocksLayoutView::ClocksLayoutView(QWidget *parent):QGraphicsView(parent)
 
 void ClocksLayoutView::resizeEvent(QResizeEvent *event)
 {
-    qDebug() << "ClocksLayoutView::resizeEvent";
     fitInView(scene()->sceneRect());
     QGraphicsView::resizeEvent(event);
 }

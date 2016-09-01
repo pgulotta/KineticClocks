@@ -49,41 +49,41 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
         Clock(90,180)
     }),
     Symbol({ //One
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,270),
         Clock(0,180),
         Clock(180,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,90),
         Clock(180,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,90),
         Clock(90,180),
-        Clock(0,180)
+        Clock(Clock::AngleDefault,Clock::AngleDefault)
     }),
     Symbol({ //Two
         Clock(0,270),
@@ -382,41 +382,41 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
         Clock(90,180)
     }),
     Symbol({ //Colon
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,270),
         Clock(0,180),
         Clock(180,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,90),
         Clock(0,180),
         Clock(90,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,270),
         Clock(0,180),
         Clock(180,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,90),
         Clock(0,180),
         Clock(90,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180)
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault)
     }),
     Symbol({ //HorizontalLine
         Clock(0,180),
@@ -462,45 +462,45 @@ SymbolName ClockSymbols::GetSymbolName(QChar symbol)
 {
     SymbolName name = SymbolName::Colon;
     if ( symbol.isDigit())
-    {
-    switch (symbol.digitValue())
         {
-        case 0:
-            name = SymbolName::Zero;
-            break;
-        case 1:
-            name = SymbolName::One;
-            break;
-        case 2:
-            name = SymbolName::Two;
-            break;
-        case 3:
-            name = SymbolName::Three;
-            break;
-        case 4:
-            name = SymbolName::Four;
-            break;
-        case 5:
-            name = SymbolName::Five;
-            break;
-        case 6:
-            name = SymbolName::Six;
-            break;
-        case 7:
-            name = SymbolName::Seven;
-            break;
-        case 8:
-            name = SymbolName::Eight;
-            break;
-        case 9:
-            name = SymbolName::Nine;
-            break;
+            switch (symbol.digitValue())
+                {
+                case 0:
+                    name = SymbolName::Zero;
+                    break;
+                case 1:
+                    name = SymbolName::One;
+                    break;
+                case 2:
+                    name = SymbolName::Two;
+                    break;
+                case 3:
+                    name = SymbolName::Three;
+                    break;
+                case 4:
+                    name = SymbolName::Four;
+                    break;
+                case 5:
+                    name = SymbolName::Five;
+                    break;
+                case 6:
+                    name = SymbolName::Six;
+                    break;
+                case 7:
+                    name = SymbolName::Seven;
+                    break;
+                case 8:
+                    name = SymbolName::Eight;
+                    break;
+                case 9:
+                    name = SymbolName::Nine;
+                    break;
 
-        default:
-            assert(false); // undefined char symbol
-            break;
+                default:
+                    assert(false); // undefined char symbol
+                    break;
+                }
         }
-}
     return name;
 }
 
