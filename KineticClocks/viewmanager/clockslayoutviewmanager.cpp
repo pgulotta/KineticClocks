@@ -57,11 +57,11 @@ int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
             xpos = xposStart;
             for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
                 {
-                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,ypos*ClockDiameter),0);
+                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,ypos*ClockGraphicsItem::ClockDiameter),0);
                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,ypos*ClockDiameter),0);
+                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,ypos*ClockGraphicsItem::ClockDiameter),0);
                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                    xpos+= ClockDiameter;
+                    xpos+= ClockGraphicsItem::ClockDiameter;
                 }
         }
     return itemIndex;
@@ -70,11 +70,11 @@ int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
 void ClocksLayoutViewManager::createSceneItems()
 {
     int itemIndex=0;
-    qreal xpos = ClockDiameter; // 0.0f;
+    qreal xpos = ClockGraphicsItem::ClockDiameter; // 0.0f;
     for(int colIndex= 0; colIndex < Symbol::ColCount; ++colIndex )
         {
             itemIndex =createSceneItems(itemIndex, xpos);
-            xpos+= ClockDiameter * Symbol::ColCount;
+            xpos+= ClockGraphicsItem::ClockDiameter * Symbol::ColCount;
         }
 }
 

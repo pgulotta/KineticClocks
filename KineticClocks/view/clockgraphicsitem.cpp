@@ -7,6 +7,7 @@
 namespace twentysixapps
 {
 
+const qreal ClockGraphicsItem::ClockDiameter = 10.0f;
 
 ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
     QGraphicsItem(0),
