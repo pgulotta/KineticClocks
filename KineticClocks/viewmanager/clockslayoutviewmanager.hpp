@@ -34,6 +34,7 @@ private:
     QTimer& mTimeTimer;
     std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
 
+    int createSceneItems(int index, qreal xpos);
     void createSceneItems();
     void setDisplayTime() ;
     QRectF GetScreenRect() const;
@@ -41,6 +42,7 @@ private:
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
+
 
 };
 }

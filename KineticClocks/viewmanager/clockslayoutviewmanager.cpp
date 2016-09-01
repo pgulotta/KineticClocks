@@ -43,60 +43,33 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
 {
     mClocksLayoutView.scene()->setSceneRect(GetScreenRect());
 }
+
+int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
+{
+    qreal xpos = xposStart;
+    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
+        {
+            xpos = xposStart;
+            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
+                {
+                    mClockGraphicsItems[itemIndex++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
+                    mClockGraphicsItems[itemIndex++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
+                    xpos+= 10.f;
+                }
+        }
+    return itemIndex;
+}
+
 void ClocksLayoutViewManager::createSceneItems()
 {
-    int index=0;
-    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
+    int itemIndex=0;
+    qreal xpos = 20.0f;
+    for(int ctr = 0; ctr < Symbol::ColCount; ++ctr )
         {
-            qreal xpos = 20.0f;
-            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
-                {
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    xpos+= 10.f;
-                }
-        }
-    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
-        {
-            qreal xpos = 70.0f;
-            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
-                {
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    xpos+= 10.f;
-                }
-        }
-    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
-        {
-            qreal xpos = 120.0f;
-            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
-                {
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    xpos+= 10.f;
-                }
+            itemIndex =createSceneItems(itemIndex, xpos);
+            xpos+= 50.f;
         }
 
-    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
-        {
-            qreal xpos = 170.0f;
-            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
-                {
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    xpos+= 10.f;
-                }
-        }
-    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
-        {
-            qreal xpos = 220.0f;
-            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
-                {
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    mClockGraphicsItems[index++] = new ClockGraphicsItem( QPointF(xpos,ypos*10.f),0);
-                    xpos+= 10.f;
-                }
-        }
     for(int itemIndex = 0; itemIndex < mClockGraphicsItems.size(); itemIndex++)
         {
             mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex]);
