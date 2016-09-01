@@ -5,7 +5,6 @@
 
 namespace twentysixapps
 {
-const int DefaultClockAngle = 0;
 const int ClockHandLength = 4;
 const qreal ClockDiameter = 10.0f;
 const int ClockLayoutWideEdge= 400;
