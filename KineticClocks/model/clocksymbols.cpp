@@ -26,13 +26,13 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
 
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
 
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
 
@@ -162,13 +162,13 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
     Symbol({ //Four
         Clock(0,270),
         Clock(180,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,270),
         Clock(180,270),
 
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
 
@@ -184,15 +184,15 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
         Clock(180,270),
         Clock(90,270),
 
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
 
-        Clock(0,180),
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,90),
         Clock(90,180)
     }),
@@ -283,29 +283,29 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
         Clock(180,225),
         Clock(90,225),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(45,270),
         Clock(45,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(90,270),
         Clock(90,270),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
 
-        Clock(0,180),
-        Clock(0,180),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
+        Clock(Clock::AngleDefault,Clock::AngleDefault),
         Clock(0,90),
         Clock(180,90),
-        Clock(0,180)
+        Clock(Clock::AngleDefault,Clock::AngleDefault)
     }),
     Symbol({ //Eight
         Clock(0,270),
