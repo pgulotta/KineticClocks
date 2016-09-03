@@ -70,7 +70,7 @@ int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
 void ClocksLayoutViewManager::createSceneItems()
 {
     int itemIndex=0;
-    qreal xpos = ClockGraphicsItem::ClockDiameter; // 0.0f;
+    qreal xpos = ClockGraphicsItem::ClockDiameter;
     for(int colIndex= 0; colIndex < Symbol::ColCount; ++colIndex )
         {
             itemIndex =createSceneItems(itemIndex, xpos);
