@@ -15,7 +15,7 @@ namespace twentysixapps
 void ClocksLayoutViewManager::InitializeUpdateDisplayTimer()
 {
     connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
-    mUpdateDisplayTimer.setInterval(60000);
+    mUpdateDisplayTimer.setInterval(60000-QTime::currentTime().msec());
     mUpdateDisplayTimer.start();
 }
 
@@ -97,6 +97,7 @@ int ClocksLayoutViewManager::updateDisplayTime(int itemIndex,int symbolNameIndex
 
 void ClocksLayoutViewManager::updateDisplayTime()
 {
+     mUpdateDisplayTimer.setInterval(60000-QTime::currentTime().msec());
     ClockTime clockTime;
     int itemIndex=0;
     for(int colIndex = 0; colIndex < Symbol::ColCount; ++colIndex )
