@@ -1,5 +1,4 @@
 #include "clockgraphicsitem.hpp"
-#include "utils/consts.hpp"
 #include <QPainter>
 #include <QDebug>
 
@@ -8,6 +7,7 @@ namespace twentysixapps
 {
 const int ClockGraphicsItem::ClockHandLength =4;
 const qreal ClockGraphicsItem::ClockDiameter = 10.0f;
+const qreal ClockGraphicsItem::ClockRadius = 5.0f;
 const qreal ClockGraphicsItem::XPosDelta = 0.0f;
 const qreal ClockGraphicsItem::YPosDelta = 0.0f;
 const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::white;
@@ -15,7 +15,7 @@ const Qt::GlobalColor ClockGraphicsItem::BackColor  = Qt::GlobalColor::black;
 
 ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
     QGraphicsItem(0),
-    mSourcePoint(QPointF( sourcePoint.x()+5.f , sourcePoint.y()+5.f)),
+    mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius)),
     mAngle(angle)
 {
 }

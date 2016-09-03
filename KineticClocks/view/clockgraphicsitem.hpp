@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/consts.hpp"
+
 #include "model/clock.hpp"
 #include <QGraphicsItem>
 
@@ -12,6 +12,7 @@ public:
     const static qreal XPosDelta ;
     const static qreal YPosDelta ;
     const static qreal ClockDiameter ;
+    const static qreal ClockRadius;
     const static Qt::GlobalColor LineColor ;
     const static Qt::GlobalColor BackColor ;
 

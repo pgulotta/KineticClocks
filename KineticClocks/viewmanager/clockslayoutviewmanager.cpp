@@ -1,5 +1,4 @@
 #include "clockslayoutviewmanager.hpp"
-#include "utils/consts.hpp"
 #include "view\clockgraphicsitem.hpp"
 #include "model\clock.hpp"
 #include "model\clocktime.hpp"

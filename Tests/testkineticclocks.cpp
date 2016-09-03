@@ -44,9 +44,8 @@ void TestKineticClocks::cleanupTestCase()
 void TestKineticClocks::TestCreateClock()
 {
     Clock c;
-    QVERIFY2(c.Angle1 == 0, "Failure");
-    QVERIFY2(c.Angle2 == 180, "Failure");
-    \
+    QVERIFY2(c.Angle1 == Clock::AngleDefault, "Failure");
+    QVERIFY2(c.Angle2 == Clock::AngleDefault, "Failure");
 }
 
 void TestKineticClocks::TestCreateSymbol()
