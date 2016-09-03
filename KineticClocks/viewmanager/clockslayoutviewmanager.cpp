@@ -68,22 +68,6 @@ void ClocksLayoutViewManager::createSceneItems()
         }
 }
 
-int ClocksLayoutViewManager::updateDisplayTime(int itemIndex,int symbolNameIndex, const ClockTime& clockTime)
-{
-    for(int row = 0; row < Symbol::RowCount; row++)
-        {
-            ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(clockTime.symbols()[symbolNameIndex],row);
-            for_each(std::get<0>(tuple), std::get<1>(tuple),
-                     [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
-            {
-                items[itemIndex++]->setAngle(clock.Angle1);
-                items[itemIndex++]->setAngle(clock.Angle2);
-            });
-        }
-    return itemIndex;
-}
-
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
     ClockTime clockTime;
@@ -93,7 +77,18 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
             int itemIndex=0;
             for(int colIndex = 0; colIndex < Symbol::ColCount; ++colIndex )
                 {
-                    itemIndex = updateDisplayTime(itemIndex, colIndex, clockTime);
+                for(int row = 0; row < Symbol::RowCount; row++)
+                    {
+                        ClockSymbols cs;
+                        std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
+                                cs.GetRow(clockTime.symbols()[colIndex],row);
+                        for_each(std::get<0>(tuple), std::get<1>(tuple),
+                                 [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
+                        {
+                            items[itemIndex++]->setAngle(clock.Angle1);
+                            items[itemIndex++]->setAngle(clock.Angle2);
+                        });
+                    }
                 }
             mClocksLayoutView.scene()->update();
         }
