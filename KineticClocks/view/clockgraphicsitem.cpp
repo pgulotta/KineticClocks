@@ -6,11 +6,12 @@
 
 namespace twentysixapps
 {
+const int ClockGraphicsItem::ClockHandLength =4;
+const qreal ClockGraphicsItem::ClockDiameter = 10.0f;
+const qreal ClockGraphicsItem::XPosDelta = 0.0f;
+const qreal ClockGraphicsItem::YPosDelta = 0.0f;
 const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::white;
 const Qt::GlobalColor ClockGraphicsItem::BackColor  = Qt::GlobalColor::black;
-const qreal ClockGraphicsItem::ClockDiameter = 10.0f;
-const qreal ClockGraphicsItem::XStartPosisiton = 0.0f;
-const qreal ClockGraphicsItem::YStartPosisiton = 0.0f;
 
 ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
     QGraphicsItem(0),

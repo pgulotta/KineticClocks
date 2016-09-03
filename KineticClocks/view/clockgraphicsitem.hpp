@@ -8,12 +8,13 @@ namespace twentysixapps
 class ClockGraphicsItem : public QGraphicsItem
 {
 public:
-    const static int ClockHandLength = 4;
-    const static qreal XStartPosisiton ;
-    const static qreal YStartPosisiton ;
+    const static int ClockHandLength;
+    const static qreal XPosDelta ;
+    const static qreal YPosDelta ;
     const static qreal ClockDiameter ;
     const static Qt::GlobalColor LineColor ;
     const static Qt::GlobalColor BackColor ;
+
     explicit ClockGraphicsItem( QPointF sourcePoint = {ClockDiameter, ClockDiameter}, int angle = {Clock::AngleDefault});
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
