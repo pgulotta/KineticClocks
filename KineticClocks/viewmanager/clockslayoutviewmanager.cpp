@@ -19,11 +19,11 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-    mClocksLayoutView.resize(virtualSize );
+    //mClocksLayoutView.resize(virtualSize );
+    mClocksLayoutView.resize(QSize(800,600) );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
-    mUpdateDisplayTimer.start();
 }
 
 void ClocksLayoutViewManager::showTime()
@@ -97,7 +97,11 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                 }
             mClocksLayoutView.scene()->update();
         }
-    mUpdateDisplayTimer.setInterval(60000-QTime::currentTime().msec());
+
+    auto interval = 1000 * (60-QTime::currentTime().second());
+    if ( interval != mUpdateDisplayTimer.interval())
+        mUpdateDisplayTimer.start(interval);
+
 }
 
 QRectF ClocksLayoutViewManager::GetScreenRect() const
