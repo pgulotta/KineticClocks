@@ -52,7 +52,7 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
 int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
 {
     qreal xpos = xposStart;
-    for(qreal ypos = 0; ypos < Symbol::RowCount; ypos++)
+    for(qreal ypos = ClockGraphicsItem::YStartPosisiton; ypos < Symbol::RowCount; ypos+= 1.0f)
         {
             xpos = xposStart;
             for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
@@ -70,7 +70,7 @@ int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
 void ClocksLayoutViewManager::createSceneItems()
 {
     int itemIndex=0;
-    qreal xpos = ClockGraphicsItem::ClockDiameter;
+    qreal xpos = ClockGraphicsItem::XStartPosisiton;
     for(int colIndex= 0; colIndex < Symbol::ColCount; ++colIndex )
         {
             itemIndex =createSceneItems(itemIndex, xpos);
