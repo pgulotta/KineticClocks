@@ -37,34 +37,28 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
     mClocksLayoutView.scene()->setSceneRect(GetScreenRect());
 }
 
-int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
-{
-    qreal xpos = xposStart;
-    for(int row = 0; row < Symbol::RowCount; row+= 1)
-        {
-            xpos = xposStart;
-            for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
-                {
-                    mClockGraphicsItems[itemIndex] =
-                        new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta + row*ClockGraphicsItem::ClockDiameter));
-                    mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                    mClockGraphicsItems[itemIndex] =
-                        new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta  + row*ClockGraphicsItem::ClockDiameter));
-                    mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                    xpos+= ClockGraphicsItem::ClockDiameter;
-                }
-        }
-    return itemIndex;
-}
-
 void ClocksLayoutViewManager::createSceneItems()
 {
     int itemIndex=0;
-    qreal xpos = ClockGraphicsItem::XPosDelta;
-    for(int colIndex= 0; colIndex < Symbol::ColCount; ++colIndex )
+    qreal xposStart = ClockGraphicsItem::XPosDelta;
+    for(int symbolColIndex= 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
         {
-            itemIndex =createSceneItems(itemIndex, xpos);
-            xpos+= ClockGraphicsItem::ClockDiameter * Symbol::ColCount;
+            qreal xpos = xposStart;
+            for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowCount; symbolRowIndex+= 1)
+                {
+                    xpos = xposStart;
+                    for(int symbolIndex = 0; symbolIndex < Symbol::ColCount; symbolIndex++)
+                        {
+                            mClockGraphicsItems[itemIndex] =
+                                new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta + symbolRowIndex*ClockGraphicsItem::ClockDiameter));
+                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
+                            mClockGraphicsItems[itemIndex] =
+                                new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta  + symbolRowIndex*ClockGraphicsItem::ClockDiameter));
+                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
+                            xpos+= ClockGraphicsItem::ClockDiameter;
+                        }
+                }
+            xposStart+= ClockGraphicsItem::ClockDiameter * Symbol::ColCount;
         }
 }
 
@@ -75,20 +69,20 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
         {
             mCurrentDisplayTime = clockTime.toString();
             int itemIndex=0;
-            for(int colIndex = 0; colIndex < Symbol::ColCount; ++colIndex )
+            for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
                 {
-                for(int row = 0; row < Symbol::RowCount; row++)
-                    {
-                        ClockSymbols cs;
-                        std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
-                                cs.GetRow(clockTime.symbols()[colIndex],row);
-                        for_each(std::get<0>(tuple), std::get<1>(tuple),
-                                 [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
+                    for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowCount; symbolRowIndex++)
                         {
-                            items[itemIndex++]->setAngle(clock.Angle1);
-                            items[itemIndex++]->setAngle(clock.Angle2);
-                        });
-                    }
+                            ClockSymbols cs;
+                            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
+                                cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
+                            for_each(std::get<0>(tuple), std::get<1>(tuple),
+                                     [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
+                            {
+                                items[itemIndex++]->setAngle(clock.Angle1);
+                                items[itemIndex++]->setAngle(clock.Angle2);
+                            });
+                        }
                 }
             mClocksLayoutView.scene()->update();
         }

@@ -41,7 +41,7 @@ private:
     QTimer& mUpdateDisplayTimer;
     std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
     QString mCurrentDisplayTime;
-    int createSceneItems(int index, qreal xpos);
+
     void createSceneItems();
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
