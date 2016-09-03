@@ -52,14 +52,14 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
 int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
 {
     qreal xpos = xposStart;
-    for(qreal ypos = ClockGraphicsItem::YStartPosisiton; ypos < Symbol::RowCount; ypos+= 1.0f)
+    for(int row = ClockGraphicsItem::YStartPosisiton; row < Symbol::RowCount; row+= 1)
         {
             xpos = xposStart;
             for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
                 {
-                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,ypos*ClockGraphicsItem::ClockDiameter),0);
+                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,row*ClockGraphicsItem::ClockDiameter),0);
                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,ypos*ClockGraphicsItem::ClockDiameter),0);
+                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xpos,row*ClockGraphicsItem::ClockDiameter),0);
                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                     xpos+= ClockGraphicsItem::ClockDiameter;
                 }
@@ -80,17 +80,23 @@ void ClocksLayoutViewManager::createSceneItems()
 
 int ClocksLayoutViewManager::updateDisplayTime(int itemIndex,int symbolNameIndex, const ClockTime& clockTime)
 {
-    for(int ypos = 0; ypos < Symbol::RowCount; ypos++)
+    for(int row = 0; row < Symbol::RowCount; row++)
         {
             ClockSymbols cs;
-            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(clockTime.symbols()[symbolNameIndex],ypos);
+            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(clockTime.symbols()[symbolNameIndex],row);
             auto first =  std::get<0>(tuple);
             auto last =  std::get<1>(tuple);
-            std::for_each(first, last, [&itemIndex,this](const Clock &clock)
-            {
+            for( auto it = first; it != last; ++it)
+           {
+                Clock clock = *it;
                 mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
                 mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle2);
-            });
+            }
+//            std::for_each(first, last, [&itemIndex,this](const Clock &clock)
+//            {
+//                mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
+//                mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle2);
+//            });
         }
     return itemIndex;
 }
