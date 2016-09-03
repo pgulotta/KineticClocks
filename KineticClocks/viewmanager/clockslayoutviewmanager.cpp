@@ -12,13 +12,6 @@
 namespace twentysixapps
 {
 
-void ClocksLayoutViewManager::InitializeUpdateDisplayTimer()
-{
-    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
-    mUpdateDisplayTimer.setInterval(60000-QTime::currentTime().msec());
-    mUpdateDisplayTimer.start();
-}
-
 ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     QObject(nullptr),mPrimaryScreen(*primaryScreen), mClocksLayoutView(nullptr),mUpdateDisplayTimer (*new QTimer(this))
 {
@@ -29,17 +22,13 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.resize(virtualSize );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
-    InitializeUpdateDisplayTimer();
-}
-
-void ClocksLayoutViewManager::updateDisplayTimerChanged()
-{
-    updateDisplayTime();
+    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
+    mUpdateDisplayTimer.start();
 }
 
 void ClocksLayoutViewManager::showTime()
 {
-    updateDisplayTime();
+    updateDisplayTimerChanged();
     mClocksLayoutView.show();
 }
 
@@ -57,10 +46,10 @@ int ClocksLayoutViewManager::createSceneItems(int itemIndex, qreal xposStart)
             for(int xIndex = 0; xIndex < Symbol::ColCount; xIndex++)
                 {
                     mClockGraphicsItems[itemIndex] =
-                            new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta + row*ClockGraphicsItem::ClockDiameter));
+                        new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta + row*ClockGraphicsItem::ClockDiameter));
                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                     mClockGraphicsItems[itemIndex] =
-                            new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta  + row*ClockGraphicsItem::ClockDiameter));
+                        new ClockGraphicsItem( QPointF(xpos,ClockGraphicsItem::YPosDelta  + row*ClockGraphicsItem::ClockDiameter));
                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                     xpos+= ClockGraphicsItem::ClockDiameter;
                 }
@@ -95,16 +84,20 @@ int ClocksLayoutViewManager::updateDisplayTime(int itemIndex,int symbolNameIndex
     return itemIndex;
 }
 
-void ClocksLayoutViewManager::updateDisplayTime()
+void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
-     mUpdateDisplayTimer.setInterval(60000-QTime::currentTime().msec());
     ClockTime clockTime;
-    int itemIndex=0;
-    for(int colIndex = 0; colIndex < Symbol::ColCount; ++colIndex )
+    if ( mCurrentDisplayTime != clockTime.toString())
         {
-            itemIndex = updateDisplayTime(itemIndex, colIndex, clockTime);
+            mCurrentDisplayTime = clockTime.toString();
+            int itemIndex=0;
+            for(int colIndex = 0; colIndex < Symbol::ColCount; ++colIndex )
+                {
+                    itemIndex = updateDisplayTime(itemIndex, colIndex, clockTime);
+                }
+            mClocksLayoutView.scene()->update();
         }
-    mClocksLayoutView.scene()->update();
+    mUpdateDisplayTimer.setInterval(60000-QTime::currentTime().msec());
 }
 
 QRectF ClocksLayoutViewManager::GetScreenRect() const

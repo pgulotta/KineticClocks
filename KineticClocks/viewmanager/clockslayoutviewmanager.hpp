@@ -26,7 +26,7 @@ public:
     void showTime() ;
 
 
-    
+
 signals:
     void rotationChanged(qreal rotation);
 
@@ -40,12 +40,10 @@ private:
     ClockSymbols mClockSymbols;
     QTimer& mUpdateDisplayTimer;
     std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
-
+    QString mCurrentDisplayTime;
     int updateDisplayTime(int itemIndex, int symbolNameIndex, const ClockTime& clockTime);
-    void InitializeUpdateDisplayTimer();
     int createSceneItems(int index, qreal xpos);
     void createSceneItems();
-    void updateDisplayTime() ;
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 
@@ -53,5 +51,5 @@ private:
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
 
 
- };
+};
 }

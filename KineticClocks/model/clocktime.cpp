@@ -18,13 +18,11 @@ ClockTime::ClockTime():  QObject(0)
 
 void ClockTime::setDisplayTime(const QTime& displayTime)
 {
-    QString text = displayTime.toString("HHmm");
-    mSymbols[0]  =  ClockSymbols::GetSymbolName( text.at(0));
-    mSymbols[1]  =  ClockSymbols::GetSymbolName( text.at(1));
-    mSymbols[3]  =  ClockSymbols::GetSymbolName( text.at(2));
-    mSymbols[4]  =  ClockSymbols::GetSymbolName( text.at(3));
-
-    emit displayTimeChanged();
+    mText = displayTime.toString("HHmm");
+    mSymbols[0]  =  ClockSymbols::GetSymbolName( mText.at(0));
+    mSymbols[1]  =  ClockSymbols::GetSymbolName( mText.at(1));
+    mSymbols[3]  =  ClockSymbols::GetSymbolName( mText.at(2));
+    mSymbols[4]  =  ClockSymbols::GetSymbolName( mText.at(3));
 }
 
 SymbolsIterator ClockTime::symbols() const
