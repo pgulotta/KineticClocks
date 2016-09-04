@@ -89,16 +89,10 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mCurrentDisplayTime != clockTime.toString())
         {
             mCurrentDisplayTime = clockTime.toString();
-//            for(auto* it : mClockGraphicsItems)
-//                {
-//                        it->setRotationAngle((it->rotationAngle()+1)%360);
-//                }
-            for_each( mClockGraphicsItems.begin(),mClockGraphicsItems.end(),
-                      [] ( auto* item)
-            {
-                item->setRotationAngle((item->rotationAngle()+1)%360);
-            });
-
+            for(auto* it : mClockGraphicsItems)
+                {
+                    it->setRotationAngle((it->rotationAngle()+1)%360);
+                }
             int itemIndex=0;
             for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
                 {

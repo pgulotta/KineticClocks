@@ -8,7 +8,7 @@ namespace twentysixapps
 class ClockGraphicsItem : public QGraphicsItem
 {
 public:
-    const static int ClockHandLength;
+    const static qreal ClockHandLength;
     const static qreal XPosDelta ;
     const static qreal YPosDelta ;
     const static qreal ClockDiameter ;
