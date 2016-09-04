@@ -31,7 +31,7 @@ void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
     QLineF angledLine;
 
     angledLine.setP1(mSourcePoint);
-    angledLine.setAngle(mAngle);
+    angledLine.setAngle(mRotationAngle);
     angledLine.setLength(ClockHandLength);
     painter->setRenderHints(QPainter::Antialiasing);
     painter->setPen(QPen(LineColor, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
@@ -46,5 +46,15 @@ int ClockGraphicsItem::angle() const
 void ClockGraphicsItem::setAngle(int angle)
 {
     mAngle = angle;
+}
+
+int ClockGraphicsItem::rotationAngle() const
+{
+    return mRotationAngle;
+}
+
+void ClockGraphicsItem::setRotationAngle(int rotationAngle)
+{
+    mRotationAngle = rotationAngle;
 }
 }

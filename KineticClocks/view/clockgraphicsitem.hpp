@@ -23,9 +23,13 @@ public:
     int angle() const;
     void setAngle(int angle);
 
+    int rotationAngle() const;
+    void setRotationAngle(int rotationAngle);
+
 private:
     QPointF mSourcePoint;
     int  mAngle;
+    int mRotationAngle;
     explicit ClockGraphicsItem(const ClockGraphicsItem& rhs) = delete;
     ClockGraphicsItem& operator= (const ClockGraphicsItem& rhs) = delete;
 

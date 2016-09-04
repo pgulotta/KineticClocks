@@ -34,6 +34,7 @@ void ClocksLayoutViewManager::showTime()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();
+    mRotateClocksTimer.start(50);
 }
 
 void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
@@ -67,11 +68,18 @@ void ClocksLayoutViewManager::createSceneItems()
 }
 void ClocksLayoutViewManager::rotateClocksTimerChanged()
 {
-    for(auto* i : mClockGraphicsItems)
+    auto clocksUpdated = 0;
+    for(auto* it : mClockGraphicsItems)
         {
-            i->setAngle((i->angle()+1)%360);
+            if ( it->rotationAngle() == it->angle())
+                clocksUpdated++;
+            else
+                it->setRotationAngle((it->rotationAngle()+1)%360);
         }
-    mClocksLayoutView.scene()->update();
+    if( clocksUpdated == mClockGraphicsItems.size())
+        mRotateClocksTimer.stop();
+    else
+        mClocksLayoutView.scene()->update();
 }
 
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
@@ -81,6 +89,16 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mCurrentDisplayTime != clockTime.toString())
         {
             mCurrentDisplayTime = clockTime.toString();
+//            for(auto* it : mClockGraphicsItems)
+//                {
+//                        it->setRotationAngle((it->rotationAngle()+1)%360);
+//                }
+            for_each( mClockGraphicsItems.begin(),mClockGraphicsItems.end(),
+                      [] ( auto* item)
+            {
+                item->setRotationAngle((item->rotationAngle()+1)%360);
+            });
+
             int itemIndex=0;
             for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
                 {
@@ -97,15 +115,12 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             });
                         }
                 }
-            mClocksLayoutView.scene()->update();
         }
 
     auto interval = 1000 * (60-QTime::currentTime().second());
     if ( interval != mUpdateDisplayTimer.interval())
         mUpdateDisplayTimer.start(interval);
-
-    mRotateClocksTimer.start(100);
-
+    mRotateClocksTimer.start();
 }
 
 QRectF ClocksLayoutViewManager::GetScreenRect() const
