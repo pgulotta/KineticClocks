@@ -13,16 +13,20 @@ namespace twentysixapps
 {
 
 ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
-    QObject(nullptr),mPrimaryScreen(*primaryScreen), mClocksLayoutView(nullptr),mUpdateDisplayTimer (*new QTimer(this))
+    QObject(nullptr),mPrimaryScreen(*primaryScreen),
+    mClocksLayoutView(nullptr),
+    mRotateClocksTimer(*new QTimer(this)),
+    mUpdateDisplayTimer (*new QTimer(this))
 {
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-    //mClocksLayoutView.resize(virtualSize );
-    mClocksLayoutView.resize(QSize(800,600) );
+    mClocksLayoutView.resize(virtualSize );
+    // mClocksLayoutView.resize(QSize(800,600) );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
+    connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
     connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
 }
 
@@ -61,9 +65,18 @@ void ClocksLayoutViewManager::createSceneItems()
             xposStart+= ClockGraphicsItem::ClockDiameter * Symbol::ColCount;
         }
 }
+void ClocksLayoutViewManager::rotateClocksTimerChanged()
+{
+    for(auto* i : mClockGraphicsItems)
+        {
+            i->setAngle((i->angle()+1)%360);
+        }
+    mClocksLayoutView.scene()->update();
+}
 
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
+    mRotateClocksTimer.stop();
     ClockTime clockTime;
     if ( mCurrentDisplayTime != clockTime.toString())
         {
@@ -90,6 +103,8 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     auto interval = 1000 * (60-QTime::currentTime().second());
     if ( interval != mUpdateDisplayTimer.interval())
         mUpdateDisplayTimer.start(interval);
+
+    mRotateClocksTimer.start(100);
 
 }
 

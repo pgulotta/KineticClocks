@@ -23,14 +23,16 @@ public:
     const int ClockLayoutNarrowEdge = 250;
 
     ClocksLayoutViewManager(QScreen* primaryScreen);
+
     void showTime() ;
 
 
 
 signals:
-    void rotationChanged(qreal rotation);
+
 
 private slots:
+    void rotateClocksTimerChanged();
     void updateDisplayTimerChanged();
     void onOrientationChanged(Qt::ScreenOrientation newOrientation);
 
@@ -38,7 +40,9 @@ private:
     QScreen& mPrimaryScreen;
     ClocksLayoutView mClocksLayoutView;
     ClockSymbols mClockSymbols;
+    QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
+
     std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
     QString mCurrentDisplayTime;
 
