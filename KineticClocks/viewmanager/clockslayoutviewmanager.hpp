@@ -46,7 +46,8 @@ private:
     std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
     QString mCurrentDisplayTime;
 
-    void createSceneItems();
+    void createSceneFiller();
+    void createSceneSymbols();
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 

@@ -1,4 +1,5 @@
 #include "clockgraphicsitem.hpp"
+#include "model/symbol.hpp"
 #include <QPainter>
 #include <QDebug>
 
@@ -8,16 +9,17 @@ namespace twentysixapps
 
 const qreal ClockGraphicsItem::ClockRadius = 8.0f;
 const qreal ClockGraphicsItem::ClockDiameter = ClockRadius * 2.0f;
-const qreal ClockGraphicsItem::ClockHandLength = ClockRadius - 0.00f;
+const qreal ClockGraphicsItem::ClockHandLength = ClockRadius - 1.0f;
 const qreal ClockGraphicsItem::XPosDelta = 0.0f;
-const qreal ClockGraphicsItem::YPosDelta = 0.0f;
-const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::darkMagenta;
+const qreal ClockGraphicsItem::YPosDelta = ClockDiameter * Symbol::RowCount;
+const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::magenta;
 const Qt::GlobalColor ClockGraphicsItem::BackColor  = Qt::GlobalColor::black;
 
 ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
     QGraphicsItem(0),
     mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius)),
-    mAngle(angle)
+    mAngle(angle),
+    mRotationAngle(angle)
 {
 }
 

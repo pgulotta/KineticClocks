@@ -24,7 +24,8 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
     mClocksLayoutView.resize(virtualSize );
     // mClocksLayoutView.resize(QSize(800,600) );
-    createSceneItems();
+    //createSceneFiller();
+    createSceneSymbols();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
     connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
@@ -41,8 +42,32 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
 {
     mClocksLayoutView.scene()->setSceneRect(GetScreenRect());
 }
+void ClocksLayoutViewManager::createSceneFiller()
+{
+    int itemIndex=0;
+    qreal xposStart = 0.0f;
+    for(int symbolColIndex= 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
+        {
+            qreal xpos = xposStart;
+            for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowCount; symbolRowIndex+= 1)
+                {
+                    xpos = xposStart;
+                    for(int symbolIndex = 0; symbolIndex < Symbol::ColCount; symbolIndex++)
+                        {
+                            mClockGraphicsItems[itemIndex] =
+                                new ClockGraphicsItem( QPointF(xpos, symbolRowIndex*ClockGraphicsItem::ClockDiameter));
+                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
+                            mClockGraphicsItems[itemIndex] =
+                                new ClockGraphicsItem( QPointF(xpos,symbolRowIndex*ClockGraphicsItem::ClockDiameter));
+                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
+                            xpos+= ClockGraphicsItem::ClockDiameter;
+                        }
+                }
+            xposStart+= ClockGraphicsItem::ClockDiameter * Symbol::ColCount;
+        }
+}
 
-void ClocksLayoutViewManager::createSceneItems()
+void ClocksLayoutViewManager::createSceneSymbols()
 {
     int itemIndex=0;
     qreal xposStart = ClockGraphicsItem::XPosDelta;
