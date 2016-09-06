@@ -28,6 +28,8 @@ public:
 
 
 
+    void InvalidateClocks();
+    
 signals:
 
 
@@ -43,7 +45,11 @@ private:
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
 
-    std::array<ClockGraphicsItem*,Symbol::ItemCount*10> mClockGraphicsItems;
+    const int mStartItemIndexFillerTop = 0;
+    const int mStartItemIndexSymbols = Symbol::ItemCount*10;
+    const int mStartItemIndexFillerBottom= Symbol::ItemCount*10 *2;
+
+    std::array<ClockGraphicsItem*,Symbol::ItemCount*10*2> mClockGraphicsItems;
     QString mCurrentDisplayTime;
 
     void createSceneFiller();
