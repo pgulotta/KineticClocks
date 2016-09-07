@@ -7,10 +7,10 @@
 namespace twentysixapps
 {
 
-const qreal ClockGraphicsItem::ClockRadius = 8.0f;
-const qreal ClockGraphicsItem::ClockDiameter = ClockRadius * 2.0f;
+const qreal ClockGraphicsItem::ClockRadius = 6.85f;
+const qreal ClockGraphicsItem::ClockDiameter = ClockRadius *2.0f;
 const qreal ClockGraphicsItem::ClockHandLength = ClockRadius - 1.0f;
-const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::magenta;
+const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::yellow;
 const Qt::GlobalColor ClockGraphicsItem::BackColor  = Qt::GlobalColor::black;
 
 ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :

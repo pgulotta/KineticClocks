@@ -57,7 +57,7 @@ private:
     void createSceneFiller();
     void createSceneSymbols();
     void InvalidateAllClocks();
-    void InvalidateClocks(CIterator start, CIterator end,  int angleDelta=1 );
+    void InvalidateClocks(CIterator start, CIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 
