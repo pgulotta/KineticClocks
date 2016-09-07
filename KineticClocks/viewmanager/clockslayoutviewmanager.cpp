@@ -111,7 +111,7 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
 
 void ClocksLayoutViewManager::InvalidateAllClocks()
 {
-    int angleDelta =  2;
+    int angleDelta =  1;
     int indexIncrement =   1;
     for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex +=indexIncrement)
         {
@@ -119,21 +119,28 @@ void ClocksLayoutViewManager::InvalidateAllClocks()
         }
 
     angleDelta =1;
-    indexIncrement =2;
+    indexIncrement =7;
     for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
         {
             mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
         }
 
-    angleDelta =-3;
-    indexIncrement =4;
+    angleDelta = -2;
+    indexIncrement =9;
     for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
         {
             mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
         }
 
-    angleDelta = 4;
-    indexIncrement =5;
+    angleDelta = -1;
+    indexIncrement =11;
+    for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
+        {
+            mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
+        }
+
+    angleDelta = 1;
+    indexIncrement =3;
     for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
         {
             mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
@@ -148,7 +155,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mCurrentDisplayTime != clockTime.toString())
         {
             mCurrentDisplayTime = clockTime.toString();
-            InvalidateAllClocks();
+            InvalidateAllClocks( );
             int itemIndex=mStartItemIndexSymbols;
             for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
                 {
@@ -164,9 +171,9 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                                 items[itemIndex++]->setAngle(clock.Angle1);
                                 items[itemIndex++]->setAngle(clock.Angle2);
                             });
-
+                    InvalidateAllClocks( );
                         }
-                           InvalidateAllClocks( );
+
                 }
         }
 
