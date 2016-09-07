@@ -20,7 +20,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
 
-   mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
+    mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
     mClocksLayoutView.resize(virtualSize );
     // mClocksLayoutView.resize(QSize(800,600) );
     createSceneFiller();
@@ -143,7 +143,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mCurrentDisplayTime != clockTime.toString())
         {
             mCurrentDisplayTime = clockTime.toString();
-           // InvalidateAllClocks( );
+            // InvalidateAllClocks( );
             int itemIndex=mStartItemIndexSymbols;
             for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
                 {
@@ -153,13 +153,13 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
                                 cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
 
-                            for_each(std::get<0>(tuple), std::get<1>(tuple),
-                                     [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
-                            {
-                                items[itemIndex++]->setAngle(clock.Angle1);
-                                items[itemIndex++]->setAngle(clock.Angle2);
-                            });
-                                   InvalidateAllClocks( );
+                            for( ClockSymbols::_Iterator  it = std::get<0>(tuple) ; it <  std::get<1>(tuple) ; ++it)
+                                {
+                                    Clock clock = *it;
+                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
+                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle2);
+                                }
+                            InvalidateAllClocks( );
                         }
 
                 }
@@ -170,6 +170,41 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
         mUpdateDisplayTimer.start(interval);
     mRotateClocksTimer.start();
 }
+
+//void ClocksLayoutViewManager::updateDisplayTimerChanged()
+//{
+//    mRotateClocksTimer.stop();
+//    ClockTime clockTime;
+//    if ( mCurrentDisplayTime != clockTime.toString())
+//        {
+//            mCurrentDisplayTime = clockTime.toString();
+//           // InvalidateAllClocks( );
+//            int itemIndex=mStartItemIndexSymbols;
+//            for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
+//                {
+//                    for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowCount; symbolRowIndex++)
+//                        {
+//                            ClockSymbols cs;
+//                            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
+//                                cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
+
+//                            for_each(std::get<0>(tuple), std::get<1>(tuple),
+//                                     [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
+//                            {
+//                                items[itemIndex++]->setAngle(clock.Angle1);
+//                                items[itemIndex++]->setAngle(clock.Angle2);
+//                            });
+//                                   InvalidateAllClocks( );
+//                        }
+
+//                }
+//        }
+
+//    auto interval = 1000 * (60-QTime::currentTime().second());
+//    if ( interval != mUpdateDisplayTimer.interval())
+//        mUpdateDisplayTimer.start(interval);
+//    mRotateClocksTimer.start();
+//}
 
 QRectF ClocksLayoutViewManager::GetScreenRect() const
 {
