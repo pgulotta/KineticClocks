@@ -9,8 +9,6 @@ class ClockGraphicsItem : public QGraphicsItem
 {
 public:
     const static qreal ClockHandLength;
-    const static qreal XPosDelta ;
-    const static qreal YPosDelta ;
     const static qreal ClockDiameter ;
     const static qreal ClockRadius;
     const static Qt::GlobalColor LineColor ;
