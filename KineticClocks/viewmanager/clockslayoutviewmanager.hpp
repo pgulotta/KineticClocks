@@ -28,8 +28,8 @@ public:
 
 
 
-    void InvalidateClocks();
-    
+
+
 signals:
 
 
@@ -54,11 +54,14 @@ private:
 
     void createSceneFiller();
     void createSceneSymbols();
+    void InvalidateAllClocks();
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 
+
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
+
 
 
 };

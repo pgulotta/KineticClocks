@@ -2,6 +2,7 @@
 #include "view\clockgraphicsitem.hpp"
 #include "model\clock.hpp"
 #include "model\clocktime.hpp"
+#include "utils/randomgenerator.hpp"
 #include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -108,23 +109,37 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
         mClocksLayoutView.scene()->update();
 }
 
-void ClocksLayoutViewManager::InvalidateClocks()
+void ClocksLayoutViewManager::InvalidateAllClocks()
 {
-//    for(auto* it : mClockGraphicsItems)
-//        {
-//            it->setRotationAngle((it->rotationAngle()+1)%360);
-//        }
-
-    for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexSymbols;  ++itemIndex)
+    int angleDelta =  2;
+    int indexIncrement =   1;
+    for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex +=indexIncrement)
         {
-                mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+1)%360);
+            mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
         }
 
-    for (auto itemIndex =mStartItemIndexSymbols; itemIndex <  mClockGraphicsItems.size();  ++itemIndex)
+    angleDelta =1;
+    indexIncrement =2;
+    for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
         {
-            mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+1)%360);
+            mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
+        }
+
+    angleDelta =-3;
+    indexIncrement =4;
+    for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
+        {
+            mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
+        }
+
+    angleDelta = 4;
+    indexIncrement =5;
+    for (auto itemIndex =mStartItemIndexFillerTop; itemIndex <  mStartItemIndexFillerBottom;  itemIndex += indexIncrement)
+        {
+            mClockGraphicsItems[itemIndex]->setRotationAngle((mClockGraphicsItems[itemIndex]->rotationAngle()+angleDelta)%360);
         }
 }
+
 
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
@@ -133,7 +148,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mCurrentDisplayTime != clockTime.toString())
         {
             mCurrentDisplayTime = clockTime.toString();
-            InvalidateClocks();
+            InvalidateAllClocks();
             int itemIndex=mStartItemIndexSymbols;
             for(int symbolColIndex = 0; symbolColIndex < Symbol::ColCount; ++symbolColIndex )
                 {
@@ -143,14 +158,15 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
                                 cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
 
-
                             for_each(std::get<0>(tuple), std::get<1>(tuple),
                                      [&itemIndex,&items = mClockGraphicsItems](const Clock &clock)
                             {
                                 items[itemIndex++]->setAngle(clock.Angle1);
                                 items[itemIndex++]->setAngle(clock.Angle2);
                             });
+
                         }
+                           InvalidateAllClocks( );
                 }
         }
 

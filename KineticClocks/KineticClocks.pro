@@ -14,7 +14,8 @@ SOURCES += \
     utils/utils.cpp \
     view/clockgraphicsitem.cpp \
     view/clockslayoutview.cpp \
-    viewmanager/clockslayoutviewmanager.cpp
+    viewmanager/clockslayoutviewmanager.cpp \
+    utils/randomgenerator.cpp
 
 
 HEADERS += \
@@ -26,7 +27,8 @@ HEADERS += \
     view/clockgraphicsitem.hpp \
     view/clockslayoutview.hpp \
     viewmanager/clockslayoutviewmanager.hpp \
-    utils/utils.hpp
+    utils/utils.hpp \
+    utils/randomgenerator.hpp
 
 # Default rules for deployment.
 include(deployment.pri)
