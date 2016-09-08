@@ -1,6 +1,7 @@
 #include "clockslayoutviewmanager.hpp"
 #include "model\clock.hpp"
 #include "model\clocktime.hpp"
+#include "model/display.hpp"
 #include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -21,8 +22,8 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
 
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-    //  mClocksLayoutView.resize(virtualSize );
-    mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
+     mClocksLayoutView.resize(virtualSize );
+    //mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
@@ -48,7 +49,7 @@ void ClocksLayoutViewManager::createSceneItems()
     qreal yposClock = 0.0f;
     for( int rankIndex = 0;  rankIndex< GridRanks; ++rankIndex)
         {
-            for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsPerClockTime; ++symbolColIndex )
+            for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
                 {
                     for(int rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
                         {
@@ -71,11 +72,11 @@ void ClocksLayoutViewManager::createSceneItems()
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
     mRotateClocksTimer.stop();
-    ClockTime clockTime;
+    Display<ClockTime, ClockTime::SymbolsCount> clockTime{ClockTime{}} ;
     if ( mCurrentDisplayTime != clockTime.toString())
         {
             mCurrentDisplayTime = clockTime.toString();
-            int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsPerClockTime  * SymbolClockRanks;
+            int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * SymbolClockRanks;
             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
                     InvalidateAllClocks( );
@@ -118,7 +119,7 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
 void ClocksLayoutViewManager::InvalidateAllClocks()
 {
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),3,3);
+   // InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),3,3);
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -2,5);
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end() ,-1, 9);
 }

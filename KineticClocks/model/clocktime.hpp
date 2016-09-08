@@ -10,8 +10,8 @@ namespace twentysixapps
 class ClockTime
 {
 public:
-    static const int SymbolsPerClockTime = 5;
-    typedef std::array<SymbolName, SymbolsPerClockTime> Array;
+    static const int SymbolsCount = 6;
+    typedef std::array<SymbolName, SymbolsCount> Array;
     typedef  Array::const_iterator  CIterator;
 
     ClockTime ();
@@ -22,16 +22,14 @@ public:
         return mSymbols.cbegin();
     }
 
-    const QString& toString()
+    const QString& toString() const
     {
         return mText;
     }
 
 private:
-
     Array mSymbols;
     QString mText;
-    explicit ClockTime(const ClockTime& rhs) = delete;
-    ClockTime& operator= (const ClockTime& rhs) = delete;
+
 };
 }

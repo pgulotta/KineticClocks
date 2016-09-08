@@ -38,12 +38,12 @@ private slots:
 
 private:
     QScreen& mPrimaryScreen;
+    ClocksLayoutView mClocksLayoutView;
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
-    ClocksLayoutView mClocksLayoutView;
     ClockSymbols mClockSymbols;
 
-    typedef std::array<ClockGraphicsItem*, GridRanks  *   ClockTime::SymbolsPerClockTime  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
+    typedef std::array<ClockGraphicsItem*, GridRanks  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
     typedef ClockItems::const_iterator  ClockItemsCIterator;
 
     ClockItems mClockGraphicsItems;

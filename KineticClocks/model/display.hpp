@@ -14,7 +14,7 @@ public:
     typedef std::array<SymbolName, TSymbolsCount> Array;
     typedef  typename Array::const_iterator CIterator;
 
-    Display(const T& t):mDisplay(t)
+    Display(const T&& t):mDisplay( std::move(t))
     {
     }
 
@@ -23,14 +23,14 @@ public:
         return mDisplay.symbols();
     }
 
-    const QString& toString()
+    const QString& toString() const
     {
         return mDisplay.toString();
     }
 
 
 private:
-    const T&  mDisplay;
+    const T  mDisplay;
 
 
 
