@@ -43,18 +43,13 @@ private:
     ClocksLayoutView mClocksLayoutView;
     ClockSymbols mClockSymbols;
 
-
-    const int mStartItemIndexSymbols = Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsPerClockTime ;
-    const qreal mYSymbolsStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol;
-
-    typedef std::array<ClockGraphicsItem*, Symbol::ItemsPerSymbolCount*10*GridRanks>  ClockItems;
+    typedef std::array<ClockGraphicsItem*, GridRanks  *   ClockTime::SymbolsPerClockTime  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
     typedef ClockItems::const_iterator  ClockItemsCIterator;
 
     ClockItems mClockGraphicsItems;
     QString mCurrentDisplayTime;
 
     void createSceneItems();
-    void createSceneSymbols();
     void InvalidateAllClocks();
     void InvalidateClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF GetScreenRect() const;

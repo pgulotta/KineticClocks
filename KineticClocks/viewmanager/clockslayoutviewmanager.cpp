@@ -21,8 +21,8 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
 
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-  //  mClocksLayoutView.resize(virtualSize );
-      mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
+    //  mClocksLayoutView.resize(virtualSize );
+    mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
@@ -68,34 +68,39 @@ void ClocksLayoutViewManager::createSceneItems()
         }
 }
 
-void ClocksLayoutViewManager::createSceneSymbols()
+void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
-    int itemIndex=mStartItemIndexSymbols;
-    qreal xposStart = 0.0f;
-    for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsPerClockTime; ++symbolColIndex )
+    mRotateClocksTimer.stop();
+    ClockTime clockTime;
+    if ( mCurrentDisplayTime != clockTime.toString())
         {
-            qreal xpos = xposStart;
-            for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex+= 1)
+            mCurrentDisplayTime = clockTime.toString();
+            int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsPerClockTime  * SymbolClockRanks;
+            for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
-                    xpos = xposStart;
-                    for(int symbolIndex = 0; symbolIndex < Symbol::ColsPerSymbol; symbolIndex++)
+                    InvalidateAllClocks( );
+                    for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
                         {
-                            mClockGraphicsItems[itemIndex] =
-                                new ClockGraphicsItem( QPointF(xpos,mYSymbolsStartPos + symbolRowIndex*ClockGraphicsItem::ClockDiameter));
-                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                            mClockGraphicsItems[itemIndex] =
-                                new ClockGraphicsItem( QPointF(xpos,mYSymbolsStartPos  + symbolRowIndex*ClockGraphicsItem::ClockDiameter));
-                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                            xpos+= ClockGraphicsItem::ClockDiameter;
+                            ClockSymbols cs;
+                            ClockSymbols::Citerators  pair =cs.GetRow(clockTime.symbols()[colIndex],symbolRowIndex);
+                            for( ClockSymbols::CIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
+                                {
+                                    Clock clock = *it;
+                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
+                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle2);
+                                }
                         }
                 }
-            xposStart+= ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
         }
+
+    auto interval = 1000 * (60-QTime::currentTime().second());
+    if ( interval != mUpdateDisplayTimer.interval())
+        mUpdateDisplayTimer.start(interval);
+    mRotateClocksTimer.start();
 }
 void ClocksLayoutViewManager::rotateClocksTimerChanged()
 {
     size_t clocksUpdated = 0;
-
     for(auto* it : mClockGraphicsItems)
         {
             if ( it->rotationAngle() == it->angle())
@@ -104,11 +109,9 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
                 it->setRotationAngle((it->rotationAngle()+1)%360);
         }
     if( clocksUpdated == mClockGraphicsItems.size())
-        mRotateClocksTimer.stop();
+            mRotateClocksTimer.stop();
     else
-        {
             mClocksLayoutView.scene()->update();
-        }
 }
 
 
@@ -129,38 +132,6 @@ void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::ClockIte
             item->setRotationAngle((item->rotationAngle()+angleDelta)%360);
             cit+= indexIncrement;
         }
-}
-
-void ClocksLayoutViewManager::updateDisplayTimerChanged()
-{
-    mRotateClocksTimer.stop();
-    ClockTime clockTime;
-    if ( mCurrentDisplayTime != clockTime.toString())
-        {
-            mCurrentDisplayTime = clockTime.toString();
-            int itemIndex=mStartItemIndexSymbols;
-            for(int symbolColIndex = 0; symbolColIndex < Symbol::ColsPerSymbol; ++symbolColIndex )
-                {
-                    InvalidateAllClocks( );
-                    for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
-                        {
-
-                            ClockSymbols cs;
-                            ClockSymbols::Citerators  pair =cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
-                            for( ClockSymbols::CIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
-                                {
-                                    Clock clock = *it;
-                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
-                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle2);
-                                }
-                        }
-                }
-        }
-
-    auto interval = 1000 * (60-QTime::currentTime().second());
-    if ( interval != mUpdateDisplayTimer.interval())
-        mUpdateDisplayTimer.start(interval);
-    mRotateClocksTimer.start();
 }
 
 QRectF ClocksLayoutViewManager::GetScreenRect() const
