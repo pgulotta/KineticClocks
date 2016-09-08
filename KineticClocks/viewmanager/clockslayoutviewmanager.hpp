@@ -49,7 +49,7 @@ private:
     const qreal mYBottomFillerStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol*2;
 
     typedef std::array<ClockGraphicsItem*, Symbol::ItemsPerSymbolCount*10*3>  ClockItems;
-    typedef ClockItems::const_iterator  CIterator;
+    typedef ClockItems::const_iterator  ClockItemsCIterator;
 
     ClockItems mClockGraphicsItems;
     QString mCurrentDisplayTime;
@@ -57,7 +57,7 @@ private:
     void createSceneItems();
     void createSceneSymbols();
     void InvalidateAllClocks();
-    void InvalidateClocks(CIterator start, CIterator end,  int angleDelta=1 , int indexIncrement=1);
+    void InvalidateClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
 

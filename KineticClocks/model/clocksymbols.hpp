@@ -30,7 +30,8 @@ class ClockSymbols
 {
 public:
     typedef Symbol::ClocksArray::GridCIterator SymbolClocksCIterator;
-    std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator> GetRow(SymbolName name, int row) ;
+    typedef  std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator>  Citerators;
+    Citerators GetRow(SymbolName name, int row) ;
     static const int RowCount = (int)SymbolName::HorizontalLine +1;
     static SymbolName GetSymbolName(QChar symbol);
 private:

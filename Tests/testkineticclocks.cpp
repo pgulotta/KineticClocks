@@ -45,7 +45,7 @@ void TestKineticClocks::TestCreateClock()
 {
     Clock c;
     QVERIFY2(c.Angle1 == Clock::Angle1Default, "Failure");
-    QVERIFY2(c.Angle2 == Clock::Angle1Default, "Failure");
+    QVERIFY2(c.Angle2 == Clock::Angle2Default, "Failure");
 }
 
 void TestKineticClocks::TestCreateSymbol()
@@ -95,7 +95,7 @@ void TestKineticClocks::TestCreateSymbol()
 void TestKineticClocks::TestClockSymbols()
 {
     ClockSymbols cs;
-    std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator>  pair =  cs.GetRow(SymbolName::Zero,1);
+    ClockSymbols::Citerators  pair =  cs.GetRow(SymbolName::Zero,1);
     auto first =  std::get<0>(pair);
     auto last =  std::get<1>(pair);
     QVERIFY2(first[0].Angle1 == 90, "Failure");

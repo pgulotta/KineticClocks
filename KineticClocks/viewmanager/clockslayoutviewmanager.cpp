@@ -166,7 +166,7 @@ void ClocksLayoutViewManager::InvalidateAllClocks()
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end() ,-1, 9);
 }
 
-void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::CIterator start, ClocksLayoutViewManager::CIterator end, int angleDelta  , int indexIncrement)
+void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)
 {
     auto cit =start ;
     while ( cit <  end)
@@ -192,8 +192,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                         {
 
                             ClockSymbols cs;
-                            std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator>  pair =
-                                cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
+                            ClockSymbols::Citerators  pair =cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
                             for( ClockSymbols::SymbolClocksCIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
                                 {
                                     Clock clock = *it;
