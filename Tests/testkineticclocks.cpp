@@ -88,7 +88,7 @@ void TestKineticClocks::TestCreateSymbol()
         Clock(0,180),
         Clock(90,88)
     });
-    std::pair<Symbol::ClocksIterator ,Symbol::ClocksIterator>  pair =  s.GetCIterators(5);
+    std::pair<Symbol::CIterator ,Symbol::CIterator>  pair =  s.GetCIterators(5);
     auto first =  std::get<0>(pair);
     QVERIFY2(first[4].Angle2 == 88, "Failure");
 }

@@ -15,22 +15,22 @@ namespace twentysixapps
         static const int ColsPerSymbol = 5;
         static const int ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
 
-        typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> ClocksArray;
-        typedef ClocksArray::GridCIterator ClocksIterator;
+        typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> Array;
+        typedef Array::CIterator CIterator;
 
         Symbol(std::array<Clock,  ItemsPerSymbolCount>&& clocks) noexcept: mSymbolClocks (std::move(clocks))
         {
         }
 
 
-        std::pair<ClocksArray::GridCIterator ,ClocksArray::GridCIterator> GetCIterators(int row)
+        std::pair<CIterator ,CIterator> GetCIterators(int row)
         {
             return mSymbolClocks.GetCIterators(row);
         }
 
 
     private:
-        ClocksArray mSymbolClocks;
+        Array mSymbolClocks;
 
     };
 

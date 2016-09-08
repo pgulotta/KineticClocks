@@ -193,7 +193,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
 
                             ClockSymbols cs;
                             ClockSymbols::Citerators  pair =cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
-                            for( ClockSymbols::SymbolClocksCIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
+                            for( ClockSymbols::CIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
                                 {
                                     Clock clock = *it;
                                     mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
