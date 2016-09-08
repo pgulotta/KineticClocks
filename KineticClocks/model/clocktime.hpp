@@ -15,8 +15,8 @@ class ClockTime : public QObject
 {
     Q_OBJECT
 public:
-    static const int SymbolsPerDisplay = 5;
-    typedef std::array<SymbolName, SymbolsPerDisplay> Array;
+    static const int SymbolsPerClockTime = 5;
+    typedef std::array<SymbolName, SymbolsPerClockTime> Array;
     typedef  Array::const_iterator  CIterator;
 
     ClockTime ();
