@@ -26,7 +26,8 @@ HEADERS += \
     view/clockgraphicsitem.hpp \
     view/clockslayoutview.hpp \
     viewmanager/clockslayoutviewmanager.hpp \
-    utils/utils.hpp
+    utils/utils.hpp \
+    model/display.hpp
 
 # Default rules for deployment.
 include(deployment.pri)

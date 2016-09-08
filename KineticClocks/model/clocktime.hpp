@@ -1,37 +1,31 @@
 #pragma once
 
 #include "clocksymbols.hpp"
-#include <QObject>
 #include <QTime>
-
 #include <array>
 
 
 namespace twentysixapps
 {
-
-
-class ClockTime : public QObject
+class ClockTime
 {
-    Q_OBJECT
 public:
     static const int SymbolsPerClockTime = 5;
     typedef std::array<SymbolName, SymbolsPerClockTime> Array;
     typedef  Array::const_iterator  CIterator;
 
     ClockTime ();
-    ClockTime (const QTime& displayTime,QObject *parent=0);
+    ClockTime (const QTime& displayTime);
     void setDisplayTime(const QTime& displayTime);
-    CIterator  symbols() const { return mSymbols.cbegin(); }
+    CIterator  symbols() const
+    {
+        return mSymbols.cbegin();
+    }
 
     const QString& toString()
     {
         return mText;
     }
-signals:
-
-public slots:
-
 
 private:
 

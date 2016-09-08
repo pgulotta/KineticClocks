@@ -4,13 +4,13 @@
 
 namespace twentysixapps
 {
-ClockTime::ClockTime(const QTime& displayTime,QObject *parent):  QObject(parent)
+ClockTime::ClockTime(const QTime& displayTime)
 {
     mSymbols[2] = SymbolName::Colon;
     setDisplayTime(displayTime);
 }
 
-ClockTime::ClockTime():  QObject(0)
+ClockTime::ClockTime()
 {
     mSymbols[2] = SymbolName::Colon;
     setDisplayTime(QTime::currentTime());

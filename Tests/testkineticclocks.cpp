@@ -8,6 +8,8 @@
 #include "..\KineticClocks\model\symbol.hpp"
 #include "..\KineticClocks\model\clocksymbols.hpp"
 #include "..\KineticClocks\model\clocktime.hpp"
+#include "..\KineticClocks\model\display.hpp"
+
 
 using namespace twentysixapps;
 
@@ -107,16 +109,16 @@ void TestKineticClocks::TestClockSymbols()
 void TestKineticClocks::TestClockTime1()
 {
     QTime time;
-    time.setHMS(12, 38, 0);
+    time.setHMS(12, 34, 0);
     qDebug() << "Time: " << time.toString();
-    ClockTime ct{time};
+    Display<ClockTime, 5>  ct{ClockTime {time}};
     auto symbols = ct.symbols();
 
     QVERIFY2(symbols[0] == SymbolName::One, "Failure != 1");
     QVERIFY2(symbols[1] == SymbolName::Two, "Failure != 2");
     QVERIFY2(symbols[2] == SymbolName::Colon, "Failure != :");
     QVERIFY2(symbols[3] == SymbolName::Three, "Failure != 3");
-    QVERIFY2(symbols[4] == SymbolName::Eight, "Failure != 8");
+    QVERIFY2(symbols[4] == SymbolName::Four, "Failure != 4");
 
     QVERIFY2(symbols[0] != SymbolName::Zero, "Failure != 0");
     QVERIFY2(symbols[1] != SymbolName::Zero, "Failure != 0");
@@ -130,22 +132,24 @@ void TestKineticClocks::TestClockTime2()
     time.setHMS(00, 00, 0);
     qDebug() << "Time: " << time.toString();
     ClockTime ct{time};
-    auto symbols = ct.symbols();
+    Display<ClockTime, 5 > display(ct);
+    auto symbols =display.symbols();
 
     QVERIFY2(symbols[0] == SymbolName::Zero, "Failure != 0");
     QVERIFY2(symbols[1] == SymbolName::Zero, "Failure != 0");
     QVERIFY2(symbols[2] == SymbolName::Colon, "Failure != :");
     QVERIFY2(symbols[3] == SymbolName::Zero, "Failure != 0");
     QVERIFY2(symbols[4] == SymbolName::Zero, "Failure != 0");
-
-//    ClockTime defaultClockTime;
-//    auto currentTimeSymbols = defaultClockTime.symbols();
-
-//    QVERIFY2(currentTimeSymbols[0] == SymbolName::Zero, "Failure");
-//    QVERIFY2(currentTimeSymbols[1] == SymbolName::Nine, "Failure");
-//    QVERIFY2(currentTimeSymbols[2] == SymbolName::Colon, "Failure");
-//    QVERIFY2(currentTimeSymbols[3] == SymbolName::Four, "Failure");
-//    QVERIFY2(currentTimeSymbols[4] == SymbolName::Nine, "Failure");
+/*
+    ClockTime ctNow;
+    Display<ClockTime, 5 > displayNow{ctNow} ;
+    auto currentTimeSymbols =displayNow.symbols();
+    QVERIFY2(currentTimeSymbols[0] == SymbolName::One, "Failure");
+    QVERIFY2(currentTimeSymbols[1] == SymbolName::Eight, "Failure");
+    QVERIFY2(currentTimeSymbols[2] == SymbolName::Colon, "Failure");
+    QVERIFY2(currentTimeSymbols[3] == SymbolName::One, "Failure");
+    QVERIFY2(currentTimeSymbols[4] == SymbolName::One, "Failure");
+*/
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 
