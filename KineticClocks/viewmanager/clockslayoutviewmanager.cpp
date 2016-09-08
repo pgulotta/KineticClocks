@@ -24,7 +24,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.resize(virtualSize );
     //  mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
     createSceneItems();
-    createSceneSymbols();
+    // createSceneSymbols();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
     connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
@@ -78,39 +78,28 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
 
 void ClocksLayoutViewManager::createSceneItems()
 {
-    int itemIndex=mStartItemIndexFillerTop;
-    qreal xposStart = 0.0f;
-
+    int itemIndex=0;
     qreal xposClock =0.0f;
     qreal yposClock = 0.0f;
-    for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsPerClockTime; ++symbolColIndex )
+    for( int rankIndex = 0;  rankIndex< GridRanks; ++rankIndex)
         {
-            xposClock =0.0f;
-            for(int rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
+            for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsPerClockTime; ++symbolColIndex )
                 {
-                    xposClock = xposStart;
-                    for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
+                    for(int rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
                         {
-                            mClockGraphicsItems[itemIndex+mStartItemIndexFillerTop] =
-                                new ClockGraphicsItem( QPointF(xposClock, mYTopFillerStartPos + rowIndex*ClockGraphicsItem::ClockDiameter));
-                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex+mStartItemIndexFillerTop]);
-                            mClockGraphicsItems[itemIndex+mStartItemIndexFillerBottom] =
-                                new ClockGraphicsItem( QPointF(xposClock, mYBottomFillerStartPos + rowIndex*ClockGraphicsItem::ClockDiameter));
-                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex+mStartItemIndexFillerBottom]);
-                            itemIndex++;
-
-                            mClockGraphicsItems[itemIndex+mStartItemIndexFillerTop] =
-                                new ClockGraphicsItem( QPointF(xposClock, mYTopFillerStartPos + rowIndex*ClockGraphicsItem::ClockDiameter),Clock::Angle2Default);
-                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex+mStartItemIndexFillerTop]);
-                            mClockGraphicsItems[itemIndex+mStartItemIndexFillerBottom] =
-                                new ClockGraphicsItem( QPointF(xposClock, mYBottomFillerStartPos + rowIndex*ClockGraphicsItem::ClockDiameter),Clock::Angle2Default);
-                            mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex+mStartItemIndexFillerBottom]);
-                            itemIndex++;
-
-                            xposClock+= ClockGraphicsItem::ClockDiameter;
+                            yposClock = (rankIndex * ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol) + (rowIndex * ClockGraphicsItem::ClockDiameter );
+                            xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
+                            for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
+                                {
+                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xposClock, yposClock),Clock::Angle1Default);
+                                    mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
+                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem( QPointF(xposClock, yposClock),Clock::Angle2Default);
+                                    mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
+                                    xposClock += ClockGraphicsItem::ClockDiameter;
+                                }
+                            yposClock+=  ClockGraphicsItem::ClockDiameter;
                         }
                 }
-            xposStart+= ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
         }
 }
 

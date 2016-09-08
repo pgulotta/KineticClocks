@@ -20,7 +20,8 @@ class ClocksLayoutViewManager : public QObject
 public:
     const int ClockLayoutWideEdge= 400;
     const int ClockLayoutNarrowEdge = 250;
-
+    const int GridRanks = 3;
+    const int SymbolClockRanks= 1;
     ClocksLayoutViewManager(QScreen* primaryScreen);
 
     void showTime() ;
