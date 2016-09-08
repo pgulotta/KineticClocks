@@ -42,19 +42,19 @@ private:
     QTimer& mUpdateDisplayTimer;
 
     const int mStartItemIndexFillerTop = 0;
-    const int mStartItemIndexSymbols = Symbol::ItemCount*10;
-    const int mStartItemIndexFillerBottom= Symbol::ItemCount*10 *2;
+    const int mStartItemIndexSymbols = Symbol::ItemsPerSymbolCount*10;
+    const int mStartItemIndexFillerBottom= Symbol::ItemsPerSymbolCount*10 *2;
     const qreal mYTopFillerStartPos  = 0.0f;
-    const qreal mYSymbolsStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowCount;
-    const qreal mYBottomFillerStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowCount*2;
+    const qreal mYSymbolsStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol;
+    const qreal mYBottomFillerStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol*2;
 
-    typedef std::array<ClockGraphicsItem*, Symbol::ItemCount*10*3>  ClockItems;
+    typedef std::array<ClockGraphicsItem*, Symbol::ItemsPerSymbolCount*10*3>  ClockItems;
     typedef ClockItems::const_iterator  CIterator;
 
     ClockItems mClockGraphicsItems;
     QString mCurrentDisplayTime;
 
-    void createSceneFiller();
+    void createSceneItems();
     void createSceneSymbols();
     void InvalidateAllClocks();
     void InvalidateClocks(CIterator start, CIterator end,  int angleDelta=1 , int indexIncrement=1);

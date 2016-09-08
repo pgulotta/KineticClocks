@@ -9,7 +9,8 @@
 
 namespace twentysixapps
 {
-typedef std::array<SymbolName, 5>::const_iterator SymbolsIterator;
+static const int SymbolsPerDisplayTime = 5;
+typedef std::array<SymbolName, SymbolsPerDisplayTime>::const_iterator SymbolsIterator;
 
 class ClockTime : public QObject
 {
@@ -17,18 +18,23 @@ class ClockTime : public QObject
 
 
 public:
+
+
     ClockTime ();
     ClockTime (const QTime& displayTime,QObject *parent=0);
     void setDisplayTime(const QTime& displayTime);
     SymbolsIterator symbols() const;
-    const QString& toString() { return mText;}
+    const QString& toString()
+    {
+        return mText;
+    }
 signals:
 
 public slots:
 
 
 private:
-    std::array<SymbolName,5> mSymbols;
+    std::array<SymbolName, SymbolsPerDisplayTime> mSymbols;
     QString mText;
     explicit ClockTime(const ClockTime& rhs) = delete;
     ClockTime& operator= (const ClockTime& rhs) = delete;

@@ -11,14 +11,14 @@ namespace twentysixapps
     class Symbol
     {
     public:
-        static const int RowCount = 6;
-        static const int ColCount = 5;
-        static const int ItemCount = RowCount* ColCount   ;
+        static const int RowsPerSymbol = 6;
+        static const int ColsPerSymbol = 5;
+        static const int ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
 
-        typedef  Grid<Clock, RowCount, ColCount> _GridArray;
+        typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> _GridArray;
         typedef _GridArray::_Iterator _Iterator;
 
-        Symbol(std::array<Clock,  ItemCount>&& clocks) noexcept: mSymbol (std::move(clocks))
+        Symbol(std::array<Clock,  ItemsPerSymbolCount>&& clocks) noexcept: mSymbol (std::move(clocks))
         {
         }
 
