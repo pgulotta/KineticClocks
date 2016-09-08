@@ -1,6 +1,7 @@
 #pragma once
 #include "model\clocksymbols.hpp"
 #include "model\symbol.hpp"
+#include "model/clocktime.hpp"
 #include "view\clockslayoutview.hpp"
 #include "view\clockgraphicsitem.hpp"
 #include <QObject>
@@ -20,7 +21,7 @@ class ClocksLayoutViewManager : public QObject
 public:
     const int ClockLayoutWideEdge= 400;
     const int ClockLayoutNarrowEdge = 250;
-    const int GridRanks = 3;
+    static const int GridRanks = 3 ;
     const int SymbolClockRanks= 1;
     ClocksLayoutViewManager(QScreen* primaryScreen);
 
@@ -37,19 +38,16 @@ private slots:
 
 private:
     QScreen& mPrimaryScreen;
-    ClocksLayoutView mClocksLayoutView;
-    ClockSymbols mClockSymbols;
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
+    ClocksLayoutView mClocksLayoutView;
+    ClockSymbols mClockSymbols;
 
-    const int mStartItemIndexFillerTop = 0;
-    const int mStartItemIndexSymbols = Symbol::ItemsPerSymbolCount*10;
-    const int mStartItemIndexFillerBottom= Symbol::ItemsPerSymbolCount*10 *2;
-    const qreal mYTopFillerStartPos  = 0.0f;
+
+    const int mStartItemIndexSymbols = Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsPerClockTime ;
     const qreal mYSymbolsStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol;
-    const qreal mYBottomFillerStartPos  = ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol*2;
 
-    typedef std::array<ClockGraphicsItem*, Symbol::ItemsPerSymbolCount*10*3>  ClockItems;
+    typedef std::array<ClockGraphicsItem*, Symbol::ItemsPerSymbolCount*10*GridRanks>  ClockItems;
     typedef ClockItems::const_iterator  ClockItemsCIterator;
 
     ClockItems mClockGraphicsItems;
