@@ -3,6 +3,8 @@
 #include <array>
 #include <iterator>
 #include <cassert>
+#include <tuple>
+
 #include "clock.hpp"
 #include "grid.hpp"
 
@@ -23,7 +25,7 @@ namespace twentysixapps
         }
 
 
-        std::pair<CIterator ,CIterator> GetCIterators(int row)
+       std::pair<CIterator ,CIterator> GetCIterators(int row)
         {
             return mSymbolClocks.GetCIterators(row);
         }

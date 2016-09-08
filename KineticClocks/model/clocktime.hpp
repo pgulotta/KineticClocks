@@ -35,7 +35,7 @@ public slots:
 
 private:
 
-    std::array<SymbolName, SymbolsPerDisplay> mSymbols;
+    Array mSymbols;
     QString mText;
     explicit ClockTime(const ClockTime& rhs) = delete;
     ClockTime& operator= (const ClockTime& rhs) = delete;
