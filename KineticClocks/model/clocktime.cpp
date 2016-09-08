@@ -25,8 +25,5 @@ void ClockTime::setDisplayTime(const QTime& displayTime)
     mSymbols[4]  =  ClockSymbols::GetSymbolName( mText.at(3));
 }
 
-SymbolsIterator ClockTime::symbols() const
-{
-    return mSymbols.cbegin();
-}
+
 }

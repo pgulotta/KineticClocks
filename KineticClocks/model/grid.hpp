@@ -12,25 +12,23 @@ namespace twentysixapps
     {
     public:
         static const int ItemCount = TRowCount*TColumnCount;
-        typedef typename std::array<T ,ItemCount> _Grid;
-        typedef typename _Grid::const_iterator _Iterator;
-
-        // Grid() : mGrid ( std::array<T ,ItemCount>) {}
+        typedef typename std::array<T ,ItemCount> GridArray;
+        typedef typename GridArray::const_iterator GridCIterator;
 
         explicit Grid(std::array<T, ItemCount >&& items) noexcept: mGrid (std::move(items)) {}
 
-        std::tuple<_Iterator ,_Iterator> GetIterators(int row)
+        std::pair<GridCIterator ,GridCIterator> GetCIterators(int row)
         {
             assert(row < TRowCount || row>=0);
             auto begin = mGrid.cbegin() + (row * TColumnCount);
             auto end = begin + TColumnCount;
-            return std::make_tuple(begin, end);
+            return std::make_pair(begin, end);
         }
 
 
 
     private:
-        _Grid mGrid;
+        GridArray mGrid;
 
 
 

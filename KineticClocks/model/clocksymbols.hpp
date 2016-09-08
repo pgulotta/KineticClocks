@@ -29,8 +29,8 @@ enum class SymbolName
 class ClockSymbols
 {
 public:
-    typedef Symbol::_GridArray::_Iterator _Iterator;
-    std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator> GetRow(SymbolName name, int row) ;
+    typedef Symbol::ClocksArray::GridCIterator SymbolClocksCIterator;
+    std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator> GetRow(SymbolName name, int row) ;
     static const int RowCount = (int)SymbolName::HorizontalLine +1;
     static SymbolName GetSymbolName(QChar symbol);
 private:

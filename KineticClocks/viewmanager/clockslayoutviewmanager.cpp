@@ -192,9 +192,9 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                         {
 
                             ClockSymbols cs;
-                            std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =
+                            std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator>  pair =
                                 cs.GetRow(clockTime.symbols()[symbolColIndex],symbolRowIndex);
-                            for( ClockSymbols::_Iterator  it = std::get<0>(tuple) ; it <  std::get<1>(tuple) ; ++it)
+                            for( ClockSymbols::SymbolClocksCIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
                                 {
                                     Clock clock = *it;
                                     mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);

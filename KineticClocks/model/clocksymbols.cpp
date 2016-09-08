@@ -504,9 +504,9 @@ SymbolName ClockSymbols::GetSymbolName(QChar symbol)
     return name;
 }
 
-std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  ClockSymbols::GetRow(SymbolName name, int row)
+std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator>  ClockSymbols::GetRow(SymbolName name, int row)
 {
-    return gArray[(int)name].GetIterators(row);
+    return gArray[(int)name].GetCIterators(row);
 }
 
 }

@@ -88,16 +88,16 @@ void TestKineticClocks::TestCreateSymbol()
         Clock(0,180),
         Clock(90,88)
     });
-    std::tuple<Symbol::_Iterator ,Symbol::_Iterator>  tuple =  s.GetIterators(5);
-    auto first =  std::get<0>(tuple);
+    std::pair<Symbol::ClocksIterator ,Symbol::ClocksIterator>  pair =  s.GetCIterators(5);
+    auto first =  std::get<0>(pair);
     QVERIFY2(first[4].Angle2 == 88, "Failure");
 }
 void TestKineticClocks::TestClockSymbols()
 {
     ClockSymbols cs;
-    std::tuple<ClockSymbols::_Iterator ,ClockSymbols::_Iterator>  tuple =  cs.GetRow(SymbolName::Zero,1);
-    auto first =  std::get<0>(tuple);
-    auto last =  std::get<1>(tuple);
+    std::pair<ClockSymbols::SymbolClocksCIterator ,ClockSymbols::SymbolClocksCIterator>  pair =  cs.GetRow(SymbolName::Zero,1);
+    auto first =  std::get<0>(pair);
+    auto last =  std::get<1>(pair);
     QVERIFY2(first[0].Angle1 == 90, "Failure");
     std::for_each(first, last, [](const Clock &clock)
     {
