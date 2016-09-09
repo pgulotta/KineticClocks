@@ -23,7 +23,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
    // mClocksLayoutView.resize(virtualSize );
     qDebug() << "Setting  size to virtualSize = " <<  virtualSize;
-     mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
+     mClocksLayoutView.resize(300, 300);
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
