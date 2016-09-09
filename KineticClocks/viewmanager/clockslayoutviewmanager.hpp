@@ -19,8 +19,8 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
-    const int ClockLayoutWideEdge= 400;
-    const int ClockLayoutNarrowEdge = 250;
+    const int ClockLayoutWideEdge= 500;
+    const int ClockLayoutNarrowEdge = 368;
     static const int GridRanks = 3 ;
     const int SymbolClockRanks= 1;
     ClocksLayoutViewManager(QScreen* primaryScreen);
@@ -50,7 +50,7 @@ private:
     QString mCurrentDisplayTime;
 
     void createSceneItems();
-    void InvalidateAllClocks();
+    void InvalidatelClocks();
     void InvalidateClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF GetScreenRect() const;
     QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;

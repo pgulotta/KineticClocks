@@ -21,8 +21,9 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-  //mClocksLayoutView.resize(virtualSize );
-    mClocksLayoutView.resize(virtualSize.width(), virtualSize.height() );
+    mClocksLayoutView.resize(virtualSize );
+    qDebug() << "Setting  size to virtualSize = " <<  virtualSize;
+    // mClocksLayoutView.resize(virtualSize.width(), virtualSize.height() );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
@@ -74,7 +75,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     Display<ClockTime, ClockTime::SymbolsCount> clockTime{ClockTime{}} ;
     if ( mCurrentDisplayTime != clockTime.toString())
         {
-            InvalidateAllClocks( );
+            InvalidatelClocks( );
             mCurrentDisplayTime = clockTime.toString();
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * SymbolClockRanks;
             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
@@ -114,12 +115,13 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
         mClocksLayoutView.scene()->update();
 }
 
-void ClocksLayoutViewManager::InvalidateAllClocks()
+void ClocksLayoutViewManager::InvalidatelClocks()
 {
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),2,9);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,3);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 1,5);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 , 4);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -2,3);
+
 }
 
 void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)
