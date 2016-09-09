@@ -79,7 +79,6 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * SymbolClockRanks;
             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
-
                     for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
                         {
                             ClockSymbols cs;
@@ -123,22 +122,12 @@ void ClocksLayoutViewManager::InvalidateAllClocks()
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
 }
 
-//void ClocksLayoutViewManager::InvalidateAllClocks()
-//{
-//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
-//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),3,9);
-//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,3);
-//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
-//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end() ,-1, 9);
-//}
-
 void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)
 {
     for( auto cit =start ; cit <  end; cit+= indexIncrement)
         {
             auto* item = *cit;
             item->setRotationAngle((item->rotationAngle()+angleDelta)%360);
-            cit+= indexIncrement;
         }
 }
 

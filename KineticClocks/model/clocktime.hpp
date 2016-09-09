@@ -10,7 +10,7 @@ namespace twentysixapps
 class ClockTime
 {
 public:
-    static const int SymbolsCount = 6;
+    static const int SymbolsCount = 5;
     typedef std::array<SymbolName, SymbolsCount> Array;
     typedef  Array::const_iterator  CIterator;
 
