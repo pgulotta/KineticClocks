@@ -20,9 +20,8 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
-
     mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-     mClocksLayoutView.resize(virtualSize );
+    mClocksLayoutView.resize(virtualSize );
     //mClocksLayoutView.resize(virtualSize.width()/2, virtualSize.height()/2 );
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
@@ -34,7 +33,7 @@ void ClocksLayoutViewManager::showTime()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();
-    mRotateClocksTimer.start(50);
+    mRotateClocksTimer.start(5);
 }
 
 void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
@@ -75,11 +74,12 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     Display<ClockTime, ClockTime::SymbolsCount> clockTime{ClockTime{}} ;
     if ( mCurrentDisplayTime != clockTime.toString())
         {
+            InvalidateAllClocks( );
             mCurrentDisplayTime = clockTime.toString();
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * SymbolClockRanks;
             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
-                    InvalidateAllClocks( );
+
                     for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
                         {
                             ClockSymbols cs;
@@ -110,24 +110,31 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
                 it->setRotationAngle((it->rotationAngle()+1)%360);
         }
     if( clocksUpdated == mClockGraphicsItems.size())
-            mRotateClocksTimer.stop();
+        mRotateClocksTimer.stop();
     else
-            mClocksLayoutView.scene()->update();
+        mClocksLayoutView.scene()->update();
 }
-
 
 void ClocksLayoutViewManager::InvalidateAllClocks()
 {
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
-   // InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),3,3);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -2,5);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end() ,-1, 9);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),2,9);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,3);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
 }
+
+//void ClocksLayoutViewManager::InvalidateAllClocks()
+//{
+//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
+//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),3,9);
+//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,3);
+//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
+//    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end() ,-1, 9);
+//}
 
 void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)
 {
-    auto cit =start ;
-    while ( cit <  end)
+    for( auto cit =start ; cit <  end; cit+= indexIncrement)
         {
             auto* item = *cit;
             item->setRotationAngle((item->rotationAngle()+angleDelta)%360);
