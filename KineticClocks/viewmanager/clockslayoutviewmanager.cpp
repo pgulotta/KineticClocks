@@ -8,22 +8,24 @@
 #include <QScreen>
 #include <QDebug>
 #include <QTimer>
+#include <QColor>
 
 namespace twentysixapps
 {
-ClocksLayoutViewManager::ClocksLayoutViewManager(QScreen* primaryScreen):
-    QObject(nullptr),mPrimaryScreen(*primaryScreen),
-    mClocksLayoutView(nullptr),
+QColor LineColor  = Qt::GlobalColor::yellow;
+QColor BackColor  = Qt::GlobalColor::black;
+
+ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen):
+    QObject(parent ),mPrimaryScreen(*primaryScreen),
     mRotateClocksTimer(*new QTimer(this)),
     mUpdateDisplayTimer (*new QTimer(this))
 {
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
     mClocksLayoutView.setScene(new QGraphicsScene(GetScreenRect()));
-    mClocksLayoutView.scene()->setBackgroundBrush(ClockGraphicsItem::BackColor);
-   // mClocksLayoutView.resize(virtualSize );
+    mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
+     mClocksLayoutView.resize(virtualSize.width()/2 , virtualSize.height()/2 );
     qDebug() << "Setting  size to virtualSize = " <<  virtualSize;
-     mClocksLayoutView.resize(300, 300);
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
@@ -34,7 +36,7 @@ void ClocksLayoutViewManager::showTime()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();
-    mRotateClocksTimer.start(5);
+    mRotateClocksTimer.start(25);
 }
 
 void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation )
@@ -57,9 +59,9 @@ void ClocksLayoutViewManager::createSceneItems()
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
-                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( QPointF(xposClock, yposClock),Clock::Angle1Default);
+                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( LineColor, QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem( QPointF(xposClock, yposClock),Clock::Angle2Default);
+                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem( LineColor, QPointF(xposClock, yposClock),Clock::Angle2Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                                     xposClock += ClockGraphicsItem::ClockDiameter;
                                 }
@@ -86,9 +88,8 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             ClockSymbols::Citerators  pair =cs.GetRow(clockTime.symbols()[colIndex],symbolRowIndex);
                             for( ClockSymbols::CIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
                                 {
-                                    Clock clock = *it;
-                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle1);
-                                    mClockGraphicsItems[itemIndex++]->setAngle(clock.Angle2);
+                                    mClockGraphicsItems[itemIndex++]->setAngle(it->Angle1);
+                                    mClockGraphicsItems[itemIndex++]->setAngle(it->Angle2);
                                 }
                         }
                 }
@@ -104,10 +105,21 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
     size_t clocksUpdated = 0;
     for(auto* it : mClockGraphicsItems)
         {
-            if ( it->rotationAngle() == it->angle())
-                clocksUpdated++;
+            if (  it->rotationAngle()  == it->angle())
+                {
+                    clocksUpdated++;
+                }
             else
-                it->setRotationAngle((it->rotationAngle()+1)%360);
+                {
+                    it->setRotationAngle(( it->rotationAngle() +1)%360);
+#ifdef Q_OS_ANDROID
+                    if (  it->rotationAngle()  != it->angle())
+                        it->setRotationAngle(( it->rotationAngle() +1)%360);
+#elif Q_OS_IOS
+                    if (  it->rotationAngle()  != it->angle())
+                        it->setRotationAngle(( it->rotationAngle() +1)%360);
+#endif
+                }
         }
     if( clocksUpdated == mClockGraphicsItems.size())
         mRotateClocksTimer.stop();
@@ -118,10 +130,9 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
 void ClocksLayoutViewManager::InvalidatelClocks()
 {
     InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 1,5);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 , 4);
-    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -2,3);
-
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 1,3);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
+    InvalidateClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 ,6);
 }
 
 void ClocksLayoutViewManager::InvalidateClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)
@@ -138,11 +149,10 @@ QRectF ClocksLayoutViewManager::GetScreenRect() const
     return GetScreenRect(mPrimaryScreen.primaryOrientation());
 }
 
-QRectF ClocksLayoutViewManager::GetScreenRect(Qt::ScreenOrientation orientation) const
+QRectF ClocksLayoutViewManager::GetScreenRect(Qt::ScreenOrientation ) const
 {
-    bool isPortrait = mPrimaryScreen.isPortrait(orientation);
-    qreal width = isPortrait? ClockLayoutNarrowEdge : ClockLayoutWideEdge;
-    qreal height = isPortrait? ClockLayoutWideEdge:ClockLayoutNarrowEdge;
+    qreal width = ClockLayoutWidth;
+    qreal height =ClockLayoutHeight;
     return QRectF{0, 0, width, height };
 }
 }

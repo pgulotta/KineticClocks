@@ -19,12 +19,9 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
-    const int ClockLayoutWideEdge= 500;
-    const int ClockLayoutNarrowEdge = 360;
     static const int GridRanks = 3 ;
     const int SymbolClockRanks= 1;
-    ClocksLayoutViewManager(QScreen* primaryScreen);
-
+    ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen);
     void showTime() ;
 
 
@@ -37,15 +34,17 @@ private slots:
     void onOrientationChanged(Qt::ScreenOrientation newOrientation);
 
 private:
+    typedef std::array<ClockGraphicsItem*, GridRanks  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
+    typedef ClockItems::const_iterator  ClockItemsCIterator;
+
+    const int ClockLayoutWidth= 500;
+    const int ClockLayoutHeight = 360;
+
     QScreen& mPrimaryScreen;
     ClocksLayoutView mClocksLayoutView;
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
     ClockSymbols mClockSymbols;
-
-    typedef std::array<ClockGraphicsItem*, GridRanks  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
-    typedef ClockItems::const_iterator  ClockItemsCIterator;
-
     ClockItems mClockGraphicsItems;
     QString mCurrentDisplayTime;
 

@@ -10,15 +10,17 @@ namespace twentysixapps
 const qreal ClockGraphicsItem::ClockRadius =10.0f;
 const qreal ClockGraphicsItem::ClockDiameter = ClockRadius *2.0f;
 const qreal ClockGraphicsItem::ClockHandLength = ClockRadius * 0.8f;
-const Qt::GlobalColor ClockGraphicsItem::LineColor  = Qt::GlobalColor::red;
-const Qt::GlobalColor ClockGraphicsItem::BackColor  = Qt::GlobalColor::black;
 
-ClockGraphicsItem::ClockGraphicsItem(QPointF sourcePoint,int angle) :
+
+ClockGraphicsItem::ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint,int angle) :
     QGraphicsItem(0),
+    mPen(penColor),
     mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius)),
+    mAngledLine(sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius, 0,0 ),
     mAngle(angle),
     mRotationAngle(angle)
 {
+    mAngledLine.setLength(ClockHandLength);
 }
 
 QRectF twentysixapps::ClockGraphicsItem::boundingRect() const
@@ -29,14 +31,10 @@ QRectF twentysixapps::ClockGraphicsItem::boundingRect() const
 void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
         const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QLineF angledLine;
-
-    angledLine.setP1(mSourcePoint);
-    angledLine.setAngle(mRotationAngle);
-    angledLine.setLength(ClockHandLength);
     painter->setRenderHints(QPainter::Antialiasing);
-    painter->setPen(QPen(LineColor, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    painter->drawLine(angledLine);
+    painter->setPen(mPen);
+    mAngledLine.setAngle(mRotationAngle);
+    painter->drawLine(mAngledLine);
 }
 
 int ClockGraphicsItem::angle() const
