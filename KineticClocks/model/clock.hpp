@@ -5,19 +5,19 @@ namespace twentysixapps
 class Clock
 {
 public:
-    const static int Angle1Default = 45;
-    const static int Angle2Default = 225;
-    const static int  AnglesPerClock = 2;
+    constexpr static int Angle1Default = 45;
+    constexpr static int Angle2Default = 225;
+    constexpr static int  AnglesPerClock = 2;
 
     Clock() = default;
     Clock(int angle1, int angle2) : mAngle1 (angle1), mAngle2 (angle2) {}
 
-    constexpr   int getAngle1() const
+    constexpr   int angle1() const
     {
         return mAngle1;
     }
 
-    constexpr  int getAngle2() const
+    constexpr  int angle2() const
     {
         return mAngle2;
     }

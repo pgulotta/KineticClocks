@@ -46,8 +46,8 @@ void TestKineticClocks::cleanupTestCase()
 void TestKineticClocks::TestCreateClock()
 {
     Clock c;
-    QVERIFY2(c.getAngle1() == Clock::Angle1Default, "Failure");
-    QVERIFY2(c.getAngle2() == Clock::Angle2Default, "Failure");
+    QVERIFY2(c.angle1() == Clock::Angle1Default, "Failure");
+    QVERIFY2(c.angle2() == Clock::Angle2Default, "Failure");
 }
 
 void TestKineticClocks::TestCreateSymbol()
@@ -92,7 +92,7 @@ void TestKineticClocks::TestCreateSymbol()
     });
     std::pair<Symbol::CIterator ,Symbol::CIterator>  pair =  s.getCIterators(5);
     auto first =  std::get<0>(pair);
-    QVERIFY2(first[4].getAngle2() == 88, "Failure");
+    QVERIFY2(first[4].angle2() == 88, "Failure");
 }
 void TestKineticClocks::TestClockSymbols()
 {
@@ -100,10 +100,10 @@ void TestKineticClocks::TestClockSymbols()
     ClockSymbols::Citerators  pair =  cs.getRow(SymbolName::Zero,1);
     auto first =  std::get<0>(pair);
     auto last =  std::get<1>(pair);
-    QVERIFY2(first[0].getAngle1() == 90, "Failure");
+    QVERIFY2(first[0].angle1() == 90, "Failure");
     std::for_each(first, last, [](const Clock &clock)
     {
-        qDebug() << "angle1=" << clock.getAngle1() << "  angle2=" << clock.getAngle2();
+        qDebug() << "angle1=" << clock.angle1() << "  angle2=" << clock.angle2();
     });
 }
 void TestKineticClocks::TestClockTime1()

@@ -7,7 +7,7 @@
 #include <QObject>
 #include <QRectF>
 #include <array>
-
+#include "utils/utils.hpp"
 
 class QTimer;
 
@@ -21,7 +21,13 @@ class ClocksLayoutViewManager : public QObject
 public:
     static constexpr int GridsDepth = 3 ;
     static constexpr  int DisplayGridIndex= 1;
+
     ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen);
+    ~ClocksLayoutViewManager()
+    {
+        Utils::destructorMsg(this);
+    }
+
     void showTime() ;
 
 

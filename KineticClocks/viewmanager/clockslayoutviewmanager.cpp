@@ -25,7 +25,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* pr
     mClocksLayoutView.setScene(new QGraphicsScene(getScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
      mClocksLayoutView.resize(virtualSize.width()/2 , virtualSize.height()/2 );
-    qDebug() << "Setting  size to virtualSize = " <<  virtualSize;
+
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
@@ -88,8 +88,8 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             ClockSymbols::Citerators  pair =cs.getRow(clockSymbols.getSymbols()[colIndex],symbolRowIndex);
                             for( ClockSymbols::CIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
                                 {
-                                    mClockGraphicsItems[itemIndex++]->setAngle(it->getAngle1());
-                                    mClockGraphicsItems[itemIndex++]->setAngle(it->getAngle2());
+                                    mClockGraphicsItems[itemIndex++]->setAngle(it->angle1());
+                                    mClockGraphicsItems[itemIndex++]->setAngle(it->angle2());
                                 }
                         }
                 }
@@ -132,7 +132,7 @@ void ClocksLayoutViewManager::invalidatelClocks()
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 1,3);
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 ,6);
+    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 ,4);
 }
 
 void ClocksLayoutViewManager::invalidatelClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)

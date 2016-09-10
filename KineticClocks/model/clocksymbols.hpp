@@ -31,8 +31,10 @@ class ClockSymbols
 public:
     typedef Symbol::Array::CIterator CIterator;
     typedef  std::pair<CIterator ,CIterator>  Citerators;
+
+      static constexpr size_t RowCount = (size_t)SymbolName::HorizontalLine +1;
+
     Citerators getRow(SymbolName name, int row)  const;
-    static constexpr size_t RowCount = (size_t)SymbolName::HorizontalLine +1;
     static   SymbolName getSymbolName(QChar symbol) ;
 
 

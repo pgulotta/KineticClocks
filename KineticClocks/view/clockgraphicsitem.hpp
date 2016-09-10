@@ -15,7 +15,7 @@ public:
     const static qreal ClockDiameter ;
     const static qreal ClockRadius;
 
-    explicit ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint = {ClockDiameter, ClockDiameter}, int angle = {Clock::Angle1Default});
+    ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint = {ClockDiameter, ClockDiameter}, int angle = {Clock::Angle1Default});
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 

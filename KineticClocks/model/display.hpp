@@ -14,7 +14,7 @@ public:
     typedef std::array<SymbolName, TSymbolsCount> Array;
     typedef  typename Array::const_iterator CIterator;
 
-    Display(const T&& t):mDisplay( std::move(t))
+    explicit Display(const T&& t):mDisplay( std::move(t))
     {
     }
 
