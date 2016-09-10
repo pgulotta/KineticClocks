@@ -28,7 +28,7 @@ public:
         Utils::destructorMsg(this);
     }
 
-    void showTime() ;
+    void displaySymbols() ;
 
 
 signals:

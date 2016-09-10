@@ -23,6 +23,11 @@ public:
         return mDisplay.getSymbols();
     }
 
+    void refresh()
+    {
+        mDisplay.refresh();
+    }
+
     const QString& toString() const
     {
         return mDisplay.toString();

@@ -17,6 +17,9 @@ public:
     ClockTime ();
     ClockTime (const QTime& displayTime);
     void setDisplayTime(const QTime& displayTime);
+
+    void refresh();
+
     CIterator  getSymbols() const
     {
         return mSymbols.cbegin();

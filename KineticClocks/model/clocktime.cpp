@@ -13,7 +13,7 @@ ClockTime::ClockTime(const QTime& displayTime)
 ClockTime::ClockTime()
 {
     mSymbols[2] = SymbolName::Colon;
-    setDisplayTime(QTime::currentTime());
+    refresh();
 }
 
 void ClockTime::setDisplayTime(const QTime& displayTime)
@@ -23,6 +23,11 @@ void ClockTime::setDisplayTime(const QTime& displayTime)
     mSymbols[1]  =  ClockSymbols::getSymbolName( mText.at(1));
     mSymbols[3]  =  ClockSymbols::getSymbolName( mText.at(2));
     mSymbols[4]  =  ClockSymbols::getSymbolName( mText.at(3));
+}
+
+void ClockTime::refresh()
+{
+     setDisplayTime(QTime::currentTime());
 }
 
 

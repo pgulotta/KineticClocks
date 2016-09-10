@@ -12,6 +12,6 @@ auto main(int argc, char *argv[]) -> int
     QApplication app(argc, argv);
     QObject::connect(&app, &QApplication::lastWindowClosed,&app, &QApplication::quit);
     ClocksLayoutViewManager manager(&app,  app.primaryScreen());
-    manager.showTime();
+    manager.displaySymbols();
     return app.exec();
 }

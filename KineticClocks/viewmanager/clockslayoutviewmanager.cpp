@@ -32,7 +32,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* pr
     connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
 }
 
-void ClocksLayoutViewManager::showTime()
+void ClocksLayoutViewManager::displaySymbols()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();

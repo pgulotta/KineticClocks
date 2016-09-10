@@ -143,13 +143,22 @@ void TestKineticClocks::TestClockTime2()
 
 /*
     Display<ClockTime, 5 > displayNow{ClockTime{}} ;
-    auto currentTimeSymbols =displayNow.symbols();
+    auto currentTimeSymbols =displayNow.getSymbols();
     QVERIFY2(currentTimeSymbols[0] == SymbolName::One, "Failure");
-    QVERIFY2(currentTimeSymbols[1] == SymbolName::Eight, "Failure");
+    QVERIFY2(currentTimeSymbols[1] == SymbolName::Five, "Failure");
     QVERIFY2(currentTimeSymbols[2] == SymbolName::Colon, "Failure");
-    QVERIFY2(currentTimeSymbols[3] == SymbolName::One, "Failure");
+    QVERIFY2(currentTimeSymbols[3] == SymbolName::Three, "Failure");
     QVERIFY2(currentTimeSymbols[4] == SymbolName::Eight, "Failure");
-*/
+
+    Display<ClockTime, 5 > refreshTime{ClockTime{time}} ;
+    refreshTime.refresh();
+    auto refreshTimeSymbols =refreshTime.getSymbols();
+    QVERIFY2(refreshTimeSymbols[0] == SymbolName::One, "Failure");
+    QVERIFY2(refreshTimeSymbols[1] == SymbolName::Five, "Failure");
+    QVERIFY2(refreshTimeSymbols[2] == SymbolName::Colon, "Failure");
+    QVERIFY2(refreshTimeSymbols[3] == SymbolName::Three, "Failure");
+    QVERIFY2(refreshTimeSymbols[4] == SymbolName::Eight, "Failure");
+    */
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 
