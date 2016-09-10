@@ -20,7 +20,7 @@ public:
 
     constexpr   CIterator getSymbols() const
     {
-        return mDisplay.symbols();
+        return mDisplay.getSymbols();
     }
 
     const QString& toString() const

@@ -11,13 +11,13 @@ template<typename T,int TRowCount , int TColumnCount>
 class Grid
 {
 public:
-    static const size_t ItemCount = TRowCount*TColumnCount;
+    static constexpr size_t ItemCount = TRowCount*TColumnCount;
     typedef typename std::array<T ,ItemCount> Array;
     typedef typename Array::const_iterator CIterator;
 
     explicit Grid(Array && items) noexcept: mGrid (std::move(items)) {}
 
-    std::pair<CIterator ,CIterator> getCIterators(int row)
+    std::pair<CIterator ,CIterator> getCIterators(int row) const
     {
         assert(row < TRowCount || row>=0);
         auto begin = mGrid.cbegin() + (row * TColumnCount);

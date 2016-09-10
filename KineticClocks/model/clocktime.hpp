@@ -10,14 +10,14 @@ namespace twentysixapps
 class ClockTime
 {
 public:
-    static const size_t SymbolsCount = 5;
+    static constexpr size_t SymbolsCount = 5;
     typedef std::array<SymbolName, SymbolsCount> Array;
     typedef  Array::const_iterator  CIterator;
 
     ClockTime ();
     ClockTime (const QTime& displayTime);
     void setDisplayTime(const QTime& displayTime);
-    CIterator  symbols() const
+    CIterator  getSymbols() const
     {
         return mSymbols.cbegin();
     }
