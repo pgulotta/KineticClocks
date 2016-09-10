@@ -458,7 +458,7 @@ std::array<Symbol,ClockSymbols::RowCount> gArray(
 });
 
 
-SymbolName ClockSymbols::GetSymbolName(QChar symbol)
+SymbolName ClockSymbols::getSymbolName(QChar symbol)
 {
     SymbolName name = SymbolName::Colon;
     if ( symbol.isDigit())
@@ -504,9 +504,9 @@ SymbolName ClockSymbols::GetSymbolName(QChar symbol)
     return name;
 }
 
-ClockSymbols::Citerators  ClockSymbols::GetRow(SymbolName name, int row)
+ClockSymbols::Citerators  ClockSymbols::getRow(SymbolName name, int row)
 {
-    return gArray[(int)name].GetCIterators(row);
+    return gArray[(int)name].getCIterators(row);
 }
 
 }

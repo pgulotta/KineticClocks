@@ -18,7 +18,7 @@ public:
     {
     }
 
-    CIterator symbols() const
+    CIterator getSymbols() const
     {
         return mDisplay.symbols();
     }

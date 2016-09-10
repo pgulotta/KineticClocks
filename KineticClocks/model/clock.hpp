@@ -10,11 +10,22 @@ public:
     const static int  AnglesPerClock = 2;
 
     Clock() = default;
-    Clock(int angle1, int angle2) : Angle1 (angle1), Angle2 (angle2) {}
-    const int Angle1{Angle1Default};
-    const int Angle2 {Angle2Default};
+    Clock(int angle1, int angle2) : mAngle1 (angle1), mAngle2 (angle2) {}
+
+    int getAngle1() const
+    {
+        return mAngle1;
+    }
+
+    int getAngle2() const
+    {
+        return mAngle2;
+    }
 
 private:
+    const int mAngle1 {Angle1Default};
+    const int mAngle2 {Angle2Default};
+
 
 };
 

@@ -17,7 +17,7 @@ public:
 
     explicit Grid(Array && items) noexcept: mGrid (std::move(items)) {}
 
-    std::pair<CIterator ,CIterator> GetCIterators(int row)
+    std::pair<CIterator ,CIterator> getCIterators(int row)
     {
         assert(row < TRowCount || row>=0);
         auto begin = mGrid.cbegin() + (row * TColumnCount);

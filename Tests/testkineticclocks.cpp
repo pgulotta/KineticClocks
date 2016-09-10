@@ -46,8 +46,8 @@ void TestKineticClocks::cleanupTestCase()
 void TestKineticClocks::TestCreateClock()
 {
     Clock c;
-    QVERIFY2(c.Angle1 == Clock::Angle1Default, "Failure");
-    QVERIFY2(c.Angle2 == Clock::Angle2Default, "Failure");
+    QVERIFY2(c.getAngle1() == Clock::Angle1Default, "Failure");
+    QVERIFY2(c.getAngle2() == Clock::Angle2Default, "Failure");
 }
 
 void TestKineticClocks::TestCreateSymbol()
@@ -90,20 +90,20 @@ void TestKineticClocks::TestCreateSymbol()
         Clock(0,180),
         Clock(90,88)
     });
-    std::pair<Symbol::CIterator ,Symbol::CIterator>  pair =  s.GetCIterators(5);
+    std::pair<Symbol::CIterator ,Symbol::CIterator>  pair =  s.getCIterators(5);
     auto first =  std::get<0>(pair);
-    QVERIFY2(first[4].Angle2 == 88, "Failure");
+    QVERIFY2(first[4].getAngle2() == 88, "Failure");
 }
 void TestKineticClocks::TestClockSymbols()
 {
     ClockSymbols cs;
-    ClockSymbols::Citerators  pair =  cs.GetRow(SymbolName::Zero,1);
+    ClockSymbols::Citerators  pair =  cs.getRow(SymbolName::Zero,1);
     auto first =  std::get<0>(pair);
     auto last =  std::get<1>(pair);
-    QVERIFY2(first[0].Angle1 == 90, "Failure");
+    QVERIFY2(first[0].getAngle1() == 90, "Failure");
     std::for_each(first, last, [](const Clock &clock)
     {
-        qDebug() << "angle1=" << clock.Angle1 << "  angle2=" << clock.Angle2;
+        qDebug() << "angle1=" << clock.getAngle1() << "  angle2=" << clock.getAngle2();
     });
 }
 void TestKineticClocks::TestClockTime1()
@@ -112,7 +112,7 @@ void TestKineticClocks::TestClockTime1()
     time.setHMS(12, 34, 0);
     qDebug() << "Time: " << time.toString();
     Display<ClockTime,  ClockTime::SymbolsCount>  ct{ClockTime {time}};
-    auto symbols = ct.symbols();
+    auto symbols = ct.getSymbols();
 
     QVERIFY2(symbols[0] == SymbolName::One, "Failure != 1");
     QVERIFY2(symbols[1] == SymbolName::Two, "Failure != 2");
@@ -133,7 +133,7 @@ void TestKineticClocks::TestClockTime2()
     qDebug() << "Time: " << time.toString();
 
     Display<ClockTime, ClockTime::SymbolsCount > display( ClockTime {time} );
-    auto symbols =display.symbols();
+    auto symbols =display.getSymbols();
 
     QVERIFY2(symbols[0] == SymbolName::Zero, "Failure != 0");
     QVERIFY2(symbols[1] == SymbolName::Zero, "Failure != 0");

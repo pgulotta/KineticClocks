@@ -19,8 +19,8 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
-    static const int GridRanks = 3 ;
-    const int SymbolClockRanks= 1;
+    static const int LayoutRank = 3 ;
+    const int SymbolRank= 1;
     ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen);
     void showTime() ;
 
@@ -34,7 +34,7 @@ private slots:
     void onOrientationChanged(Qt::ScreenOrientation newOrientation);
 
 private:
-    typedef std::array<ClockGraphicsItem*, GridRanks  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
+    typedef std::array<ClockGraphicsItem*, LayoutRank  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
     typedef ClockItems::const_iterator  ClockItemsCIterator;
 
     const int ClockLayoutWidth= 500;
@@ -46,13 +46,13 @@ private:
     QTimer& mUpdateDisplayTimer;
     ClockSymbols mClockSymbols;
     ClockItems mClockGraphicsItems;
-    QString mCurrentDisplayTime;
+    QString mDisplayedSymbols;
 
     void createSceneItems();
-    void InvalidatelClocks();
-    void InvalidateClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
-    QRectF GetScreenRect() const;
-    QRectF GetScreenRect(Qt::ScreenOrientation orientation) const;
+    void invalidatelClocks();
+    void invalidatelClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
+    QRectF getScreenRect() const;
+    QRectF getScreenRect(Qt::ScreenOrientation orientation) const;
 
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;

@@ -25,9 +25,9 @@ namespace twentysixapps
         }
 
 
-       std::pair<CIterator ,CIterator> GetCIterators(int row)
+       std::pair<CIterator ,CIterator> getCIterators(int row)
         {
-            return mSymbolClocks.GetCIterators(row);
+            return mSymbolClocks.getCIterators(row);
         }
 
 
