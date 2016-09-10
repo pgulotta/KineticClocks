@@ -49,13 +49,13 @@ void ClocksLayoutViewManager::createSceneItems()
     int itemIndex=0;
     qreal xposClock =0.0f;
     qreal yposClock = 0.0f;
-    for( int rankIndex = 0;  rankIndex< LayoutRank; ++rankIndex)
+    for( int gridIndex = 0;  gridIndex< GridsDepth; ++gridIndex)
         {
             for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
                 {
                     for(int rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
                         {
-                            yposClock = (rankIndex * ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol) + (rowIndex * ClockGraphicsItem::ClockDiameter );
+                            yposClock = (gridIndex * ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol) + (rowIndex * ClockGraphicsItem::ClockDiameter );
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
@@ -79,7 +79,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
         {
             invalidatelClocks( );
             mDisplayedSymbols = clockSymbols.toString();
-            int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * SymbolRank;
+            int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
                     for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)

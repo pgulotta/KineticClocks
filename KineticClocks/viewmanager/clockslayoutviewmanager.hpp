@@ -19,8 +19,8 @@ class ClocksLayoutViewManager : public QObject
 {
     Q_OBJECT
 public:
-    static const int LayoutRank = 3 ;
-    const int SymbolRank= 1;
+    static constexpr int GridsDepth = 3 ;
+    static constexpr  int DisplayGridIndex= 1;
     ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen);
     void showTime() ;
 
@@ -34,11 +34,11 @@ private slots:
     void onOrientationChanged(Qt::ScreenOrientation newOrientation);
 
 private:
-    typedef std::array<ClockGraphicsItem*, LayoutRank  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
+    typedef std::array<ClockGraphicsItem*, GridsDepth  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
     typedef ClockItems::const_iterator  ClockItemsCIterator;
 
-    const int ClockLayoutWidth= 500;
-    const int ClockLayoutHeight = 360;
+    static constexpr int  ClockLayoutWidth= 500;
+    static constexpr int ClockLayoutHeight = 360;
 
     QScreen& mPrimaryScreen;
     ClocksLayoutView mClocksLayoutView;
@@ -57,7 +57,8 @@ private:
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
-
+    ClocksLayoutViewManager(ClocksLayoutViewManager&&) =delete;
+    ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
 
 
 };
