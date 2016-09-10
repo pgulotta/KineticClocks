@@ -13,9 +13,9 @@ namespace twentysixapps
     class Symbol
     {
     public:
-        static const int RowsPerSymbol = 6;
-        static const int ColsPerSymbol = 5;
-        static const int ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
+        static const size_t RowsPerSymbol = 6;
+        static const size_t ColsPerSymbol = 5;
+        static const size_t ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
 
         typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> Array;
         typedef Array::CIterator CIterator;

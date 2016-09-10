@@ -11,7 +11,7 @@ template<typename T,int TRowCount , int TColumnCount>
 class Grid
 {
 public:
-    static const int ItemCount = TRowCount*TColumnCount;
+    static const size_t ItemCount = TRowCount*TColumnCount;
     typedef typename std::array<T ,ItemCount> Array;
     typedef typename Array::const_iterator CIterator;
 

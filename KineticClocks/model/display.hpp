@@ -7,7 +7,7 @@
 
 namespace twentysixapps
 {
-template<typename T , int TSymbolsCount>
+template<typename T , size_t TSymbolsCount>
 class Display
 {
 public:
@@ -18,7 +18,7 @@ public:
     {
     }
 
-    CIterator getSymbols() const
+    constexpr   CIterator getSymbols() const
     {
         return mDisplay.symbols();
     }
@@ -30,7 +30,7 @@ public:
 
 
 private:
-    const T  mDisplay;
+    T  mDisplay;
 
 
 
