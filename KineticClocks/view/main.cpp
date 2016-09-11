@@ -13,8 +13,8 @@ auto main(int argc, char *argv[]) -> int
     QApplication app(argc, argv);
     QObject::connect(&app, &QApplication::lastWindowClosed,&app, &QApplication::quit);
 
-    TimeDisplayAdapter* displayAdapter = new  TimeDisplayAdapter();
-   ClocksLayoutViewManager manager(&app,  app.primaryScreen(), displayAdapter);
+   TimeDisplayAdapter displayAdapter ;
+   ClocksLayoutViewManager manager(&app,  app.primaryScreen(), &displayAdapter);
     manager.displaySymbols();
 
     return app.exec();

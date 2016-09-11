@@ -24,7 +24,8 @@ public:
     static constexpr int GridsDepth = 3 ;
     static constexpr  int DisplayGridIndex= 1;
 
-    ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen,  TimeDisplayAdapter* displayAdapter);
+    ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen,    TimeDisplayAdapter* displayAdapter);
+
     ~ClocksLayoutViewManager()
     {
         Utils::destructorMsg(this);
@@ -49,7 +50,7 @@ private:
     static constexpr int ClockLayoutHeight = 360;
 
     QScreen& mPrimaryScreen;
-    DisplayAdapter&  mDisplayAdapter;
+     DisplayAdapter&  mDisplayAdapter;
     ClocksLayoutView mClocksLayoutView;
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
