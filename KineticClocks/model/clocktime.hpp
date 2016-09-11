@@ -25,10 +25,18 @@ public:
         return mSymbols.cbegin();
     }
 
+    SymbolName  getSymbolName(int colIndex) const
+    {
+        return getSymbols()[colIndex];
+    }
+
     const QString& toString() const
     {
         return mText;
     }
+
+
+
 
 private:
     Array mSymbols;

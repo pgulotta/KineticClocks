@@ -1,13 +1,15 @@
 #pragma once
 #include "model\clocksymbols.hpp"
 #include "model\symbol.hpp"
-#include "model/clocktime.hpp"
+#include "model\clocktime.hpp"
+#include "model/display.hpp"
 #include "view\clockslayoutview.hpp"
 #include "view\clockgraphicsitem.hpp"
+#include "utils/utils.hpp"
 #include <QObject>
 #include <QRectF>
 #include <array>
-#include "utils/utils.hpp"
+
 
 class QTimer;
 
@@ -22,7 +24,7 @@ public:
     static constexpr int GridsDepth = 3 ;
     static constexpr  int DisplayGridIndex= 1;
 
-    ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen);
+    ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen,  TimeDisplayAdapter* displayAdapter);
     ~ClocksLayoutViewManager()
     {
         Utils::destructorMsg(this);
@@ -47,6 +49,7 @@ private:
     static constexpr int ClockLayoutHeight = 360;
 
     QScreen& mPrimaryScreen;
+    DisplayAdapter&  mDisplayAdapter;
     ClocksLayoutView mClocksLayoutView;
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
@@ -59,7 +62,6 @@ private:
     void invalidatelClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF getScreenRect() const;
     QRectF getScreenRect(Qt::ScreenOrientation orientation) const;
-
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;

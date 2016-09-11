@@ -112,18 +112,17 @@ void TestKineticClocks::TestClockTime1()
     time.setHMS(12, 34, 0);
     qDebug() << "Time: " << time.toString();
     Display<ClockTime,  ClockTime::SymbolsCount>  ct{ClockTime {time}};
-    auto symbols = ct.getSymbols();
 
-    QVERIFY2(symbols[0] == SymbolName::One, "Failure != 1");
-    QVERIFY2(symbols[1] == SymbolName::Two, "Failure != 2");
-    QVERIFY2(symbols[2] == SymbolName::Colon, "Failure != :");
-    QVERIFY2(symbols[3] == SymbolName::Three, "Failure != 3");
-    QVERIFY2(symbols[4] == SymbolName::Four, "Failure != 4");
+    QVERIFY2(ct.getSymbolName(0) ==  SymbolName::One, "Failure != 1");
+    QVERIFY2(ct.getSymbolName(1) == SymbolName::Two, "Failure != 2");
+    QVERIFY2(ct.getSymbolName(2) == SymbolName::Colon, "Failure != :");
+    QVERIFY2(ct.getSymbolName(3) == SymbolName::Three, "Failure != 3");
+    QVERIFY2(ct.getSymbolName(4) == SymbolName::Four, "Failure != 4");
 
-    QVERIFY2(symbols[0] != SymbolName::Zero, "Failure != 0");
-    QVERIFY2(symbols[1] != SymbolName::Zero, "Failure != 0");
-    QVERIFY2(symbols[3] != SymbolName::Zero, "Failure != 0");
-    QVERIFY2(symbols[4] != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(0) != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(1) != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(3) != SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(4)!= SymbolName::Zero, "Failure != 0");
 }
 
 void TestKineticClocks::TestClockTime2()
@@ -132,33 +131,30 @@ void TestKineticClocks::TestClockTime2()
     time.setHMS(00, 00, 0);
     qDebug() << "Time: " << time.toString();
 
-    Display<ClockTime, ClockTime::SymbolsCount > display( ClockTime {time} );
-    auto symbols =display.getSymbols();
+    Display<ClockTime, ClockTime::SymbolsCount > ct( ClockTime {time} );
 
-    QVERIFY2(symbols[0] == SymbolName::Zero, "Failure != 0");
-    QVERIFY2(symbols[1] == SymbolName::Zero, "Failure != 0");
-    QVERIFY2(symbols[2] == SymbolName::Colon, "Failure != :");
-    QVERIFY2(symbols[3] == SymbolName::Zero, "Failure != 0");
-    QVERIFY2(symbols[4] == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(0) == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(1) == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(2) == SymbolName::Colon, "Failure != :");
+    QVERIFY2(ct.getSymbolName(3) == SymbolName::Zero, "Failure != 0");
+    QVERIFY2(ct.getSymbolName(4) == SymbolName::Zero, "Failure != 0");
 
-/*
+    /*
     Display<ClockTime, 5 > displayNow{ClockTime{}} ;
-    auto currentTimeSymbols =displayNow.getSymbols();
-    QVERIFY2(currentTimeSymbols[0] == SymbolName::One, "Failure");
-    QVERIFY2(currentTimeSymbols[1] == SymbolName::Five, "Failure");
-    QVERIFY2(currentTimeSymbols[2] == SymbolName::Colon, "Failure");
-    QVERIFY2(currentTimeSymbols[3] == SymbolName::Three, "Failure");
-    QVERIFY2(currentTimeSymbols[4] == SymbolName::Eight, "Failure");
+    QVERIFY2(displayNow.getSymbolName(0) == SymbolName::One, "Failure");
+    QVERIFY2(displayNow.getSymbolName(1) == SymbolName::Three, "Failure");
+    QVERIFY2(displayNow.getSymbolName(2) == SymbolName::Colon, "Failure");
+    QVERIFY2(displayNow.getSymbolName(3) == SymbolName::Zero, "Failure");
+    QVERIFY2(displayNow.getSymbolName(4) == SymbolName::Eight, "Failure");
 
     Display<ClockTime, 5 > refreshTime{ClockTime{time}} ;
     refreshTime.refresh();
-    auto refreshTimeSymbols =refreshTime.getSymbols();
-    QVERIFY2(refreshTimeSymbols[0] == SymbolName::One, "Failure");
-    QVERIFY2(refreshTimeSymbols[1] == SymbolName::Five, "Failure");
-    QVERIFY2(refreshTimeSymbols[2] == SymbolName::Colon, "Failure");
-    QVERIFY2(refreshTimeSymbols[3] == SymbolName::Three, "Failure");
-    QVERIFY2(refreshTimeSymbols[4] == SymbolName::Eight, "Failure");
-    */
+    QVERIFY2(refreshTime.getSymbolName(0) == SymbolName::One, "Failure");
+    QVERIFY2(refreshTime.getSymbolName(1)  == SymbolName::Three, "Failure");
+    QVERIFY2(refreshTime.getSymbolName(2) == SymbolName::Colon, "Failure");
+    QVERIFY2(refreshTime.getSymbolName(3) == SymbolName::Zero, "Failure");
+    QVERIFY2(refreshTime.getSymbolName(4) == SymbolName::Eight, "Failure");
+*/
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 

@@ -1,7 +1,5 @@
 #include "clockslayoutviewmanager.hpp"
 #include "model\clock.hpp"
-#include "model\clocktime.hpp"
-#include "model/display.hpp"
 #include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -15,8 +13,10 @@ namespace twentysixapps
 QColor LineColor  = Qt::GlobalColor::yellow;
 QColor BackColor  = Qt::GlobalColor::black;
 
-ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen):
-    QObject(parent ),mPrimaryScreen(*primaryScreen),
+ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen,  TimeDisplayAdapter* displayAdapter):
+    QObject(parent ),
+    mPrimaryScreen(*primaryScreen),
+    mDisplayAdapter(*displayAdapter),
     mRotateClocksTimer(*new QTimer(this)),
     mUpdateDisplayTimer (*new QTimer(this))
 {
@@ -24,7 +24,7 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* pr
 
     mClocksLayoutView.setScene(new QGraphicsScene(getScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
-     mClocksLayoutView.resize(virtualSize.width()/2 , virtualSize.height()/2 );
+    mClocksLayoutView.resize(virtualSize.width()/2 , virtualSize.height()/2 );
 
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
@@ -74,22 +74,22 @@ void ClocksLayoutViewManager::createSceneItems()
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
     mRotateClocksTimer.stop();
-    Display<ClockTime, ClockTime::SymbolsCount> clockSymbols{ClockTime{}} ;
-    if ( mDisplayedSymbols != clockSymbols.toString())
+    mDisplayAdapter.refresh();
+    if ( mDisplayedSymbols != mDisplayAdapter.toString())
         {
             invalidatelClocks( );
-            mDisplayedSymbols = clockSymbols.toString();
+            mDisplayedSymbols = mDisplayAdapter.toString();
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
             for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
                     for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
                         {
                             ClockSymbols cs;
-                            ClockSymbols::Citerators  pair =cs.getRow(clockSymbols.getSymbols()[colIndex],symbolRowIndex);
-                            for( ClockSymbols::CIterator  it = std::get<0>(pair) ; it <  std::get<1>(pair) ; ++it)
+                            ClockSymbols::Citerators  pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);
+                            for( ClockSymbols::CIterator  cit = std::get<0>(pair) ; cit <  std::get<1>(pair) ; ++cit)
                                 {
-                                    mClockGraphicsItems[itemIndex++]->setAngle(it->angle1());
-                                    mClockGraphicsItems[itemIndex++]->setAngle(it->angle2());
+                                    mClockGraphicsItems[itemIndex++]->setAngle(cit->angle1());
+                                    mClockGraphicsItems[itemIndex++]->setAngle(cit->angle2());
                                 }
                         }
                 }

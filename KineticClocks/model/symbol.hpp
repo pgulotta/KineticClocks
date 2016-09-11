@@ -10,31 +10,29 @@
 
 namespace twentysixapps
 {
-    class Symbol
+class Symbol
+{
+public:
+    static constexpr size_t RowsPerSymbol = 6;
+    static constexpr size_t ColsPerSymbol = 5;
+    static constexpr size_t ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
+
+    typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> Array;
+    typedef Array::CIterator CIterator;
+
+    Symbol(std::array<Clock,  ItemsPerSymbolCount>&& clocks) noexcept: mSymbolClocks (std::move(clocks))
     {
-    public:
-        static constexpr size_t RowsPerSymbol = 6;
-        static constexpr size_t ColsPerSymbol = 5;
-        static constexpr size_t ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
+    }
 
-        typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> Array;
-        typedef Array::CIterator CIterator;
+    std::pair<CIterator ,CIterator> getCIterators(int row) const
+    {
+        return mSymbolClocks.getCIterators(row);
+    }
 
-        Symbol(std::array<Clock,  ItemsPerSymbolCount>&& clocks) noexcept: mSymbolClocks (std::move(clocks))
-        {
-        }
+private:
+    Array mSymbolClocks;
 
-
-       std::pair<CIterator ,CIterator> getCIterators(int row) const
-        {
-            return mSymbolClocks.getCIterators(row);
-        }
-
-
-    private:
-        Array mSymbolClocks;
-
-    };
+};
 
 
 }

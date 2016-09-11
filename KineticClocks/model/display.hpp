@@ -1,5 +1,7 @@
 #pragma once
 
+
+#include "clocktime.hpp"
 #include <array>
 #include <iterator>
 #include <cassert>
@@ -14,18 +16,18 @@ public:
     typedef std::array<SymbolName, TSymbolsCount> Array;
     typedef  typename Array::const_iterator CIterator;
 
-    explicit Display(const T&& t):mDisplay( std::move(t))
+    Display( const T&& t): mDisplay( std::move(t))
     {
-    }
-
-    constexpr   CIterator getSymbols() const
-    {
-        return mDisplay.getSymbols();
     }
 
     void refresh()
     {
         mDisplay.refresh();
+    }
+
+    SymbolName  getSymbolName(int colIndex) const
+    {
+        return mDisplay.getSymbols()[colIndex];
     }
 
     const QString& toString() const
@@ -37,6 +39,44 @@ public:
 private:
     T  mDisplay;
 
+};
+
+class DisplayAdapter
+{
+public:
+    virtual void refresh() = 0;
+
+    virtual   SymbolName  getSymbolName(int colIndex) const = 0;
+
+    virtual  const QString& toString() const = 0;
+
+
+};
+
+class TimeDisplayAdapter : public DisplayAdapter
+{
+public:
+
+    TimeDisplayAdapter( ) :mDisplayClockTime(ClockTime{}) {}
+
+    virtual  void refresh()
+    {
+        mDisplayClockTime.refresh();
+    }
+
+    virtual  SymbolName  getSymbolName(int colIndex) const
+    {
+        return mDisplayClockTime.getSymbolName(colIndex);
+    }
+
+    virtual  const QString& toString() const
+    {
+        return mDisplayClockTime.toString();
+    }
+
+
+private:
+    Display<ClockTime, ClockTime::SymbolsCount> mDisplayClockTime;
 
 
 };
