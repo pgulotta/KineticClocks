@@ -21,7 +21,7 @@ public:
         mDisplay.refresh();
     }
 
-    SymbolName  getSymbolName(int colIndex) const
+    SymbolName  getSymbolName(size_t colIndex) const
     {
         return mDisplay.getSymbols()[colIndex];
     }
@@ -42,7 +42,7 @@ class DisplayAdapter
 public:
     virtual void refresh() = 0;
 
-    virtual   SymbolName  getSymbolName(int colIndex) const = 0;
+    virtual   SymbolName  getSymbolName(size_t colIndex) const = 0;
 
     virtual  const QString& toString() const = 0;
 
@@ -60,7 +60,7 @@ public:
         mDisplayClockTime.refresh();
     }
 
-    virtual  SymbolName  getSymbolName(int colIndex) const
+    virtual  SymbolName  getSymbolName(size_t colIndex) const
     {
         return mDisplayClockTime.getSymbolName(colIndex);
     }

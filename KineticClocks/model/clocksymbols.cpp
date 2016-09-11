@@ -505,9 +505,9 @@ SymbolName ClockSymbols::getSymbolName(QChar symbol)
 }
 
 
-ClockSymbols::Citerators  ClockSymbols::getRow(SymbolName name, int row) const
+ClockSymbols::Citerators  ClockSymbols::getRow(SymbolName name, size_t row) const
 {
-    return gArray[(int)name].getCIterators(row);
+    return gArray[static_cast<int>(name)].getCIterators(row);
 }
 
 }

@@ -25,7 +25,7 @@ public:
         return mSymbols.cbegin();
     }
 
-    SymbolName  getSymbolName(int colIndex) const
+    SymbolName  getSymbolName(size_t colIndex) const
     {
         return getSymbols()[colIndex];
     }

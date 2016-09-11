@@ -22,7 +22,7 @@ public:
     static constexpr int GridsDepth = 3 ;
     static constexpr  int DisplayGridIndex= 1;
 
-    ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,     TimeDisplayAdapter* displayAdapter);
+    ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,     DisplayAdapter* displayAdapter);
 
     ~ClocksLayoutViewManager()
     {

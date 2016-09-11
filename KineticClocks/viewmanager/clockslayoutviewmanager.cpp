@@ -13,7 +13,7 @@ namespace twentysixapps
 QColor LineColor  = Qt::GlobalColor::yellow;
 QColor BackColor  = Qt::GlobalColor::black;
 
-ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,    TimeDisplayAdapter* displayAdapter):
+ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,    DisplayAdapter* displayAdapter):
     QObject(parent ),
     mPrimaryScreen(*primaryScreen),
     mDisplayAdapter(*displayAdapter),
@@ -52,13 +52,13 @@ void ClocksLayoutViewManager::createSceneItems()
     qreal yposClock = 0.0f;
     for( int gridIndex = 0;  gridIndex< GridsDepth; ++gridIndex)
         {
-            for(int symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
+            for(size_t symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
                 {
-                    for(int rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
+                    for(size_t rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
                         {
                             yposClock = (gridIndex * ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol) + (rowIndex * ClockGraphicsItem::ClockDiameter );
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
-                            for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
+                            for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
                                     mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( LineColor, QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
@@ -81,9 +81,9 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
             invalidatelClocks( );
             mDisplayedSymbols = mDisplayAdapter.toString();
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
-            for(int colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
+            for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
                 {
-                    for(int symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
+                    for(size_t symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
                         {
                             ClockSymbols cs;
                             ClockSymbols::Citerators  pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);

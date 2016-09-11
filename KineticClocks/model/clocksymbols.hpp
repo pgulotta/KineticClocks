@@ -1,10 +1,10 @@
 #pragma once
 
+#include "symbol.hpp"
 #include <QChar>
-
 #include <array>
 #include <iterator>
-#include "symbol.hpp"
+
 
 
 namespace twentysixapps
@@ -34,7 +34,7 @@ public:
 
       static constexpr size_t RowCount = (size_t)SymbolName::HorizontalLine +1;
 
-    Citerators getRow(SymbolName name, int row)  const;
+    Citerators getRow(SymbolName name, size_t row)  const;
     static   SymbolName getSymbolName(QChar symbol) ;
 
 
