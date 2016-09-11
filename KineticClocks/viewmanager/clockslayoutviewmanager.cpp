@@ -13,7 +13,7 @@ namespace twentysixapps
 QColor LineColor  = Qt::GlobalColor::yellow;
 QColor BackColor  = Qt::GlobalColor::black;
 
-ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   QScreen* primaryScreen,    TimeDisplayAdapter* displayAdapter):
+ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,    TimeDisplayAdapter* displayAdapter):
     QObject(parent ),
     mPrimaryScreen(*primaryScreen),
     mDisplayAdapter(*displayAdapter),
