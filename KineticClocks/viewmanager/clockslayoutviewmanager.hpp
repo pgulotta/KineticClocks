@@ -8,11 +8,9 @@
 #include "utils/utils.hpp"
 #include <QObject>
 #include <QRectF>
-#include <array>
 
 
 class QTimer;
-
 namespace twentysixapps
 {
 class ClockTime;
@@ -30,8 +28,6 @@ public:
     {
         Utils::destructorMsg(this);
     }
-
-    void displaySymbols() ;
 
 
 signals:
@@ -58,6 +54,7 @@ private:
     ClockItems mClockGraphicsItems;
     QString mDisplayedSymbols;
 
+    void displaySymbols() ;
     void createSceneItems();
     void invalidatelClocks();
     void invalidatelClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);

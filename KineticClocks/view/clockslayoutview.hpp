@@ -3,7 +3,6 @@
 #include "utils/utils.hpp"
 
 
-
 namespace twentysixapps
 {
 class ClocksLayoutView : public QGraphicsView

@@ -1,11 +1,7 @@
 #pragma once
 
-
 #include "clocktime.hpp"
-#include <array>
-#include <iterator>
-#include <cassert>
-#include <tuple>
+
 
 namespace twentysixapps
 {

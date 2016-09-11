@@ -1,10 +1,9 @@
 #pragma once
 
 #include <array>
-#include <vector>
 #include <iterator>
-#include <cassert>
 #include <tuple>
+#include <cassert>
 
 namespace twentysixapps
 {
@@ -24,13 +23,6 @@ public:
         auto begin = mGrid.cbegin() + (row * TColumnCount);
         auto end = begin + TColumnCount;
         return std::make_pair(begin, end);
-    }
-
-    std::vector<int>  getColumns(int row) const
-    {
-        assert(row < TRowCount || row>=0);
-        auto begin = mGrid.cbegin() + (row * TColumnCount);
-        return    std::vector<int>  {begin, TColumnCount};
     }
 
 private:

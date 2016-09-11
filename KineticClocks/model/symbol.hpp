@@ -2,9 +2,7 @@
 
 #include <array>
 #include <iterator>
-#include <cassert>
 #include <tuple>
-
 #include "clock.hpp"
 #include "grid.hpp"
 

@@ -1,5 +1,5 @@
 #include "clocktime.hpp"
-
+#include <QTime>
 #include <QDebug>
 
 namespace twentysixapps

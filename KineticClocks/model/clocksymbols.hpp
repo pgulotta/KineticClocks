@@ -1,11 +1,11 @@
 #pragma once
 
 #include <QChar>
-#include <memory>
+
 #include <array>
 #include <iterator>
 #include "symbol.hpp"
-#include "grid.hpp"
+
 
 namespace twentysixapps
 {

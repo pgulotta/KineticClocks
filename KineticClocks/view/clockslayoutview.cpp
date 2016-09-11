@@ -4,7 +4,7 @@
 #include "model\symbol.hpp"
 #include "model\clocksymbols.hpp"
 #include <QGraphicsItem>
-#include <QDebug>
+
 
 namespace twentysixapps
 {
