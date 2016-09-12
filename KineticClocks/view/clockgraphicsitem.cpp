@@ -37,6 +37,16 @@ void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
     painter->drawLine(mAngledLine);
 }
 
+void ClockGraphicsItem::setPenColor(QColor color)
+{
+     mPen.setColor(color);
+}
+
+QColor ClockGraphicsItem::penColor() const
+{
+    return mPen.color();
+}
+
 int ClockGraphicsItem::angle() const
 {
     return mAngle;

@@ -18,6 +18,8 @@ public:
     ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint = {ClockDiameter, ClockDiameter}, int angle = {Clock::Angle1Default});
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void setPenColor(QColor color);
+    QColor penColor() const;
 
     int angle() const;
     void setAngle(int angle);
@@ -25,8 +27,11 @@ public:
     int rotationAngle() const;
     void setRotationAngle(int rotationAngle);
 
+
+
 private:
     QPen mPen;
+    QColor mPenColor;
     QPointF mSourcePoint;
     QLineF mAngledLine;
     int  mAngle;

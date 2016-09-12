@@ -41,6 +41,7 @@ private slots:
 private:
     typedef std::array<ClockGraphicsItem*, GridsDepth  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
     typedef ClockItems::const_iterator  ClockItemsCIterator;
+    typedef ClockItems::iterator  ClockItemsIterator;
 
     static constexpr int  ClockLayoutWidth= 500;
     static constexpr int ClockLayoutHeight = 360;
@@ -54,17 +55,22 @@ private:
     ClockItems mClockGraphicsItems;
     QString mDisplayedSymbols;
 
+    void changePenColor();
     void displaySymbols() ;
     void createSceneItems();
     void invalidatelClocks();
-    void invalidatelClocks(ClockItemsCIterator start, ClockItemsCIterator end,  int angleDelta=1 , int indexIncrement=1);
+    void invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF getScreenRect() const;
     QRectF getScreenRect(Qt::ScreenOrientation orientation) const;
+
+    QColor mLineColor  = Qt::GlobalColor::white;
+    QColor mBackColor  = Qt::GlobalColor::black;
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
     ClocksLayoutViewManager(ClocksLayoutViewManager&&) =delete;
     ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
+
 
 
 };

@@ -1,11 +1,13 @@
 #pragma once
-#include <QWidget>
+#include <QObject>
+#include <QString>
 #include <memory>
 
-namespace twentysixapps{
-  class Utils
-  {
-  public:
+namespace twentysixapps
+{
+class Utils
+{
+public:
     Utils();
 
     static void destructorMsg(const QString& value);
@@ -18,11 +20,13 @@ namespace twentysixapps{
     }
 
 
-  private:
+private:
     explicit Utils(const Utils& rhs) = delete;
     Utils& operator= (const Utils& rhs) = delete;
-  };
-}
+    Utils(Utils&&) =delete;
+    Utils& operator=(Utils&&) =delete;
 
+};
+}
 
 

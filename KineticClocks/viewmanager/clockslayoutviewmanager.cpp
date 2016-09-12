@@ -1,5 +1,6 @@
 #include "clockslayoutviewmanager.hpp"
 #include "model\clock.hpp"
+#include "utils/colorgenerator.hpp"
 #include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -10,8 +11,6 @@
 
 namespace twentysixapps
 {
-QColor LineColor  = Qt::GlobalColor::yellow;
-QColor BackColor  = Qt::GlobalColor::black;
 
 ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,    DisplayAdapter* displayAdapter):
     QObject(parent ),
@@ -20,12 +19,12 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mRotateClocksTimer(*new QTimer(this)),
     mUpdateDisplayTimer (*new QTimer(this))
 {
+    ColorGenerator::initialize();
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
     mClocksLayoutView.setScene(new QGraphicsScene(getScreenRect()));
-    mClocksLayoutView.scene()->setBackgroundBrush(BackColor);
+    mClocksLayoutView.scene()->setBackgroundBrush(mBackColor);
     mClocksLayoutView.resize(virtualSize.width()/2 , virtualSize.height()/2 );
-
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
@@ -52,17 +51,22 @@ void ClocksLayoutViewManager::createSceneItems()
     qreal yposClock = 0.0f;
     for( int gridIndex = 0;  gridIndex< GridsDepth; ++gridIndex)
         {
+
             for(size_t symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
                 {
+
                     for(size_t rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
                         {
+
                             yposClock = (gridIndex * ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol) + (rowIndex * ClockGraphicsItem::ClockDiameter );
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
-                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( LineColor, QPointF(xposClock, yposClock),Clock::Angle1Default);
+
+
+                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( mLineColor, QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem( LineColor, QPointF(xposClock, yposClock),Clock::Angle2Default);
+                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem( mLineColor, QPointF(xposClock, yposClock),Clock::Angle2Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                                     xposClock += ClockGraphicsItem::ClockDiameter;
                                 }
@@ -89,6 +93,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             ClockSymbols::Citerators  pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);
                             for( ClockSymbols::CIterator  cit = std::get<0>(pair) ; cit <  std::get<1>(pair) ; ++cit)
                                 {
+
                                     mClockGraphicsItems[itemIndex++]->setAngle(cit->angle1());
                                     mClockGraphicsItems[itemIndex++]->setAngle(cit->angle2());
                                 }
@@ -123,9 +128,13 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
                 }
         }
     if( clocksUpdated == mClockGraphicsItems.size())
-        mRotateClocksTimer.stop();
+        {
+            mRotateClocksTimer.stop();
+        }
     else
-        mClocksLayoutView.scene()->update();
+        {
+            mClocksLayoutView.scene()->update();
+        }
 }
 
 void ClocksLayoutViewManager::invalidatelClocks()
@@ -136,11 +145,19 @@ void ClocksLayoutViewManager::invalidatelClocks()
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 ,4);
 }
 
-void ClocksLayoutViewManager::invalidatelClocks(ClocksLayoutViewManager::ClockItemsCIterator start, ClocksLayoutViewManager::ClockItemsCIterator end, int angleDelta  , int indexIncrement)
+void ClocksLayoutViewManager::changePenColor()
 {
-    for( auto cit =start ; cit <  end; cit+= indexIncrement)
+//    for( auto item : mClockGraphicsItems)
+//        {
+//            item->setPenColor( color);
+//        }
+}
+
+void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end, int angleDelta  , int indexIncrement)
+{
+    for( ClockItemsIterator it =start ;  it <  end;  it+= indexIncrement)
         {
-            auto* item = *cit;
+            ClockGraphicsItem* item = *it;
             item->setRotationAngle((item->rotationAngle()+angleDelta)%360);
         }
 }

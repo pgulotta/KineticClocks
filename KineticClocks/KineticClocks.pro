@@ -9,12 +9,14 @@ MOBILITY =
 
 SOURCES += \
     view/main.cpp \
+    view/clockgraphicsitem.cpp \
+    view/clockslayoutview.cpp \
     model/clocksymbols.cpp \
     model/clocktime.cpp \
     utils/utils.cpp \
-    view/clockgraphicsitem.cpp \
-    view/clockslayoutview.cpp \
+    utils/colorgenerator.cpp \
     viewmanager/clockslayoutviewmanager.cpp
+
 
 
 HEADERS += \
@@ -23,11 +25,14 @@ HEADERS += \
     model/symbol.hpp \
     model/grid.hpp \
     model/clocktime.hpp \
+    model/display.hpp \
     view/clockgraphicsitem.hpp \
     view/clockslayoutview.hpp \
     viewmanager/clockslayoutviewmanager.hpp \
     utils/utils.hpp \
-    model/display.hpp
+    utils/colorgenerator.hpp
+
+
 
 # Default rules for deployment.
 include(deployment.pri)
