@@ -19,8 +19,7 @@ public:
     typedef  OffsetArray::const_iterator  OffsetCIterator;
 
     ColorGenerator() ;
-
-     int test(){return 1; }
+    QColor nextOffsetColor()  ;
 
 private:
      explicit ColorGenerator(const ColorGenerator& rhs) = delete;

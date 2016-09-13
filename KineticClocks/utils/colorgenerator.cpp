@@ -78,5 +78,10 @@ ColorGenerator::ColorGenerator()
     generateOffsetColors();
 }
 
+QColor ColorGenerator::nextOffsetColor()
+{
+   return mOffsetColors[++mOffsetArrayIndex%mOffsetColors.size()];
+}
+
 
 }

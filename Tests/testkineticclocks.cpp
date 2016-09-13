@@ -99,7 +99,8 @@ void TestKineticClocks::TestCreateSymbol()
 void TestKineticClocks::TestColorGenerator()
 {
     ColorGenerator generator;
-    QVERIFY2(generator.test() == 1, "Failure");
+    QColor color{generator.nextOffsetColor()};
+    QVERIFY2( color != QColor(), "Failure");
 }
 
 void TestKineticClocks::TestClockSymbols()
