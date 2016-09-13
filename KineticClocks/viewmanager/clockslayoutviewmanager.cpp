@@ -48,6 +48,7 @@ void ClocksLayoutViewManager::createSceneItems()
     int itemIndex=0;
     qreal xposClock =0.0f;
     qreal yposClock = 0.0f;
+    mLineColor = mColorGenerator.nextOffsetColor();
     for( int gridIndex = 0;  gridIndex< GridsDepth; ++gridIndex)
         {
             for(size_t symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
@@ -77,6 +78,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mDisplayedSymbols != mDisplayAdapter.toString())
         {
             invalidatelClocks( );
+            changePenColor();
             mDisplayedSymbols = mDisplayAdapter.toString();
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
             for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
@@ -140,12 +142,12 @@ void ClocksLayoutViewManager::invalidatelClocks()
 
 void ClocksLayoutViewManager::changePenColor()
 {
-//    QColor color {mColorGenerator.getNextColor()};
-//    qDebug() << "changing color to " << color;
-//    for( auto item : mClockGraphicsItems)
-//        {
-//            item->setPenColor( color);
-//        }
+    QColor color {mColorGenerator.nextOffsetColor()};
+    qDebug() << "changing color to " << color;
+    for( auto item : mClockGraphicsItems)
+        {
+            item->setPenColor( color);
+        }
 }
 
 void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end, int angleDelta  , int indexIncrement)

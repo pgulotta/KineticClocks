@@ -9,7 +9,7 @@
 
 namespace twentysixapps
 {
-std::array<Symbol,ClockSymbols::RowCount> gArray(
+ClockSymbols::Array gArray(
 {
     Symbol({ //Zero
         Clock(0,270),
