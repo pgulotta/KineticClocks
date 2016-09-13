@@ -20,6 +20,7 @@ public:
 
     ColorGenerator() ;
     QColor nextOffsetColor()  ;
+    QColor nextBaseColor();
 
 private:
      explicit ColorGenerator(const ColorGenerator& rhs) = delete;
@@ -41,6 +42,7 @@ private:
     qreal byteToFloat(int byteValue);
     qreal randomNextDouble();
     int colorComponentOffset(int colorComponenet, qreal maxRange);
+
 
 
 };

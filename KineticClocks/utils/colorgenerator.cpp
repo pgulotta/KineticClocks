@@ -10,7 +10,7 @@ namespace twentysixapps
 {
 void ColorGenerator::generateOffsetColors()
 {
-    QColor baseColor{mBaseColors[mBaseArrayIndex]};
+    QColor baseColor{nextBaseColor()};
 
     for (int index = 0; index < OffsetColorsCount; index++)
         {
@@ -83,5 +83,9 @@ QColor ColorGenerator::nextOffsetColor()
    return mOffsetColors[++mOffsetArrayIndex%mOffsetColors.size()];
 }
 
+QColor ColorGenerator::nextBaseColor()
+{
+   return mBaseColors[++mBaseArrayIndex%mBaseColors.size()];
+}
 
 }
