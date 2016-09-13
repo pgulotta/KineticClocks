@@ -19,7 +19,6 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mRotateClocksTimer(*new QTimer(this)),
     mUpdateDisplayTimer (*new QTimer(this))
 {
-    ColorGenerator::initialize();
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
 
     mClocksLayoutView.setScene(new QGraphicsScene(getScreenRect()));
@@ -51,19 +50,14 @@ void ClocksLayoutViewManager::createSceneItems()
     qreal yposClock = 0.0f;
     for( int gridIndex = 0;  gridIndex< GridsDepth; ++gridIndex)
         {
-
             for(size_t symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
                 {
-
                     for(size_t rowIndex = 0; rowIndex < Symbol::RowsPerSymbol; rowIndex+= 1)
                         {
-
                             yposClock = (gridIndex * ClockGraphicsItem::ClockDiameter * Symbol::RowsPerSymbol) + (rowIndex * ClockGraphicsItem::ClockDiameter );
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
-
-
                                     mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( mLineColor, QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                                     mClockGraphicsItems[itemIndex] =new ClockGraphicsItem( mLineColor, QPointF(xposClock, yposClock),Clock::Angle2Default);
@@ -93,7 +87,6 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             ClockSymbols::Citerators  pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);
                             for( ClockSymbols::CIterator  cit = std::get<0>(pair) ; cit <  std::get<1>(pair) ; ++cit)
                                 {
-
                                     mClockGraphicsItems[itemIndex++]->setAngle(cit->angle1());
                                     mClockGraphicsItems[itemIndex++]->setAngle(cit->angle2());
                                 }
@@ -147,6 +140,8 @@ void ClocksLayoutViewManager::invalidatelClocks()
 
 void ClocksLayoutViewManager::changePenColor()
 {
+//    QColor color {mColorGenerator.getNextColor()};
+//    qDebug() << "changing color to " << color;
 //    for( auto item : mClockGraphicsItems)
 //        {
 //            item->setPenColor( color);

@@ -1,6 +1,7 @@
 #include <QtTest>
 #include <QString>
 #include <QDebug>
+#include <QColor>
 #include <memory>
 #include <tuple>
 #include <iterator>
@@ -9,7 +10,7 @@
 #include "..\KineticClocks\model\clocksymbols.hpp"
 #include "..\KineticClocks\model\clocktime.hpp"
 #include "..\KineticClocks\model\display.hpp"
-
+#include "..\KineticClocks\utils/colorgenerator.hpp"
 
 using namespace twentysixapps;
 
@@ -28,7 +29,7 @@ private Q_SLOTS:
     void TestClockSymbols();
     void TestClockTime1();
     void TestClockTime2();
-
+    void TestColorGenerator();
 };
 
 TestKineticClocks::TestKineticClocks()
@@ -94,6 +95,13 @@ void TestKineticClocks::TestCreateSymbol()
     auto first =  std::get<0>(pair);
     QVERIFY2(first[4].angle2() == 88, "Failure");
 }
+
+void TestKineticClocks::TestColorGenerator()
+{
+    ColorGenerator generator;
+    QVERIFY2(generator.test() == 1, "Failure");
+}
+
 void TestKineticClocks::TestClockSymbols()
 {
     ClockSymbols cs;
@@ -154,7 +162,7 @@ void TestKineticClocks::TestClockTime2()
     QVERIFY2(refreshTime.getSymbolName(2) == SymbolName::Colon, "Failure");
     QVERIFY2(refreshTime.getSymbolName(3) == SymbolName::Zero, "Failure");
     QVERIFY2(refreshTime.getSymbolName(4) == SymbolName::Eight, "Failure");
-*/
+    */
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 

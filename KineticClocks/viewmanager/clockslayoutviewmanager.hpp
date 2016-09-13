@@ -1,4 +1,5 @@
 #pragma once
+#include "utils/colorgenerator.hpp"
 #include "model\clocksymbols.hpp"
 #include "model\symbol.hpp"
 #include "model\clocktime.hpp"
@@ -54,6 +55,7 @@ private:
     ClockSymbols mClockSymbols;
     ClockItems mClockGraphicsItems;
     QString mDisplayedSymbols;
+    ColorGenerator mColorGenerator;
 
     void changePenColor();
     void displaySymbols() ;
