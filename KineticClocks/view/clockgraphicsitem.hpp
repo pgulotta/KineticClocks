@@ -15,7 +15,7 @@ public:
     const static qreal ClockDiameter ;
     const static qreal ClockRadius;
 
-    ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint = {ClockDiameter, ClockDiameter}, int angle = {Clock::Angle1Default});
+    ClockGraphicsItem( bool isPortraitOrientation, QColor& penColor,  QPointF sourcePoint = {ClockDiameter, ClockDiameter}, int angle = {Clock::Angle1Default});
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void setPenColor(QColor color);
@@ -27,6 +27,7 @@ public:
     int rotationAngle() const;
     void setRotationAngle(int rotationAngle);
 
+    void setOrientation(bool isPortraitOrientation);
 
 
 private:

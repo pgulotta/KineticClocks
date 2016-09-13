@@ -10,12 +10,12 @@ namespace twentysixapps
 class ColorGenerator
 {
 public:
-    static constexpr size_t BaseColorsCount = 3;
-    typedef std::array<QColor, BaseColorsCount> BaseArray;
+    static constexpr size_t BaseColorsSize = 3;
+    typedef std::array<QColor, BaseColorsSize> BaseArray;
     typedef  BaseArray::const_iterator  BaseCIterator;
 
-    static constexpr size_t OffsetColorsCount = 20;
-    typedef std::array<QColor, OffsetColorsCount> OffsetArray;
+    static constexpr size_t OffsetColorsSize = 20;
+    typedef std::array<QColor, OffsetColorsSize> OffsetArray;
     typedef  OffsetArray::const_iterator  OffsetCIterator;
 
     ColorGenerator() ;

@@ -9,10 +9,10 @@ namespace twentysixapps
 
 const qreal ClockGraphicsItem::ClockRadius =10.0f;
 const qreal ClockGraphicsItem::ClockDiameter = ClockRadius *2.0f;
-const qreal ClockGraphicsItem::ClockHandLength = ClockRadius * 0.8f;
+const qreal ClockGraphicsItem::ClockHandLength = ClockRadius ;
 
 
-ClockGraphicsItem::ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint,int angle) :
+ClockGraphicsItem::ClockGraphicsItem( bool isPortraitOrientation, QColor& penColor,  QPointF sourcePoint,int angle) :
     QGraphicsItem(0),
     mPen(penColor),
     mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius)),
@@ -20,6 +20,10 @@ ClockGraphicsItem::ClockGraphicsItem(QColor& penColor,  QPointF sourcePoint,int 
     mAngle(angle),
     mRotationAngle(angle)
 {
+    setOrientation( isPortraitOrientation);
+    mPen.setCapStyle(Qt::RoundCap);
+    mPen.setJoinStyle(Qt::RoundJoin);
+    mPen.setStyle(Qt::DotLine);
     mAngledLine.setLength(ClockHandLength);
 }
 
@@ -39,7 +43,7 @@ void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
 
 void ClockGraphicsItem::setPenColor(QColor color)
 {
-     mPen.setColor(color);
+    mPen.setColor(color);
 }
 
 QColor ClockGraphicsItem::penColor() const
@@ -65,5 +69,10 @@ int ClockGraphicsItem::rotationAngle() const
 void ClockGraphicsItem::setRotationAngle(int rotationAngle)
 {
     mRotationAngle = rotationAngle;
+}
+
+void ClockGraphicsItem::setOrientation(bool isPortraitOrientation)
+{
+    mPen.setWidth( isPortraitOrientation? 2 : 3);
 }
 }

@@ -99,6 +99,8 @@ void TestKineticClocks::TestCreateSymbol()
 void TestKineticClocks::TestColorGenerator()
 {
     ColorGenerator generator;
+    QVERIFY2( generator.nextBaseColor().isValid() , "Failure");
+    QVERIFY2( generator.nextOffsetColor().isValid() , "Failure");
     QVERIFY2( generator.nextOffsetColor() != QColor(), "Failure");
     QVERIFY2( generator.nextBaseColor() != generator.nextBaseColor() , "Failure");
     QVERIFY2( generator.nextBaseColor() != generator.nextBaseColor() , "Failure");

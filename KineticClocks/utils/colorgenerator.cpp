@@ -8,20 +8,20 @@
 
 namespace twentysixapps
 {
- std::array<QColor, ColorGenerator::BaseColorsCount> ColorGenerator::mBaseColors(
+ std::array<QColor, ColorGenerator::BaseColorsSize> ColorGenerator::mBaseColors(
 {
     QColor (255,128,0),
     QColor (128,255,64),
     QColor (64,128,255)
 });
 
-int   ColorGenerator::mBaseArrayIndex = qrand() %3;
+int   ColorGenerator::mBaseArrayIndex = qrand() % ColorGenerator::BaseColorsSize;
 
 void ColorGenerator::generateOffsetColors()
 {
     QColor baseColor{nextBaseColor()};
 
-    for (int index = 0; index < OffsetColorsCount; index++)
+    for (int index = 0; index < OffsetColorsSize; index++)
         {
             mOffsetColors[index]   = QColor(
                                          colorComponentOffset(baseColor.red() ,mMaxRange),
@@ -79,12 +79,12 @@ ColorGenerator::ColorGenerator()
 
 QColor ColorGenerator::nextOffsetColor()
 {
-    return mOffsetColors[++mOffsetArrayIndex%mOffsetColors.size()];
+    return mOffsetColors[++mOffsetArrayIndex%OffsetColorsSize];
 }
 
 QColor ColorGenerator::nextBaseColor()
 {
-    return mBaseColors[++mBaseArrayIndex%mBaseColors.size()];
+    return mBaseColors[++mBaseArrayIndex%BaseColorsSize];
 }
 
 }
