@@ -8,6 +8,15 @@
 
 namespace twentysixapps
 {
+ std::array<QColor, ColorGenerator::BaseColorsCount> ColorGenerator::mBaseColors(
+{
+    QColor (255,128,0),
+    QColor (128,255,64),
+    QColor (64,128,255)
+});
+
+int   ColorGenerator::mBaseArrayIndex = qrand() %3;
+
 void ColorGenerator::generateOffsetColors()
 {
     QColor baseColor{nextBaseColor()};
@@ -62,30 +71,20 @@ int getRandomSign()
     return  qrand() % 2 == 0 ? 1 : -1;
 }
 
-void ColorGenerator::initialize()
-{
-    qsrand(static_cast<uint>(time(0)));
-
-    mBaseColors[0] =  QColor (255,128,0);
-    mBaseColors[1] =  QColor (128,255,64);
-    mBaseColors[2] =  QColor (64,128,255);
-    mBaseArrayIndex = qrand() %3;
-}
-
 ColorGenerator::ColorGenerator()
 {
-    initialize();
+    qsrand(static_cast<uint>(time(0)));
     generateOffsetColors();
 }
 
 QColor ColorGenerator::nextOffsetColor()
 {
-   return mOffsetColors[++mOffsetArrayIndex%mOffsetColors.size()];
+    return mOffsetColors[++mOffsetArrayIndex%mOffsetColors.size()];
 }
 
 QColor ColorGenerator::nextBaseColor()
 {
-   return mBaseColors[++mBaseArrayIndex%mBaseColors.size()];
+    return mBaseColors[++mBaseArrayIndex%mBaseColors.size()];
 }
 
 }

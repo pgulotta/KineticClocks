@@ -20,23 +20,22 @@ public:
 
     ColorGenerator() ;
     QColor nextOffsetColor()  ;
-    QColor nextBaseColor();
+    static QColor nextBaseColor();
 
 private:
-     explicit ColorGenerator(const ColorGenerator& rhs) = delete;
-     ColorGenerator& operator= (const ColorGenerator& rhs) = delete;
-     ColorGenerator(ColorGenerator&&) =delete;
-     ColorGenerator& operator=(ColorGenerator&&) =delete;
+    explicit ColorGenerator(const ColorGenerator& rhs) = delete;
+    ColorGenerator& operator= (const ColorGenerator& rhs) = delete;
+    ColorGenerator(ColorGenerator&&) =delete;
+    ColorGenerator& operator=(ColorGenerator&&) =delete;
 
     const  qreal mMaxRange = 0.4f;
 
-    BaseArray mBaseColors;
+    static  BaseArray mBaseColors;
+    static int  mBaseArrayIndex;
     OffsetArray mOffsetColors;
-    int  mBaseArrayIndex{0};
     int mOffsetArrayIndex{0};
 
     void generateOffsetColors();
-    void initialize();
     int floatToByte(qreal value);
     int saturateByte(int byteValue);
     qreal byteToFloat(int byteValue);
