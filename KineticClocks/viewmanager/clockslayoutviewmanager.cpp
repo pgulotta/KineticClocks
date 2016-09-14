@@ -65,10 +65,9 @@ void ClocksLayoutViewManager::createSceneItems()
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
-                                    mLineColor  = mColorGenerator.nextOffsetColor();
+                                    mLineColor = mColorGenerator.nextOffsetColor().lighter(150);
                                     mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( isPortraitOrientation, mLineColor ,QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                                    mLineColor  = mColorGenerator.nextOffsetColor();
                                     mClockGraphicsItems[itemIndex] =new ClockGraphicsItem(isPortraitOrientation, mLineColor , QPointF(xposClock, yposClock),Clock::Angle2Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                                     xposClock += ClockGraphicsItem::ClockDiameter;
