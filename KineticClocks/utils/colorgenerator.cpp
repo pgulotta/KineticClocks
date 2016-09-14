@@ -15,8 +15,6 @@ namespace twentysixapps
     QColor (64,128,255)
 });
 
-int   ColorGenerator::mBaseArrayIndex = qrand() % ColorGenerator::BaseColorsSize;
-
 void ColorGenerator::generateOffsetColors()
 {
     QColor baseColor{nextBaseColor()};
@@ -79,12 +77,12 @@ ColorGenerator::ColorGenerator()
 
 QColor ColorGenerator::nextOffsetColor()
 {
-    return mOffsetColors[++mOffsetArrayIndex%OffsetColorsSize];
+    return mOffsetColors[qrand() % OffsetColorsSize];
 }
 
 QColor ColorGenerator::nextBaseColor()
 {
-    return mBaseColors[++mBaseArrayIndex%BaseColorsSize];
+    return mBaseColors[qrand() % BaseColorsSize];
 }
 
 }

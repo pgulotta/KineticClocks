@@ -31,9 +31,7 @@ private:
     const  qreal mMaxRange = 0.4f;
 
     static  BaseArray mBaseColors;
-    static int  mBaseArrayIndex;
     OffsetArray mOffsetColors;
-    int mOffsetArrayIndex{0};
 
     void generateOffsetColors();
     int floatToByte(qreal value);

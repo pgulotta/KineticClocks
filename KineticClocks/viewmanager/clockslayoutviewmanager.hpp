@@ -57,15 +57,14 @@ private:
     QString mDisplayedSymbols;
     ColorGenerator mColorGenerator;
 
-    void changePenColor();
+    //void changePenColor();
     void displaySymbols() ;
     void createSceneItems();
     void invalidatelClocks();
     void invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end,  int angleDelta=1 , int indexIncrement=1);
     QRectF getScreenRect() const;
     QRectF getScreenRect(Qt::ScreenOrientation orientation) const;
-
-    QColor mLineColor  = Qt::GlobalColor::white;
+    QColor  mLineColor = Qt::GlobalColor::white;
     QColor mBackColor  = Qt::GlobalColor::black;
 
     explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;

@@ -45,7 +45,7 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation  orient
         {
             item->setOrientation(isPortraitOrientation);
         }
-      mClocksLayoutView.scene()->setSceneRect(getScreenRect());
+    mClocksLayoutView.scene()->setSceneRect(getScreenRect());
 }
 
 void ClocksLayoutViewManager::createSceneItems()
@@ -53,8 +53,8 @@ void ClocksLayoutViewManager::createSceneItems()
     int itemIndex=0;
     qreal xposClock =0.0f;
     qreal yposClock = 0.0f;
+
     bool isPortraitOrientation = mPrimaryScreen.orientation() == Qt::ScreenOrientation::PortraitOrientation;
-    //mLineColor = mColorGenerator.nextOffsetColor();
     for( int gridIndex = 0;  gridIndex< GridsDepth; ++gridIndex)
         {
             for(size_t symbolColIndex= 0; symbolColIndex < ClockTime::SymbolsCount; ++symbolColIndex )
@@ -65,11 +65,11 @@ void ClocksLayoutViewManager::createSceneItems()
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
-                                 mLineColor = mColorGenerator.nextOffsetColor();
-                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( isPortraitOrientation, mLineColor, QPointF(xposClock, yposClock),Clock::Angle1Default);
+                                    mLineColor  = mColorGenerator.nextOffsetColor();
+                                    mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( isPortraitOrientation, mLineColor ,QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
-                                     mLineColor = mColorGenerator.nextOffsetColor();
-                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem(isPortraitOrientation,  mLineColor, QPointF(xposClock, yposClock),Clock::Angle2Default);
+                                    mLineColor  = mColorGenerator.nextOffsetColor();
+                                    mClockGraphicsItems[itemIndex] =new ClockGraphicsItem(isPortraitOrientation, mLineColor , QPointF(xposClock, yposClock),Clock::Angle2Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                                     xposClock += ClockGraphicsItem::ClockDiameter;
                                 }
@@ -85,7 +85,6 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     mDisplayAdapter.refresh();
     if ( mDisplayedSymbols != mDisplayAdapter.toString())
         {
-         //   changePenColor();;
             invalidatelClocks( );
             mDisplayedSymbols = mDisplayAdapter.toString();
             int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
@@ -148,15 +147,13 @@ void ClocksLayoutViewManager::invalidatelClocks()
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 ,4);
 }
 
-void ClocksLayoutViewManager::changePenColor()
-{
-    QColor color {mColorGenerator.nextOffsetColor()};
-    qDebug() << "Change pen color  to " << color.red() << " "<< color.green() << " " <<color.blue();
-    for( auto item : mClockGraphicsItems)
-        {
-            item->setPenColor( color);
-        }
-}
+//void ClocksLayoutViewManager::changePenColor()
+//{
+//    for( auto* item : mClockGraphicsItems)
+//        {
+//            item->setPenColor(mColorGenerator.nextOffsetColor());
+//        }
+//}
 
 void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end, int angleDelta  , int indexIncrement)
 {
