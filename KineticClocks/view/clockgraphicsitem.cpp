@@ -12,13 +12,13 @@ const qreal ClockGraphicsItem::ClockDiameter = ClockRadius *2.0f;
 const qreal ClockGraphicsItem::ClockHandLength = ClockRadius ;
 
 
-ClockGraphicsItem::ClockGraphicsItem( bool isPortraitOrientation, QColor& penColor,  QPointF sourcePoint,int angle) :
+ClockGraphicsItem::ClockGraphicsItem( bool isPortraitOrientation, QColor& penColor,  QPointF sourcePoint,int targetAngle) :
     QGraphicsItem(0),
     mPen(penColor),
     mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius)),
     mAngledLine(sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius, 0,0 ),
-    mAngle(angle),
-    mRotationAngle(angle)
+    mTargetAngle(targetAngle),
+    mRotationAngle(targetAngle)
 {
     setOrientation( isPortraitOrientation);
     mPen.setCapStyle(Qt::RoundCap);
@@ -51,14 +51,14 @@ QColor ClockGraphicsItem::penColor() const
     return mPen.color();
 }
 
-int ClockGraphicsItem::angle() const
+int ClockGraphicsItem::targetAngle() const
 {
-    return mAngle;
+    return mTargetAngle;
 }
 
-void ClockGraphicsItem::setAngle(int angle)
+void ClockGraphicsItem::setTargetAngle(int targetAngle)
 {
-    mAngle = angle;
+    mTargetAngle = targetAngle;
 }
 
 int ClockGraphicsItem::rotationAngle() const

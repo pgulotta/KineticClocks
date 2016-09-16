@@ -15,7 +15,8 @@ SOURCES += \
     model/clocktime.cpp \
     utils/utils.cpp \
     utils/colorgenerator.cpp \
-    viewmanager/clockslayoutviewmanager.cpp
+    viewmanager/clockslayoutviewmanager.cpp \
+    utils/platform.cpp
 
 
 
@@ -30,7 +31,8 @@ HEADERS += \
     view/clockslayoutview.hpp \
     viewmanager/clockslayoutviewmanager.hpp \
     utils/utils.hpp \
-    utils/colorgenerator.hpp
+    utils/colorgenerator.hpp \
+    utils/platform.hpp
 
 
 

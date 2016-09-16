@@ -1,6 +1,7 @@
 #include "clockslayoutviewmanager.hpp"
 #include "model\clock.hpp"
 #include "utils/colorgenerator.hpp"
+#include "utils/platform.hpp"
 #include <QApplication>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
@@ -34,7 +35,7 @@ void ClocksLayoutViewManager::displaySymbols()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();
-    mRotateClocksTimer.start(25);
+    mRotateClocksTimer.start(50);
 }
 
 void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation  orientation)
@@ -95,8 +96,8 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
                             ClockSymbols::Citerators  pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);
                             for( ClockSymbols::CIterator  cit = std::get<0>(pair) ; cit <  std::get<1>(pair) ; ++cit)
                                 {
-                                    mClockGraphicsItems[itemIndex++]->setAngle(cit->angle1());
-                                    mClockGraphicsItems[itemIndex++]->setAngle(cit->angle2());
+                                    mClockGraphicsItems[itemIndex++]->setTargetAngle(cit->angle1());
+                                    mClockGraphicsItems[itemIndex++]->setTargetAngle(cit->angle2());
                                 }
                         }
                 }
@@ -112,20 +113,20 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
     size_t clocksUpdated = 0;
     for(auto* it : mClockGraphicsItems)
         {
-            if (  it->rotationAngle()  == it->angle())
+            if (  it->rotationAngle()  == it->targetAngle())
                 {
                     clocksUpdated++;
                 }
             else
                 {
-                    it->setRotationAngle(( it->rotationAngle() +1)%360);
-#ifdef Q_OS_ANDROID
-                    if (  it->rotationAngle()  != it->angle())
-                        it->setRotationAngle(( it->rotationAngle() +1)%360);
-#elif Q_OS_IOS
-                    if (  it->rotationAngle()  != it->angle())
-                        it->setRotationAngle(( it->rotationAngle() +1)%360);
-#endif
+                    int targetAngle = it->targetAngle();
+                    int rotationAngle = it->rotationAngle();
+                    for( int ctr = 0 ; ctr <Platform::rotationAngleDelta(); ++ctr, ++rotationAngle)
+                        {
+                            if (rotationAngle % 360==  targetAngle)
+                                break;
+                        }
+                    it->setRotationAngle(rotationAngle);
                 }
         }
     if( clocksUpdated == mClockGraphicsItems.size())

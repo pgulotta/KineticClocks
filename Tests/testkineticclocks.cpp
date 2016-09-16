@@ -102,9 +102,8 @@ void TestKineticClocks::TestColorGenerator()
     QVERIFY2( generator.nextBaseColor().isValid() , "Failure");
     QVERIFY2( generator.nextOffsetColor().isValid() , "Failure");
     QVERIFY2( generator.nextOffsetColor() != QColor(), "Failure");
-    QVERIFY2( generator.nextBaseColor() != generator.nextBaseColor() , "Failure");
-    QVERIFY2( generator.nextBaseColor() != generator.nextBaseColor() , "Failure");
-    QVERIFY2( generator.nextBaseColor() != generator.nextBaseColor() , "Failure");
+    QVERIFY2( generator.nextBaseColor() != QColor() , "Failure");
+    QVERIFY2( generator.nextBaseColor().isValid() , "Failure");
 }
 
 void TestKineticClocks::TestClockSymbols()
