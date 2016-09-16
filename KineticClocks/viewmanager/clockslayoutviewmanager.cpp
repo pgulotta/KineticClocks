@@ -13,6 +13,8 @@
 namespace twentysixapps
 {
 
+int RotationAngleDelta = Platform::rotationAngleDelta();
+
 ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,    DisplayAdapter* displayAdapter):
     QObject(parent ),
     mPrimaryScreen(*primaryScreen),
@@ -66,7 +68,7 @@ void ClocksLayoutViewManager::createSceneItems()
                             xposClock = symbolColIndex* ClockGraphicsItem::ClockDiameter * Symbol::ColsPerSymbol;
                             for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; colIndex++)
                                 {
-                                    mLineColor = mColorGenerator.nextOffsetColor().lighter(150);
+                                    mLineColor = mColorGenerator.nextOffsetColor().lighter(110);
                                     mClockGraphicsItems[itemIndex] = new ClockGraphicsItem( isPortraitOrientation, mLineColor ,QPointF(xposClock, yposClock),Clock::Angle1Default);
                                     mClocksLayoutView.scene()->addItem(mClockGraphicsItems[itemIndex++]);
                                     mClockGraphicsItems[itemIndex] =new ClockGraphicsItem(isPortraitOrientation, mLineColor , QPointF(xposClock, yposClock),Clock::Angle2Default);
@@ -111,17 +113,18 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
 void ClocksLayoutViewManager::rotateClocksTimerChanged()
 {
     size_t clocksUpdated = 0;
+
     for(auto* it : mClockGraphicsItems)
         {
-            if (  it->rotationAngle()  == it->targetAngle())
+            int targetAngle = it->targetAngle();
+            int rotationAngle = it->rotationAngle();
+            if (  rotationAngle ==targetAngle)
                 {
                     clocksUpdated++;
                 }
             else
                 {
-                    int targetAngle = it->targetAngle();
-                    int rotationAngle = it->rotationAngle();
-                    for( int ctr = 0 ; ctr <Platform::rotationAngleDelta(); ++ctr, ++rotationAngle)
+                    for( int ctr = 0 ; ctr <RotationAngleDelta; ++ctr, ++rotationAngle)
                         {
                             if (rotationAngle % 360==  targetAngle)
                                 break;
@@ -143,17 +146,9 @@ void ClocksLayoutViewManager::invalidatelClocks()
 {
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
     invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 1,3);
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), -1,5);
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-2 ,4);
+    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 2,5);
+    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-1 ,4);
 }
-
-//void ClocksLayoutViewManager::changePenColor()
-//{
-//    for( auto* item : mClockGraphicsItems)
-//        {
-//            item->setPenColor(mColorGenerator.nextOffsetColor());
-//        }
-//}
 
 void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end, int angleDelta  , int indexIncrement)
 {

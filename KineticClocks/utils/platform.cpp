@@ -3,18 +3,18 @@
 namespace twentysixapps
 {
 #ifdef Q_OS_ANDROID
-static int mRotationAngleDelta = 4;
+constexpr static int RotationAngleDelta = 4;
 #elif Q_OS_IOS
-static int mRotationAngleDelta = 4;
+sconstexpr tatic int RotationAngleDelta = 4;
 #else
-static int mRotationAngleDelta = 2;
+static int RotationAngleDelta = 2;
 
 #endif
 
 
-int Platform::rotationAngleDelta()
+const int Platform::rotationAngleDelta()
 {
-    return mRotationAngleDelta;
+    return RotationAngleDelta;
 }
 
 

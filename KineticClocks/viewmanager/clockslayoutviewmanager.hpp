@@ -57,7 +57,6 @@ private:
     QString mDisplayedSymbols;
     ColorGenerator mColorGenerator;
 
-    //void changePenColor();
     void displaySymbols() ;
     void createSceneItems();
     void invalidatelClocks();

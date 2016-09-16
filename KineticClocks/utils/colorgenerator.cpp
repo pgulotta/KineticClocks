@@ -8,7 +8,7 @@
 
 namespace twentysixapps
 {
- std::array<QColor, ColorGenerator::BaseColorsSize> ColorGenerator::mBaseColors(
+std::array<QColor, ColorGenerator::BaseColorsSize> ColorGenerator::mBaseColors(
 {
     QColor (255,128,0),
     QColor (128,255,64),
@@ -25,7 +25,7 @@ void ColorGenerator::generateOffsetColors()
                                          colorComponentOffset(baseColor.red() ,mMaxRange),
                                          colorComponentOffset(baseColor.green() ,mMaxRange),
                                          colorComponentOffset(baseColor.blue(),mMaxRange));
-            qDebug() << "index = " << index << "  red = " << mOffsetColors[index] .red() << "  green = " << mOffsetColors[index] .green() << "  blue = " << mOffsetColors[index] .blue();
+            //  qDebug() << "index = " << index << "  red = " << mOffsetColors[index] .red() << "  green = " << mOffsetColors[index] .green() << "  blue = " << mOffsetColors[index] .blue();
         }
 }
 
