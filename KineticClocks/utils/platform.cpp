@@ -12,7 +12,7 @@ static int RotationAngleDelta = 2;
 #endif
 
 
-const int Platform::rotationAngleDelta()
+int Platform::rotationAngleDelta()
 {
     return RotationAngleDelta;
 }

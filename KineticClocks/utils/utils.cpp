@@ -4,17 +4,17 @@
 
 namespace twentysixapps
 {
-  static QString DestructorMessage = QStringLiteral("The  %1 destructor called.");
+static QString DestructorMessage = QStringLiteral("The  %1 destructor called.");
 
-  void Utils::destructorMsg(const QString &value)
-  {
+void Utils::destructorMsg(const QString &value)
+{
     qDebug() << DestructorMessage.arg(value);
-  }
+}
 
-  void Utils::destructorMsg(const QObject* const object)
-  {
+void Utils::destructorMsg(const QObject* const object)
+{
     destructorMsg(object->metaObject()->className());
-  }
+}
 
 
 }

@@ -16,20 +16,20 @@ using namespace twentysixapps;
 
 class TestKineticClocks : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    TestKineticClocks();
+TestKineticClocks();
 
 private Q_SLOTS:
-    void initTestCase();
-    void cleanupTestCase();
-    void TestCreateClock();
-    void TestCreateSymbol();
-    void TestClockSymbols();
-    void TestClockTime1();
-    void TestClockTime2();
-    void TestColorGenerator();
+void initTestCase();
+void cleanupTestCase();
+void TestCreateClock();
+void TestCreateSymbol();
+void TestClockSymbols();
+void TestClockTime1();
+void TestClockTime2();
+void TestColorGenerator();
 };
 
 TestKineticClocks::TestKineticClocks()
@@ -91,7 +91,7 @@ void TestKineticClocks::TestCreateSymbol()
         Clock(0,180),
         Clock(90,88)
     });
-    std::pair<Symbol::CIterator ,Symbol::CIterator>  pair =  s.getCIterators(5);
+    std::pair<Symbol::CIterator,Symbol::CIterator>  pair =  s.getCIterators(5);
     auto first =  std::get<0>(pair);
     QVERIFY2(first[4].angle2() == 88, "Failure");
 }
@@ -99,17 +99,17 @@ void TestKineticClocks::TestCreateSymbol()
 void TestKineticClocks::TestColorGenerator()
 {
     ColorGenerator generator;
-    QVERIFY2( generator.nextBaseColor().isValid() , "Failure");
-    QVERIFY2( generator.nextOffsetColor().isValid() , "Failure");
+    QVERIFY2( generator.nextBaseColor().isValid(), "Failure");
+    QVERIFY2( generator.nextOffsetColor().isValid(), "Failure");
     QVERIFY2( generator.nextOffsetColor() != QColor(), "Failure");
-    QVERIFY2( generator.nextBaseColor() != QColor() , "Failure");
-    QVERIFY2( generator.nextBaseColor().isValid() , "Failure");
+    QVERIFY2( generator.nextBaseColor() != QColor(), "Failure");
+    QVERIFY2( generator.nextBaseColor().isValid(), "Failure");
 }
 
 void TestKineticClocks::TestClockSymbols()
 {
     ClockSymbols cs;
-    ClockSymbols::Citerators  pair =  cs.getRow(SymbolName::Zero,1);
+    ClockSymbols::Citerators pair =  cs.getRow(SymbolName::Zero,1);
     auto first =  std::get<0>(pair);
     auto last =  std::get<1>(pair);
     QVERIFY2(first[0].angle1() == 90, "Failure");
@@ -123,7 +123,7 @@ void TestKineticClocks::TestClockTime1()
     QTime time;
     time.setHMS(12, 34, 0);
     qDebug() << "Time: " << time.toString();
-    Display<ClockTime,  ClockTime::SymbolsCount>  ct{ClockTime {time}};
+    Display<ClockTime,  ClockTime::SymbolsCount>  ct {ClockTime {time}};
 
     QVERIFY2(ct.getSymbolName(0) ==  SymbolName::One, "Failure != 1");
     QVERIFY2(ct.getSymbolName(1) == SymbolName::Two, "Failure != 2");
@@ -152,21 +152,21 @@ void TestKineticClocks::TestClockTime2()
     QVERIFY2(ct.getSymbolName(4) == SymbolName::Zero, "Failure != 0");
 
     /*
-    Display<ClockTime, 5 > displayNow{ClockTime{}} ;
-    QVERIFY2(displayNow.getSymbolName(0) == SymbolName::One, "Failure");
-    QVERIFY2(displayNow.getSymbolName(1) == SymbolName::Three, "Failure");
-    QVERIFY2(displayNow.getSymbolName(2) == SymbolName::Colon, "Failure");
-    QVERIFY2(displayNow.getSymbolName(3) == SymbolName::Zero, "Failure");
-    QVERIFY2(displayNow.getSymbolName(4) == SymbolName::Eight, "Failure");
+       Display<ClockTime, 5 > displayNow{ClockTime{}} ;
+       QVERIFY2(displayNow.getSymbolName(0) == SymbolName::One, "Failure");
+       QVERIFY2(displayNow.getSymbolName(1) == SymbolName::Three, "Failure");
+       QVERIFY2(displayNow.getSymbolName(2) == SymbolName::Colon, "Failure");
+       QVERIFY2(displayNow.getSymbolName(3) == SymbolName::Zero, "Failure");
+       QVERIFY2(displayNow.getSymbolName(4) == SymbolName::Eight, "Failure");
 
-    Display<ClockTime, 5 > refreshTime{ClockTime{time}} ;
-    refreshTime.refresh();
-    QVERIFY2(refreshTime.getSymbolName(0) == SymbolName::One, "Failure");
-    QVERIFY2(refreshTime.getSymbolName(1)  == SymbolName::Three, "Failure");
-    QVERIFY2(refreshTime.getSymbolName(2) == SymbolName::Colon, "Failure");
-    QVERIFY2(refreshTime.getSymbolName(3) == SymbolName::Zero, "Failure");
-    QVERIFY2(refreshTime.getSymbolName(4) == SymbolName::Eight, "Failure");
-    */
+       Display<ClockTime, 5 > refreshTime{ClockTime{time}} ;
+       refreshTime.refresh();
+       QVERIFY2(refreshTime.getSymbolName(0) == SymbolName::One, "Failure");
+       QVERIFY2(refreshTime.getSymbolName(1)  == SymbolName::Three, "Failure");
+       QVERIFY2(refreshTime.getSymbolName(2) == SymbolName::Colon, "Failure");
+       QVERIFY2(refreshTime.getSymbolName(3) == SymbolName::Zero, "Failure");
+       QVERIFY2(refreshTime.getSymbolName(4) == SymbolName::Eight, "Failure");
+     */
 }
 QTEST_APPLESS_MAIN(TestKineticClocks)
 

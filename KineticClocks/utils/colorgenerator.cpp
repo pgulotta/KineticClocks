@@ -9,24 +9,24 @@
 namespace twentysixapps
 {
 std::array<QColor, ColorGenerator::BaseColorsSize> ColorGenerator::mBaseColors(
-{
-    QColor (255,128,0),
-    QColor (128,255,64),
-    QColor (64,128,255)
-});
+    {
+        QColor (255,128,0),
+        QColor (128,255,64),
+        QColor (64,128,255)
+    });
 
 void ColorGenerator::generateOffsetColors()
 {
-    QColor baseColor{nextBaseColor()};
+    QColor baseColor {nextBaseColor()};
 
-    for (int index = 0; index < OffsetColorsSize; index++)
-        {
-            mOffsetColors[index]   = QColor(
-                                         colorComponentOffset(baseColor.red() ,mMaxRange),
-                                         colorComponentOffset(baseColor.green() ,mMaxRange),
-                                         colorComponentOffset(baseColor.blue(),mMaxRange));
-            //  qDebug() << "index = " << index << "  red = " << mOffsetColors[index] .red() << "  green = " << mOffsetColors[index] .green() << "  blue = " << mOffsetColors[index] .blue();
-        }
+    for (size_t index = 0; index < OffsetColorsSize; index++)
+    {
+        mOffsetColors[index]   = QColor(
+            colorComponentOffset(baseColor.red(),mMaxRange),
+            colorComponentOffset(baseColor.green(),mMaxRange),
+            colorComponentOffset(baseColor.blue(),mMaxRange));
+        //  qDebug() << "index = " << index << "  red = " << mOffsetColors[index].red() << "  green = " << mOffsetColors[index].green() << "  blue = " << mOffsetColors[index].blue();
+    }
 }
 
 qreal ColorGenerator::randomNextDouble()
@@ -36,19 +36,19 @@ qreal ColorGenerator::randomNextDouble()
 
 int ColorGenerator::colorComponentOffset(int colorComponenet, qreal maxRange)
 {
-    return   (int) (  floatToByte(  ( byteToFloat(colorComponenet )+  randomNextDouble() * 2  * maxRange  - maxRange) ));
+    return (int) (  floatToByte(  ( byteToFloat(colorComponenet )+  randomNextDouble() * 2  * maxRange  - maxRange) ));
 }
 
 int ColorGenerator::saturateByte(int byteValue)
 {
     if (byteValue > 255)
-        {
-            byteValue = 255;
-        }
+    {
+        byteValue = 255;
+    }
     else if (byteValue < 0)
-        {
-            byteValue = 0;
-        }
+    {
+        byteValue = 0;
+    }
     return byteValue;
 }
 
@@ -66,7 +66,7 @@ int ColorGenerator::floatToByte(qreal value)
 
 int getRandomSign()
 {
-    return  qrand() % 2 == 0 ? 1 : -1;
+    return qrand() % 2 == 0 ? 1 : -1;
 }
 
 ColorGenerator::ColorGenerator()

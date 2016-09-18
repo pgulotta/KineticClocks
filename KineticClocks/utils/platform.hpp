@@ -4,10 +4,11 @@
 
 namespace twentysixapps
 {
-class  Platform
+class Platform
 {
+
 public:
-   const  static   int  rotationAngleDelta();
+    static int  rotationAngleDelta();
 
 private:
     explicit Platform(const Platform& rhs) = delete;
