@@ -119,6 +119,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     }
     restartRotateClocksTimer();
 }
+
 void ClocksLayoutViewManager::rotateClocksTimerChanged()
 {
     size_t clocksUpdated = 0;
