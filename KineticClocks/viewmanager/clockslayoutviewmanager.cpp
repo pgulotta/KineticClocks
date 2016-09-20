@@ -81,34 +81,43 @@ void ClocksLayoutViewManager::createSceneItems()
     }
 }
 
-void ClocksLayoutViewManager::updateDisplayTimerChanged()
+void ClocksLayoutViewManager::updateClocks()
 {
-    mRotateClocksTimer.stop();
-    mDisplayAdapter.refresh();
-    if ( mDisplayedSymbols != mDisplayAdapter.toString())
+    mDisplayedSymbols = mDisplayAdapter.toString();
+    int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
+    for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
     {
-        invalidatelClocks( );
-        mDisplayedSymbols = mDisplayAdapter.toString();
-        int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
-        for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
+        for(size_t symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
         {
-            for(size_t symbolRowIndex = 0; symbolRowIndex < Symbol::RowsPerSymbol; symbolRowIndex++)
+            ClockSymbols cs;
+            ClockSymbols::Citerators pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);
+            for( ClockSymbols::CIterator cit = std::get<0>(pair); cit <  std::get<1>(pair); ++cit)
             {
-                ClockSymbols cs;
-                ClockSymbols::Citerators pair =cs.getRow(mDisplayAdapter.getSymbolName(colIndex),symbolRowIndex);
-                for( ClockSymbols::CIterator cit = std::get<0>(pair); cit <  std::get<1>(pair); ++cit)
-                {
-                    mClockGraphicsItems[itemIndex++]->setTargetAngle(cit->angle1());
-                    mClockGraphicsItems[itemIndex++]->setTargetAngle(cit->angle2());
-                }
+                mClockGraphicsItems[itemIndex++]->setTargetAngle(cit->angle1());
+                mClockGraphicsItems[itemIndex++]->setTargetAngle(cit->angle2());
             }
         }
     }
+}
 
+void ClocksLayoutViewManager::restartRotateClocksTimer()
+{
     auto interval = 1000 * (60-QTime::currentTime().second());
     if ( interval != mUpdateDisplayTimer.interval())
         mUpdateDisplayTimer.start(interval);
     mRotateClocksTimer.start();
+}
+
+void ClocksLayoutViewManager::updateDisplayTimerChanged()
+{
+    mRotateClocksTimer.stop();
+    mDisplayAdapter.update();
+    if ( mDisplayedSymbols != mDisplayAdapter.toString())
+    {
+        invalidatelClocks( );
+        updateClocks();
+    }
+    restartRotateClocksTimer();
 }
 void ClocksLayoutViewManager::rotateClocksTimerChanged()
 {

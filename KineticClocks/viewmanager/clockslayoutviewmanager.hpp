@@ -73,5 +73,7 @@ ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
 
 
 
+void updateClocks();
+void restartRotateClocksTimer();
 };
 }

@@ -18,7 +18,7 @@ ClockTime ();
 ClockTime (const QTime& displayTime);
 void setDisplayTime(const QTime& displayTime);
 
-void refresh();
+void updateDisplayTime();
 
 CIterator  getSymbols() const
 {

@@ -16,9 +16,9 @@ Display( const T&& t) : mDisplay( std::move(t))
 {
 }
 
-void refresh()
+void update()
 {
-    mDisplay.refresh();
+    mDisplay.updateDisplayTime();
 }
 
 SymbolName  getSymbolName(size_t colIndex) const
@@ -40,7 +40,7 @@ T mDisplay;
 class DisplayAdapter
 {
 public:
-virtual void refresh() = 0;
+virtual void update() = 0;
 
 virtual SymbolName  getSymbolName(size_t colIndex) const = 0;
 
@@ -56,9 +56,9 @@ public:
 TimeDisplayAdapter( ) : mDisplayClockTime(ClockTime {
         }) {}
 
-virtual void refresh()
+virtual void update()
 {
-    mDisplayClockTime.refresh();
+    mDisplayClockTime.update();
 }
 
 virtual SymbolName  getSymbolName(size_t colIndex) const
