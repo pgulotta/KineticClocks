@@ -3,9 +3,9 @@
 namespace twentysixapps
 {
 #ifdef Q_OS_ANDROID
-constexpr static int RotationAngleDelta = 2;
+constexpr static int RotationAngleDelta = 8;
 #else
-static int RotationAngleDelta = 4;
+static int RotationAngleDelta = 2;
 #endif
 
 

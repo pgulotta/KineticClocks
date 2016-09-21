@@ -86,7 +86,6 @@ void ClocksLayoutViewManager::createSceneItems()
 void ClocksLayoutViewManager::updateClocks()
 {
     invalidatelClocks( );
-    mDisplayedSymbols = mDisplayAdapter.toString();
     int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
     for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
     {
@@ -117,6 +116,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mDisplayedSymbols != mDisplayAdapter.toString())
     {
         mRotateClocksTimer.stop();
+        mDisplayedSymbols = mDisplayAdapter.toString();
         QFuture<void> future = QtConcurrent::run(this,&ClocksLayoutViewManager::updateClocks);
         mUpdateClocksWatcher.setFuture(future);
     }
@@ -138,7 +138,7 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
         {
             for( int ctr = 0; ctr <RotationAngleDelta; ++ctr,++rotationAngle)
             {
-                if (rotationAngle % 360==  targetAngle)
+                if (rotationAngle % 360 ==  targetAngle)
                     break;
             }
             it->setRotationAngle(rotationAngle);
@@ -156,16 +156,14 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
 
 void ClocksLayoutViewManager::invalidatelClocks()
 {
-    int index =0;
-    for( ClockItemsIterator it =mClockGraphicsItems.begin(); it <  mClockGraphicsItems.end(); it+= 1)
+    for(   size_t clockItemIndex =0; clockItemIndex < mClockGraphicsItems.size(); ++clockItemIndex)
     {
-        ClockGraphicsItem* item = *it;
-        item->setRotationAngle((item->rotationAngle()+1)%360);
-        if ( index % 4 == 0)
-            item->setRotationAngle((item->rotationAngle()-4)%360);
-        if ( index % 7 == 0)
-            item->setRotationAngle((item->rotationAngle()+2)%360);
-        index++;
+        ClockGraphicsItem& item = *(mClockGraphicsItems[clockItemIndex]);
+        item.setRotationAngle((item.rotationAngle()+1)%360);
+        if ( clockItemIndex % 4 == 0)
+            item.setRotationAngle((item.rotationAngle()-4)%360);
+        if ( clockItemIndex % 7 == 0)
+            item.setRotationAngle((item.rotationAngle()+2)%360);
     }
 }
 
