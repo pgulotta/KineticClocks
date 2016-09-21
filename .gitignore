@@ -4,6 +4,7 @@
 *.json
 app_process
 android-build
+**/build-KineticClocksMaster*/
 *~
 *.autosave
 *.a

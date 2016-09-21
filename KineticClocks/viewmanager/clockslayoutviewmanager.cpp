@@ -39,7 +39,7 @@ void ClocksLayoutViewManager::displaySymbols()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();
-    mRotateClocksTimer.start(50);
+    mRotateClocksTimer.start(25);
 }
 
 void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation orientation)
@@ -156,18 +156,16 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
 
 void ClocksLayoutViewManager::invalidatelClocks()
 {
-    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),1,1);
-    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),1,3);
-    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),2,5);
-    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),-1,4);
-}
-
-void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start,ClockItemsIterator end,int angleDelta,int indexIncrement)
-{
-    for( ClockItemsIterator it =start; it <  end; it+= indexIncrement)
+    int index =0;
+    for( ClockItemsIterator it =mClockGraphicsItems.begin(); it <  mClockGraphicsItems.end(); it+= 1)
     {
         ClockGraphicsItem* item = *it;
-        item->setRotationAngle((item->rotationAngle()+angleDelta)%360);
+        item->setRotationAngle((item->rotationAngle()+1)%360);
+        if ( index % 4 == 0)
+            item->setRotationAngle((item->rotationAngle()-4)%360);
+        if ( index % 7 == 0)
+            item->setRotationAngle((item->rotationAngle()+2)%360);
+        index++;
     }
 }
 

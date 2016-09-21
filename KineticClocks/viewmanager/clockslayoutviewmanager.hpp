@@ -68,7 +68,6 @@ private:
     void displaySymbols();
     void createSceneItems();
     void invalidatelClocks();
-    void invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end,  int angleDelta=1, int indexIncrement=1);
     QRectF getScreenRect() const;
     QRectF getScreenRect(Qt::ScreenOrientation orientation) const;
     QColor mLineColor = Qt::GlobalColor::white;

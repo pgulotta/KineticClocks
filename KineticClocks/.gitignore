@@ -17,6 +17,7 @@
 *.qm
 .#*
 *.*#
+**/build-KineticClocksMaster*/
 core
 !core/
 tags
