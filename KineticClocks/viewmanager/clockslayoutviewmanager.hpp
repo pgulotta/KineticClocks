@@ -9,15 +9,17 @@
 #include "utils/utils.hpp"
 #include <QObject>
 #include <QRectF>
+#include <QFutureWatcher>
 
-#include <QtConcurrent>
 
 
 class QTimer;
+
 namespace twentysixapps
 {
 class ClockTime;
 class ClockGraphicsItem;
+
 class ClocksLayoutViewManager : public QObject
 {
 Q_OBJECT
@@ -54,6 +56,8 @@ private:
     ClocksLayoutView mClocksLayoutView;
     QTimer& mRotateClocksTimer;
     QTimer& mUpdateDisplayTimer;
+    QFutureWatcher<void>& mUpdateClocksWatcher;
+
     ClockSymbols mClockSymbols;
     ClockItems mClockGraphicsItems;
     QString mDisplayedSymbols;
@@ -75,7 +79,7 @@ private:
     ClocksLayoutViewManager(ClocksLayoutViewManager&&) =delete;
     ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
 
-    QFutureWatcher<void> mUpdateClocksWatcher;
+
 
 
 };

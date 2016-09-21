@@ -21,7 +21,8 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mPrimaryScreen(*primaryScreen),
     mDisplayAdapter(*displayAdapter),
     mRotateClocksTimer(*new QTimer(this)),
-    mUpdateDisplayTimer (*new QTimer(this))
+    mUpdateDisplayTimer (*new QTimer(this)),
+    mUpdateClocksWatcher(*new QFutureWatcher<void>(this) )
 {
     auto virtualSize = mPrimaryScreen.availableVirtualSize();
     mClocksLayoutView.setScene(new QGraphicsScene(getScreenRect()));
@@ -85,7 +86,6 @@ void ClocksLayoutViewManager::createSceneItems()
 
 void ClocksLayoutViewManager::updateClocks()
 {
-    qDebug() << "updateClocks entered ";
     invalidatelClocks( );
     mDisplayedSymbols = mDisplayAdapter.toString();
     int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
@@ -102,12 +102,10 @@ void ClocksLayoutViewManager::updateClocks()
             }
         }
     }
-    qDebug() << "updateClocks exit ";
 }
 
 void ClocksLayoutViewManager::restartRotateClocksTimer()
 {
-    qDebug() << "restartRotateClocksTimer called ";
     auto interval = 1000 * (60-QTime::currentTime().second());
     if ( interval != mUpdateDisplayTimer.interval())
         mUpdateDisplayTimer.start(interval);
