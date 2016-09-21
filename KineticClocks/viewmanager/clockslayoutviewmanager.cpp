@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QColor>
+#include <QtConcurrent>
 
 namespace twentysixapps
 {
@@ -27,9 +28,10 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mClocksLayoutView.scene()->setBackgroundBrush(mBackColor);
     mClocksLayoutView.resize(virtualSize.width()/4, virtualSize.height()/4 );
     createSceneItems();
-    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
-    connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
-    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
+    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &onOrientationChanged);
+    connect(&mRotateClocksTimer, &QTimer::timeout, this, &rotateClocksTimerChanged);
+    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &updateDisplayTimerChanged);
+    connect(&mUpdateClocksWatcher,  QFutureWatcher<void>::finished,  this, &restartRotateClocksTimer);
     displaySymbols();
 }
 
@@ -83,6 +85,8 @@ void ClocksLayoutViewManager::createSceneItems()
 
 void ClocksLayoutViewManager::updateClocks()
 {
+    qDebug() << "updateClocks entered ";
+    invalidatelClocks( );
     mDisplayedSymbols = mDisplayAdapter.toString();
     int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
     for(size_t colIndex = 0; colIndex < Symbol::ColsPerSymbol; ++colIndex )
@@ -98,10 +102,12 @@ void ClocksLayoutViewManager::updateClocks()
             }
         }
     }
+    qDebug() << "updateClocks exit ";
 }
 
 void ClocksLayoutViewManager::restartRotateClocksTimer()
 {
+    qDebug() << "restartRotateClocksTimer called ";
     auto interval = 1000 * (60-QTime::currentTime().second());
     if ( interval != mUpdateDisplayTimer.interval())
         mUpdateDisplayTimer.start(interval);
@@ -110,14 +116,13 @@ void ClocksLayoutViewManager::restartRotateClocksTimer()
 
 void ClocksLayoutViewManager::updateDisplayTimerChanged()
 {
-    mRotateClocksTimer.stop();
     mDisplayAdapter.update();
     if ( mDisplayedSymbols != mDisplayAdapter.toString())
     {
-        invalidatelClocks( );
-        updateClocks();
+        mRotateClocksTimer.stop();
+        QFuture<void> future = QtConcurrent::run(this,&updateClocks);
+        mUpdateClocksWatcher.setFuture(future);
     }
-    restartRotateClocksTimer();
 }
 
 void ClocksLayoutViewManager::rotateClocksTimerChanged()
@@ -134,7 +139,7 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
         }
         else
         {
-            for( int ctr = 0; ctr <RotationAngleDelta; ++ctr, ++rotationAngle)
+            for( int ctr = 0; ctr <RotationAngleDelta; ++ctr,++rotationAngle)
             {
                 if (rotationAngle % 360==  targetAngle)
                     break;
@@ -154,13 +159,13 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
 
 void ClocksLayoutViewManager::invalidatelClocks()
 {
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),1,1);
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 1,3);
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(), 2,5);
-    invalidatelClocks(mClockGraphicsItems.begin(), mClockGraphicsItems.end(),-1,4);
+    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),1,1);
+    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),1,3);
+    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),2,5);
+    invalidatelClocks(mClockGraphicsItems.begin(),mClockGraphicsItems.end(),-1,4);
 }
 
-void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start, ClockItemsIterator end, int angleDelta, int indexIncrement)
+void ClocksLayoutViewManager::invalidatelClocks(ClockItemsIterator start,ClockItemsIterator end,int angleDelta,int indexIncrement)
 {
     for( ClockItemsIterator it =start; it <  end; it+= indexIncrement)
     {
@@ -174,10 +179,10 @@ QRectF ClocksLayoutViewManager::getScreenRect() const
     return getScreenRect(mPrimaryScreen.primaryOrientation());
 }
 
-QRectF ClocksLayoutViewManager::getScreenRect(Qt::ScreenOrientation ) const
+QRectF ClocksLayoutViewManager::getScreenRect(Qt::ScreenOrientation) const
 {
     qreal width = ClockLayoutWidth;
     qreal height =ClockLayoutHeight;
-    return QRectF {0, 0, width, height };
+    return QRectF {0,0,width,height };
 }
 }

@@ -2,6 +2,7 @@ TARGET = KineticClocks
 TEMPLATE = app
 
 QT += widgets
+QT += concurrent
 
 CONFIG += qt warn_on  c++14
 
