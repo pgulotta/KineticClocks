@@ -9,14 +9,14 @@ namespace twentysixapps
 
 const qreal ClockGraphicsItem::ClockRadius =10.0f;
 const qreal ClockGraphicsItem::ClockDiameter = ClockRadius *2.0f;
-const qreal ClockGraphicsItem::ClockHandLength = ClockRadius ;
+const qreal ClockGraphicsItem::ClockHandLength = ClockRadius;
 
 
 ClockGraphicsItem::ClockGraphicsItem( bool isPortraitOrientation, QColor& penColor,  QPointF sourcePoint,int targetAngle) :
     QGraphicsItem(0),
     mPen(penColor),
-    mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius)),
-    mAngledLine(sourcePoint.x()+ ClockRadius , sourcePoint.y()+ClockRadius, 0,0 ),
+    mSourcePoint(QPointF( sourcePoint.x()+ ClockRadius, sourcePoint.y()+ClockRadius)),
+    mAngledLine(sourcePoint.x()+ ClockRadius, sourcePoint.y()+ClockRadius, 0,0 ),
     mTargetAngle(targetAngle),
     mRotationAngle(targetAngle)
 {
@@ -33,9 +33,9 @@ QRectF twentysixapps::ClockGraphicsItem::boundingRect() const
 }
 
 void twentysixapps::ClockGraphicsItem::paint(QPainter *painter,
-        const QStyleOptionGraphicsItem *, QWidget *)
+                                             const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setRenderHints(QPainter::Antialiasing);
+    // painter->setRenderHints(QPainter::Antialiasing);
     painter->setPen(mPen);
     mAngledLine.setAngle(mRotationAngle);
     painter->drawLine(mAngledLine);
@@ -73,6 +73,6 @@ void ClockGraphicsItem::setRotationAngle(int rotationAngle)
 
 void ClockGraphicsItem::setOrientation(bool isPortraitOrientation)
 {
-    mPen.setWidth( isPortraitOrientation? 2 : 3);
+    mPen.setWidth( isPortraitOrientation ? 2 : 3);
 }
 }
