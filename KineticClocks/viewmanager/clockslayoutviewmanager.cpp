@@ -28,10 +28,10 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mClocksLayoutView.scene()->setBackgroundBrush(mBackColor);
     mClocksLayoutView.resize( Platform::windowDefaultSize(mPrimaryScreen.availableVirtualSize() ));
     createSceneItems();
-    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &onOrientationChanged);
-    connect(&mRotateClocksTimer, &QTimer::timeout, this, &rotateClocksTimerChanged);
-    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &updateDisplayTimerChanged);
-    connect(&mUpdateClocksWatcher,  QFutureWatcher<void>::finished,  this, &restartRotateClocksTimer);
+    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
+    connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
+    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
+    connect(&mUpdateClocksWatcher,  &QFutureWatcher<void>::finished,  this, &ClocksLayoutViewManager::restartRotateClocksTimer);
     displaySymbols();
 }
 
@@ -117,7 +117,7 @@ void ClocksLayoutViewManager::updateDisplayTimerChanged()
     if ( mDisplayedSymbols != mDisplayAdapter.toString())
     {
         mRotateClocksTimer.stop();
-        QFuture<void> future = QtConcurrent::run(this,&updateClocks);
+        QFuture<void> future = QtConcurrent::run(this,&ClocksLayoutViewManager::updateClocks);
         mUpdateClocksWatcher.setFuture(future);
     }
 }

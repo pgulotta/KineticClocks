@@ -36,12 +36,6 @@ HEADERS += \
     utils/platform.hpp
 
 
-
-# Default rules for deployment.
-include(deployment.pri)
-
-
-
 gcc|clang {
     QMAKE_CXXFLAGS += -std=c++1y
 }
