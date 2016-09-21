@@ -24,10 +24,9 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mUpdateDisplayTimer (*new QTimer(this)),
     mUpdateClocksWatcher(*new QFutureWatcher<void>(this) )
 {
-    auto virtualSize = mPrimaryScreen.availableVirtualSize();
     mClocksLayoutView.setScene(new QGraphicsScene(getScreenRect()));
     mClocksLayoutView.scene()->setBackgroundBrush(mBackColor);
-    mClocksLayoutView.resize(virtualSize.width()/4, virtualSize.height()/4 );
+    mClocksLayoutView.resize( Platform::windowDefaultSize(mPrimaryScreen.availableVirtualSize() ));
     createSceneItems();
     connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &onOrientationChanged);
     connect(&mRotateClocksTimer, &QTimer::timeout, this, &rotateClocksTimerChanged);
