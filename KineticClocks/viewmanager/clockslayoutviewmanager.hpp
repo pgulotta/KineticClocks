@@ -44,9 +44,9 @@ private slots:
     void restartRotateClocksTimer();
 
 private:
-    typedef std::array<ClockGraphicsItem*, GridsDepth  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock> ClockItems;
-    typedef ClockItems::const_iterator ClockItemsCIterator;
-    typedef ClockItems::iterator ClockItemsIterator;
+    using ClockItems = std::array<ClockGraphicsItem*, GridsDepth  *   ClockTime::SymbolsCount  * Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock>;
+    using ClockItemsCIterator = ClockItems::const_iterator;
+    using ClockItemsIterator = ClockItems::iterator;
 
     static constexpr int ClockLayoutWidth= 500;
     static constexpr int ClockLayoutHeight = 360;

@@ -29,13 +29,14 @@ enum class SymbolName
 class ClockSymbols
 {
 public:
-static constexpr size_t RowCount = (size_t)SymbolName::HorizontalLine +1;
-typedef std::array<Symbol,ClockSymbols::RowCount> Array;
-typedef Symbol::Array::CIterator CIterator;
-typedef  std::pair<CIterator,CIterator>  Citerators;
+    static constexpr size_t RowCount = (size_t)SymbolName::HorizontalLine +1;
 
-Citerators getRow(SymbolName name, size_t row)  const;
-static SymbolName getSymbolName(QChar symbol);
+    using Array = std::array<Symbol,ClockSymbols::RowCount>;
+    using CIterator =  Symbol::Array::CIterator;
+    using Citerators =  std::pair<CIterator,CIterator>;
+
+    Citerators getRow(SymbolName name, size_t row)  const;
+    static SymbolName getSymbolName(QChar symbol);
 
 private:
 

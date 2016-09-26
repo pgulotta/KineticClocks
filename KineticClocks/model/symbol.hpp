@@ -13,16 +13,16 @@ class Symbol
 public:
     static constexpr size_t RowsPerSymbol = 6;
     static constexpr size_t ColsPerSymbol = 5;
-    static constexpr size_t ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol   ;
+    static constexpr size_t ItemsPerSymbolCount = RowsPerSymbol* ColsPerSymbol;
 
-    typedef  Grid<Clock, RowsPerSymbol, ColsPerSymbol> Array;
-    typedef Array::CIterator CIterator;
+    using Array = Grid<Clock, RowsPerSymbol, ColsPerSymbol>;
+    using CIterator= Array::CIterator;
 
-    Symbol(std::array<Clock,  ItemsPerSymbolCount>&& clocks) noexcept: mSymbolClocks (std::move(clocks))
+    Symbol(std::array<Clock,  ItemsPerSymbolCount>&& clocks) noexcept : mSymbolClocks (std::move(clocks))
     {
     }
 
-    std::pair<CIterator ,CIterator> getCIterators(int row) const
+    std::pair<CIterator,CIterator> getCIterators(int row) const
     {
         return mSymbolClocks.getCIterators(row);
     }

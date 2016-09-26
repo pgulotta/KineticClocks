@@ -9,42 +9,41 @@ template<typename T, size_t TSymbolsCount>
 class Display
 {
 public:
-typedef std::array<SymbolName, TSymbolsCount> Array;
-typedef  typename Array::const_iterator CIterator;
+    using Array = std::array<SymbolName, TSymbolsCount>;
+    using CIterator =  typename Array::const_iterator;
 
-Display( const T&& t) : mDisplay( std::move(t))
-{
-}
+    Display( const T&& t) : mDisplay( std::move(t))
+    {
+    }
 
-void update()
-{
-    mDisplay.updateDisplayTime();
-}
+    void update()
+    {
+        mDisplay.updateDisplayTime();
+    }
 
-SymbolName  getSymbolName(size_t colIndex) const
-{
-    return mDisplay.getSymbols()[colIndex];
-}
+    SymbolName  getSymbolName(size_t colIndex) const
+    {
+        return mDisplay.getSymbols()[colIndex];
+    }
 
-const QString& toString() const
-{
-    return mDisplay.toString();
-}
-
+    const QString& toString() const
+    {
+        return mDisplay.toString();
+    }
 
 private:
-T mDisplay;
+    T mDisplay;
 
 };
 
 class DisplayAdapter
 {
 public:
-virtual void update() = 0;
+    virtual void update() = 0;
 
-virtual SymbolName  getSymbolName(size_t colIndex) const = 0;
+    virtual SymbolName  getSymbolName(size_t colIndex) const = 0;
 
-virtual const QString& toString() const = 0;
+    virtual const QString& toString() const = 0;
 
 
 };
@@ -53,27 +52,26 @@ class TimeDisplayAdapter : public DisplayAdapter
 {
 public:
 
-TimeDisplayAdapter( ) : mDisplayClockTime(ClockTime {
+    TimeDisplayAdapter( ) : mDisplayClockTime(ClockTime {
         }) {}
 
-virtual void update()
-{
-    mDisplayClockTime.update();
-}
+    virtual void update()
+    {
+        mDisplayClockTime.update();
+    }
 
-virtual SymbolName  getSymbolName(size_t colIndex) const
-{
-    return mDisplayClockTime.getSymbolName(colIndex);
-}
+    virtual SymbolName  getSymbolName(size_t colIndex) const
+    {
+        return mDisplayClockTime.getSymbolName(colIndex);
+    }
 
-virtual const QString& toString() const
-{
-    return mDisplayClockTime.toString();
-}
-
+    virtual const QString& toString() const
+    {
+        return mDisplayClockTime.toString();
+    }
 
 private:
-Display<ClockTime, ClockTime::SymbolsCount> mDisplayClockTime;
+    Display<ClockTime, ClockTime::SymbolsCount> mDisplayClockTime;
 
 
 };
