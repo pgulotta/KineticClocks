@@ -10,7 +10,7 @@
 namespace twentysixapps
 {
 
-enum class SymbolName
+enum class SymbolName : size_t
 {
     Zero,
     One,

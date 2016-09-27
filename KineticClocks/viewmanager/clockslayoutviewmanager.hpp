@@ -35,6 +35,11 @@ public:
         Utils::destructorMsg(this);
     }
 
+    explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
+    ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
+    ClocksLayoutViewManager(ClocksLayoutViewManager&&) =delete;
+    ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
+
 signals:
 
 private slots:
@@ -73,10 +78,7 @@ private:
     QColor mLineColor = Qt::GlobalColor::white;
     QColor mBackColor  = Qt::GlobalColor::black;
 
-    explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
-    ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
-    ClocksLayoutViewManager(ClocksLayoutViewManager&&) =delete;
-    ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
+
 
 
 

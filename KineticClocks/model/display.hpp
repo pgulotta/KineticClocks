@@ -55,17 +55,17 @@ public:
     TimeDisplayAdapter( ) : mDisplayClockTime(ClockTime {
         }) {}
 
-    virtual void update()
+    virtual void update() override
     {
         mDisplayClockTime.update();
     }
 
-    virtual SymbolName  getSymbolName(size_t colIndex) const
+    virtual SymbolName  getSymbolName(size_t colIndex) const override
     {
         return mDisplayClockTime.getSymbolName(colIndex);
     }
 
-    virtual const QString& toString() const
+    virtual const QString& toString() const override
     {
         return mDisplayClockTime.toString();
     }

@@ -7,14 +7,19 @@ namespace twentysixapps
 {
 class ClocksLayoutView : public QGraphicsView
 {
-    Q_OBJECT
-public:
-  ClocksLayoutView(QWidget *parent = Q_NULLPTR);
-  ~ClocksLayoutView()
-  {
-      Utils::destructorMsg(" ClocksLayoutView" );
-  }
+Q_OBJECT
 
+public:
+    ClocksLayoutView(QWidget *parent = Q_NULLPTR);
+    ~ClocksLayoutView()
+    {
+        Utils::destructorMsg(" ClocksLayoutView" );
+    }
+
+    explicit ClocksLayoutView(const ClocksLayoutView& rhs) = delete;
+    ClocksLayoutView& operator= (const ClocksLayoutView& rhs) = delete;
+    ClocksLayoutView(ClocksLayoutView&&) =delete;
+    ClocksLayoutView& operator=(ClocksLayoutView&&) =delete;
 
 protected:
     virtual void resizeEvent(QResizeEvent *event) override;
@@ -22,10 +27,6 @@ protected:
 private:
 
 
-    explicit ClocksLayoutView(const ClocksLayoutView& rhs) = delete;
-    ClocksLayoutView& operator= (const ClocksLayoutView& rhs) = delete;
-    ClocksLayoutView(ClocksLayoutView&&) =delete;
-    ClocksLayoutView& operator=(ClocksLayoutView&&) =delete;
 
 };
 }
