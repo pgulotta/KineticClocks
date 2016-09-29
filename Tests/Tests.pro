@@ -5,6 +5,7 @@ QT       -= gui
 TARGET = testkineticclocks
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG += qt warn_on  c++14
 
 TEMPLATE = app
 
