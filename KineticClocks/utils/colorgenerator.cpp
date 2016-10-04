@@ -64,18 +64,13 @@ int ColorGenerator::floatToByte(qreal value)
     return byteValue;
 }
 
-int getRandomSign()
-{
-    return qrand() % 2 == 0 ? 1 : -1;
-}
-
 ColorGenerator::ColorGenerator()
 {
     qsrand(static_cast<uint>(time(0)));
     generateOffsetColors();
 }
 
-QColor ColorGenerator::nextOffsetColor()
+QColor ColorGenerator::nextOffsetColor() const
 {
     return mOffsetColors[qrand() % OffsetColorsSize];
 }

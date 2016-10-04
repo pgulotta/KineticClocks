@@ -19,11 +19,11 @@ public:
     using  OffsetCIterator = OffsetArray::const_iterator;
 
     ColorGenerator();
-    QColor nextOffsetColor();
+    QColor nextOffsetColor() const;
     static QColor nextBaseColor();
 
 private:
-    explicit ColorGenerator(const ColorGenerator& rhs) = delete;
+    ColorGenerator(const ColorGenerator& rhs) = delete;
     ColorGenerator& operator= (const ColorGenerator& rhs) = delete;
     ColorGenerator(ColorGenerator&&) =delete;
     ColorGenerator& operator=(ColorGenerator&&) =delete;
@@ -34,11 +34,11 @@ private:
     OffsetArray mOffsetColors;
 
     void generateOffsetColors();
-    int floatToByte(qreal value);
-    int saturateByte(int byteValue);
-    qreal byteToFloat(int byteValue);
-    qreal randomNextDouble();
-    int colorComponentOffset(int colorComponenet, qreal maxRange);
+    static int floatToByte(qreal value);
+    static int saturateByte(int byteValue);
+    static qreal byteToFloat(int byteValue);
+    static qreal randomNextDouble();
+    static int colorComponentOffset(int colorComponenet, qreal maxRange);
 
 
 

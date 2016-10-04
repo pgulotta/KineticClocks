@@ -10,7 +10,7 @@ class ClocksLayoutView : public QGraphicsView
 Q_OBJECT
 
 public:
-    ClocksLayoutView(QWidget *parent = Q_NULLPTR);
+    explicit ClocksLayoutView(QWidget *parent = Q_NULLPTR);
     ~ClocksLayoutView()
     {
         Utils::destructorMsg(" ClocksLayoutView" );

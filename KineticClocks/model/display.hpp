@@ -12,7 +12,7 @@ public:
     using Array = std::array<SymbolName, TSymbolsCount>;
     using CIterator =  typename Array::const_iterator;
 
-    Display( const T&& t) : mDisplay( std::move(t))
+    explicit Display( const T&& t) noexcept : mDisplay( std::move(t))
     {
     }
 

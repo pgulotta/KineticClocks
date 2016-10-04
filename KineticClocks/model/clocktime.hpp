@@ -15,7 +15,7 @@ public:
     using CIterator =  Array::const_iterator;
 
     ClockTime ();
-    ClockTime (const QTime& displayTime);
+    explicit ClockTime (const QTime& displayTime);
     void setDisplayTime(const QTime& displayTime);
 
     void updateDisplayTime();

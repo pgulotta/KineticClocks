@@ -10,6 +10,8 @@ class Utils
 public:
     static void destructorMsg(const QString& value);
     static void destructorMsg(const QObject * const object);
+    static int getRandomSign();
+
 
     explicit Utils(const Utils& rhs) = delete;
     Utils& operator= (const Utils& rhs) = delete;

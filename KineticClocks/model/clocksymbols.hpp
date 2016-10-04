@@ -35,7 +35,7 @@ public:
     using CIterator =  Symbol::Array::CIterator;
     using Citerators =  std::pair<CIterator,CIterator>;
 
-    Citerators getRow(SymbolName name, size_t row)  const;
+    static Citerators getRow(SymbolName name, size_t row);
     static SymbolName getSymbolName(QChar symbol);
 
 private:

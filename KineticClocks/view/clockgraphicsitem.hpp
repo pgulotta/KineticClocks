@@ -20,7 +20,6 @@ public:
         }, int targetAngle = {Clock::Angle1Default});
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    void setPenColor(QColor color);
     QColor penColor() const;
     int targetAngle() const;
     void setTargetAngle(int targetAngle);
