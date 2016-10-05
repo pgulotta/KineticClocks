@@ -7,12 +7,13 @@
 
 using namespace twentysixapps;
 
-auto main(int argc, char *argv[]) -> int
+auto main(int argc, char *argv[])->int
 {
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
     QObject::connect(&app, &QApplication::lastWindowClosed,&app, &QApplication::quit);
 
-    TimeDisplayAdapter displayAdapter ;
+    TimeDisplayAdapter displayAdapter;
     ClocksLayoutViewManager manager(&app,  app.primaryScreen(), &displayAdapter);
 
     return app.exec();

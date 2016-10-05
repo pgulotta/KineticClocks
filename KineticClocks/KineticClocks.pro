@@ -9,7 +9,7 @@ CONFIG += qt warn_on  c++14
 MOBILITY =
 
 SOURCES += \
-    view/main.cpp \
+    main.cpp \
     view/clockgraphicsitem.cpp \
     view/clockslayoutview.cpp \
     model/clocksymbols.cpp \
