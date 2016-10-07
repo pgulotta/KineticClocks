@@ -14,7 +14,7 @@ auto main(int argc, char *argv[])->int
     QObject::connect(&app, &QApplication::lastWindowClosed,&app, &QApplication::quit);
 
     TimeDisplayAdapter displayAdapter;
-    ClocksViewManager manager(&app,  app.primaryScreen(), &displayAdapter);
+    ClocksViewManager manager(&app,  &displayAdapter);
 
     return app.exec();
 }

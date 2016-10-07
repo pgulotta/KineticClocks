@@ -16,9 +16,9 @@ namespace twentysixapps
 
 int RotationAngleDelta = Platform::rotationAngleDelta();
 
-ClocksViewManager::ClocksViewManager(QObject*  parent,   const QScreen* primaryScreen,    DisplayAdapter* displayAdapter) :
-    QObject(parent ),
-    mPrimaryScreen(*primaryScreen),
+ClocksViewManager::ClocksViewManager(QApplication*  app,   DisplayAdapter* displayAdapter) :
+    QObject(app ),
+    mPrimaryScreen(*app->primaryScreen()),
     mDisplayAdapter(*displayAdapter),
     mRotateClocksTimer(*new QTimer(this)),
     mUpdateDisplayTimer (*new QTimer(this)),
