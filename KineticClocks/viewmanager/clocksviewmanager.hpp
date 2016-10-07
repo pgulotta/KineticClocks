@@ -20,7 +20,7 @@ namespace twentysixapps
 class ClockTime;
 class ClockGraphicsItem;
 
-class ClocksLayoutViewManager : public QObject
+class ClocksViewManager : public QObject
 {
 Q_OBJECT
 
@@ -28,17 +28,17 @@ public:
     static constexpr int GridsDepth = 3;
     static constexpr int DisplayGridIndex= 1;
 
-    ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,     DisplayAdapter* displayAdapter);
+    ClocksViewManager(QObject*  parent,   const QScreen* primaryScreen,     DisplayAdapter* displayAdapter);
 
-    ~ClocksLayoutViewManager()
+    ~ClocksViewManager()
     {
         Utils::destructorMsg(this);
     }
 
-    explicit ClocksLayoutViewManager(const ClocksLayoutViewManager& rhs) = delete;
-    ClocksLayoutViewManager& operator= (const ClocksLayoutViewManager& rhs) = delete;
-    ClocksLayoutViewManager(ClocksLayoutViewManager&&) =delete;
-    ClocksLayoutViewManager& operator=(ClocksLayoutViewManager&&) =delete;
+    explicit ClocksViewManager(const ClocksViewManager& rhs) = delete;
+    ClocksViewManager& operator= (const ClocksViewManager& rhs) = delete;
+    ClocksViewManager(ClocksViewManager&&) =delete;
+    ClocksViewManager& operator=(ClocksViewManager&&) =delete;
 
 signals:
 

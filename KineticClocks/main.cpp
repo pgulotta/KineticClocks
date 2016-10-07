@@ -1,5 +1,5 @@
 #include "model/display.hpp"
-#include "viewmanager/clockslayoutviewmanager.hpp"
+#include "viewmanager/clocksviewmanager.hpp"
 #include <QApplication>
 #include <QScreen>
 
@@ -14,7 +14,7 @@ auto main(int argc, char *argv[])->int
     QObject::connect(&app, &QApplication::lastWindowClosed,&app, &QApplication::quit);
 
     TimeDisplayAdapter displayAdapter;
-    ClocksLayoutViewManager manager(&app,  app.primaryScreen(), &displayAdapter);
+    ClocksViewManager manager(&app,  app.primaryScreen(), &displayAdapter);
 
     return app.exec();
 }

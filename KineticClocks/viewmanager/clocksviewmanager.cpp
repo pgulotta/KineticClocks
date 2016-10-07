@@ -1,4 +1,4 @@
-#include "clockslayoutviewmanager.hpp"
+#include "clocksviewmanager.hpp"
 #include "model\clock.hpp"
 #include "utils/colorgenerator.hpp"
 #include "utils/platform.hpp"
@@ -16,7 +16,7 @@ namespace twentysixapps
 
 int RotationAngleDelta = Platform::rotationAngleDelta();
 
-ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScreen* primaryScreen,    DisplayAdapter* displayAdapter) :
+ClocksViewManager::ClocksViewManager(QObject*  parent,   const QScreen* primaryScreen,    DisplayAdapter* displayAdapter) :
     QObject(parent ),
     mPrimaryScreen(*primaryScreen),
     mDisplayAdapter(*displayAdapter),
@@ -28,21 +28,21 @@ ClocksLayoutViewManager::ClocksLayoutViewManager(QObject*  parent,   const QScre
     mClocksLayoutView.scene()->setBackgroundBrush(mBackColor);
     mClocksLayoutView.resize( Platform::windowDefaultSize(mPrimaryScreen.availableVirtualSize() ));
     createSceneItems();
-    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksLayoutViewManager::onOrientationChanged);
-    connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksLayoutViewManager::rotateClocksTimerChanged);
-    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksLayoutViewManager::updateDisplayTimerChanged);
-    connect(&mUpdateClocksWatcher,  &QFutureWatcher<void>::finished,  this, &ClocksLayoutViewManager::restartRotateClocksTimer);
+    connect(&mPrimaryScreen, &QScreen::primaryOrientationChanged, this, &ClocksViewManager::onOrientationChanged);
+    connect(&mRotateClocksTimer, &QTimer::timeout, this, &ClocksViewManager::rotateClocksTimerChanged);
+    connect(&mUpdateDisplayTimer, &QTimer::timeout,this, &ClocksViewManager::updateDisplayTimerChanged);
+    connect(&mUpdateClocksWatcher,  &QFutureWatcher<void>::finished,  this, &ClocksViewManager::restartRotateClocksTimer);
     displaySymbols();
 }
 
-void ClocksLayoutViewManager::displaySymbols()
+void ClocksViewManager::displaySymbols()
 {
     updateDisplayTimerChanged();
     mClocksLayoutView.show();
     mRotateClocksTimer.start(25);
 }
 
-void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation orientation)
+void ClocksViewManager::onOrientationChanged(Qt::ScreenOrientation orientation)
 {
     bool isPortraitOrientation = orientation == Qt::ScreenOrientation::PortraitOrientation;
     qDebug() << "Screen orienation changed . Orientation is now portrait = " <<  isPortraitOrientation;
@@ -53,7 +53,7 @@ void ClocksLayoutViewManager::onOrientationChanged(Qt::ScreenOrientation orienta
     mClocksLayoutView.scene()->setSceneRect(getScreenRect());
 }
 
-void ClocksLayoutViewManager::createSceneItems()
+void ClocksViewManager::createSceneItems()
 {
     int itemIndex=0;
     qreal xposClock =0.0f;
@@ -83,7 +83,7 @@ void ClocksLayoutViewManager::createSceneItems()
     }
 }
 
-void ClocksLayoutViewManager::updateClocks()
+void ClocksViewManager::updateClocks()
 {
     invalidatelClocks( );
     int itemIndex= Symbol::ItemsPerSymbolCount*Clock::AnglesPerClock * ClockTime::SymbolsCount  * DisplayGridIndex;
@@ -102,7 +102,7 @@ void ClocksLayoutViewManager::updateClocks()
     }
 }
 
-void ClocksLayoutViewManager::restartRotateClocksTimer()
+void ClocksViewManager::restartRotateClocksTimer()
 {
     auto interval = 1000 * (60-QTime::currentTime().second());
     if ( interval != mUpdateDisplayTimer.interval())
@@ -110,19 +110,19 @@ void ClocksLayoutViewManager::restartRotateClocksTimer()
     mRotateClocksTimer.start();
 }
 
-void ClocksLayoutViewManager::updateDisplayTimerChanged()
+void ClocksViewManager::updateDisplayTimerChanged()
 {
     mDisplayAdapter.update();
     if ( mDisplayedSymbols != mDisplayAdapter.toString())
     {
         mRotateClocksTimer.stop();
         mDisplayedSymbols = mDisplayAdapter.toString();
-        QFuture<void> future = QtConcurrent::run(this,&ClocksLayoutViewManager::updateClocks);
+        QFuture<void> future = QtConcurrent::run(this,&ClocksViewManager::updateClocks);
         mUpdateClocksWatcher.setFuture(future);
     }
 }
 
-void ClocksLayoutViewManager::rotateClocksTimerChanged()
+void ClocksViewManager::rotateClocksTimerChanged()
 {
     size_t clocksUpdated = 0;
 
@@ -154,7 +154,7 @@ void ClocksLayoutViewManager::rotateClocksTimerChanged()
     }
 }
 
-void ClocksLayoutViewManager::invalidatelClocks()
+void ClocksViewManager::invalidatelClocks()
 {
     for(   size_t clockItemIndex =0; clockItemIndex < mClockGraphicsItems.size(); ++clockItemIndex)
     {
@@ -167,12 +167,12 @@ void ClocksLayoutViewManager::invalidatelClocks()
     }
 }
 
-QRectF ClocksLayoutViewManager::getScreenRect() const
+QRectF ClocksViewManager::getScreenRect() const
 {
     return getScreenRect(mPrimaryScreen.primaryOrientation());
 }
 
-QRectF ClocksLayoutViewManager::getScreenRect(Qt::ScreenOrientation) const
+QRectF ClocksViewManager::getScreenRect(Qt::ScreenOrientation) const
 {
     qreal width = ClockLayoutWidth;
     qreal height =ClockLayoutHeight;
