@@ -10,7 +10,8 @@ class ClocksLayoutView : public QGraphicsView
 Q_OBJECT
 
 public:
-    explicit ClocksLayoutView(QWidget *parent = Q_NULLPTR);
+    explicit ClocksLayoutView(QWidget *parent = Q_NULLPTR) : QGraphicsView(parent){
+    }
     ~ClocksLayoutView()
     {
         Utils::destructorMsg(" ClocksLayoutView" );
@@ -22,7 +23,11 @@ public:
     ClocksLayoutView& operator=(ClocksLayoutView&&) =delete;
 
 protected:
-    virtual void resizeEvent(QResizeEvent *event) override;
+    virtual void resizeEvent(QResizeEvent *event) override
+    {
+        fitInView(scene()->sceneRect());
+        QGraphicsView::resizeEvent(event);
+    }
 
 private:
 

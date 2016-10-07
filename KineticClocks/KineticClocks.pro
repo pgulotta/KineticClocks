@@ -1,8 +1,7 @@
 TARGET = KineticClocks
 TEMPLATE = app
 
-QT += widgets
-QT += concurrent
+QT += widgets concurrent
 
 CONFIG += qt warn_on  c++14
 
@@ -11,7 +10,6 @@ MOBILITY =
 SOURCES += \
     main.cpp \
     view/clockgraphicsitem.cpp \
-    view/clockslayoutview.cpp \
     model/clocksymbols.cpp \
     model/clocktime.cpp \
     utils/utils.cpp \
