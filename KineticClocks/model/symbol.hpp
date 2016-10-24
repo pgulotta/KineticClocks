@@ -8,7 +8,7 @@
 
 namespace twentysixapps
 {
-class Symbol
+class Symbol final
 {
 public:
     static constexpr size_t RowsPerSymbol = 6;

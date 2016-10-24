@@ -26,7 +26,7 @@ enum class SymbolName : size_t
     HorizontalLine
 };
 
-class ClockSymbols
+class ClockSymbols final
 {
 public:
     static constexpr size_t RowCount = (size_t)SymbolName::HorizontalLine +1;

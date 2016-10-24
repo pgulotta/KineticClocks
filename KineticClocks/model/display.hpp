@@ -6,7 +6,7 @@
 namespace twentysixapps
 {
 template<typename T, size_t TSymbolsCount>
-class Display
+class Display final
 {
 public:
     using Array = std::array<SymbolName, TSymbolsCount>;

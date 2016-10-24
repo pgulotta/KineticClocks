@@ -8,7 +8,7 @@
 namespace twentysixapps
 {
 template<typename T,int TRowCount, int TColumnCount>
-class Grid
+class Grid final
 {
 public:
     static constexpr size_t ItemCount = TRowCount*TColumnCount;

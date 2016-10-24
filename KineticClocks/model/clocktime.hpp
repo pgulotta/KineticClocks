@@ -7,7 +7,7 @@
 
 namespace twentysixapps
 {
-class ClockTime
+class ClockTime final
 {
 public:
     static constexpr size_t SymbolsCount = 5;
