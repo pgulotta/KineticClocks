@@ -24,12 +24,12 @@ public:
 private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
-    void TestCreateClock();
-    void TestCreateSymbol();
-    void TestClockSymbols();
-    void TestClockTime1();
-    void TestClockTime2();
-    void TestColorGenerator();
+    void testCreateClock();
+    void testCreateSymbol();
+    void testClockSymbols();
+    void testClockTime1();
+    void testClockTime2();
+    void testColorGenerator();
 };
 
 TestKineticClocks::TestKineticClocks()
@@ -44,14 +44,14 @@ void TestKineticClocks::cleanupTestCase()
 {
 }
 
-void TestKineticClocks::TestCreateClock()
+void TestKineticClocks::testCreateClock()
 {
     Clock c;
     QVERIFY2(c.angle1() == Clock::Angle1Default, "Failure");
     QVERIFY2(c.angle2() == Clock::Angle2Default, "Failure");
 }
 
-void TestKineticClocks::TestCreateSymbol()
+void TestKineticClocks::testCreateSymbol()
 {
     Symbol s(
     {
@@ -96,7 +96,7 @@ void TestKineticClocks::TestCreateSymbol()
     QVERIFY2(first[4].angle2() == 88, "Failure");
 }
 
-void TestKineticClocks::TestColorGenerator()
+void TestKineticClocks::testColorGenerator()
 {
     ColorGenerator generator;
     QVERIFY2( generator.nextBaseColor().isValid(), "Failure");
@@ -106,7 +106,7 @@ void TestKineticClocks::TestColorGenerator()
     QVERIFY2( generator.nextBaseColor().isValid(), "Failure");
 }
 
-void TestKineticClocks::TestClockSymbols()
+void TestKineticClocks::testClockSymbols()
 {
     ClockSymbols cs;
     ClockSymbols::Citerators pair =  cs.getRow(SymbolName::Zero,1);
@@ -118,7 +118,7 @@ void TestKineticClocks::TestClockSymbols()
         qDebug() << "angle1=" << clock.angle1() << "  angle2=" << clock.angle2();
     });
 }
-void TestKineticClocks::TestClockTime1()
+void TestKineticClocks::testClockTime1()
 {
     QTime time;
     time.setHMS(12, 34, 0);
@@ -137,7 +137,7 @@ void TestKineticClocks::TestClockTime1()
     QVERIFY2(ct.getSymbolName(4)!= SymbolName::Zero, "Failure != 0");
 }
 
-void TestKineticClocks::TestClockTime2()
+void TestKineticClocks::testClockTime2()
 {
     QTime time;
     time.setHMS(00, 00, 0);
